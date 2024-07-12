@@ -9,8 +9,8 @@ const sora = Sora({
 })
 
 export const metadata = getMetadata({
-  title: 'Scaffold-ETH 2 App',
-  description: 'Built with 🏗 Scaffold-ETH 2',
+  title: 'Worldcare',
+  description: 'Welcome to Worldcare platform',
 })
 
 const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
