@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
-import { blo } from "blo";
-import { useDebounceValue } from "usehooks-ts";
-import { Address, isAddress } from "viem";
-import { normalize } from "viem/ens";
-import { useEnsAddress, useEnsAvatar, useEnsName } from "wagmi";
-import { CommonInputProps, InputBase, isENS } from "~~/components/scaffold-eth";
+import { useCallback, useEffect, useState } from 'react'
+import { blo } from 'blo'
+import { useDebounceValue } from 'usehooks-ts'
+import { Address, isAddress } from 'viem'
+import { normalize } from 'viem/ens'
+import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi'
+import { CommonInputProps, InputBase, isENS } from '~~/components/scaffold-eth'
 
 /**
  * Address input with ENS name resolution
@@ -12,12 +12,12 @@ import { CommonInputProps, InputBase, isENS } from "~~/components/scaffold-eth";
 export const AddressInput = ({ value, name, placeholder, onChange, disabled }: CommonInputProps<Address | string>) => {
   // Debounce the input to keep clean RPC calls when resolving ENS names
   // If the input is an address, we don't need to debounce it
-  const [_debouncedValue] = useDebounceValue(value, 500);
-  const debouncedValue = isAddress(value) ? value : _debouncedValue;
-  const isDebouncedValueLive = debouncedValue === value;
+  const [_debouncedValue] = useDebounceValue(value, 500)
+  const debouncedValue = isAddress(value) ? value : _debouncedValue
+  const isDebouncedValueLive = debouncedValue === value
 
   // If the user changes the input after an ENS name is already resolved, we want to remove the stale result
-  const settledValue = isDebouncedValueLive ? debouncedValue : undefined;
+  const settledValue = isDebouncedValueLive ? debouncedValue : undefined
 
   const {
     data: ensAddress,
@@ -31,9 +31,9 @@ export const AddressInput = ({ value, name, placeholder, onChange, disabled }: C
       gcTime: 30_000,
       enabled: isDebouncedValueLive && isENS(debouncedValue),
     },
-  });
+  })
 
-  const [enteredEnsName, setEnteredEnsName] = useState<string>();
+  const [enteredEnsName, setEnteredEnsName] = useState<string>()
   const {
     data: ensName,
     isLoading: isEnsNameLoading,
@@ -46,7 +46,7 @@ export const AddressInput = ({ value, name, placeholder, onChange, disabled }: C
       enabled: isAddress(debouncedValue),
       gcTime: 30_000,
     },
-  });
+  })
 
   const { data: ensAvatar, isLoading: isEnsAvtarLoading } = useEnsAvatar({
     name: ensName ? normalize(ensName) : undefined,
@@ -55,24 +55,24 @@ export const AddressInput = ({ value, name, placeholder, onChange, disabled }: C
       enabled: Boolean(ensName),
       gcTime: 30_000,
     },
-  });
+  })
 
   // ens => address
   useEffect(() => {
-    if (!ensAddress) return;
+    if (!ensAddress) return
 
     // ENS resolved successfully
-    setEnteredEnsName(debouncedValue);
-    onChange(ensAddress);
-  }, [ensAddress, onChange, debouncedValue]);
+    setEnteredEnsName(debouncedValue)
+    onChange(ensAddress)
+  }, [ensAddress, onChange, debouncedValue])
 
   const handleChange = useCallback(
     (newValue: Address) => {
-      setEnteredEnsName(undefined);
-      onChange(newValue);
+      setEnteredEnsName(undefined)
+      onChange(newValue)
     },
     [onChange],
-  );
+  )
 
   const reFocus =
     isEnsAddressError ||
@@ -80,7 +80,7 @@ export const AddressInput = ({ value, name, placeholder, onChange, disabled }: C
     isEnsNameSuccess ||
     isEnsAddressSuccess ||
     ensName === null ||
-    ensAddress === null;
+    ensAddress === null
 
   return (
     <InputBase<Address>
@@ -93,7 +93,7 @@ export const AddressInput = ({ value, name, placeholder, onChange, disabled }: C
       reFocus={reFocus}
       prefix={
         ensName ? (
-          <div className="flex bg-base-300 rounded-l-full items-center">
+          <div className="flex  rounded-l-full items-center">
             {isEnsAvtarLoading && <div className="skeleton bg-base-200 w-[35px] h-[35px] rounded-full shrink-0"></div>}
             {ensAvatar ? (
               <span className="w-[35px]">
@@ -107,7 +107,7 @@ export const AddressInput = ({ value, name, placeholder, onChange, disabled }: C
           </div>
         ) : (
           (isEnsNameLoading || isEnsAddressLoading) && (
-            <div className="flex bg-base-300 rounded-l-full items-center gap-2 pr-2">
+            <div className="flex  rounded-l-full items-center gap-2 pr-2">
               <div className="skeleton bg-base-200 w-[35px] h-[35px] rounded-full shrink-0"></div>
               <div className="skeleton bg-base-200 h-3 w-20"></div>
             </div>
@@ -120,5 +120,5 @@ export const AddressInput = ({ value, name, placeholder, onChange, disabled }: C
         value && <img alt="" className="!rounded-full" src={blo(value as `0x${string}`)} width="35" height="35" />
       }
     />
-  );
-};
+  )
+}

@@ -1,12 +1,12 @@
-import { ChangeEvent, FocusEvent, ReactNode, useCallback, useEffect, useRef } from "react";
-import { CommonInputProps } from "~~/components/scaffold-eth";
+import { ChangeEvent, FocusEvent, ReactNode, useCallback, useEffect, useRef } from 'react'
+import { CommonInputProps } from '~~/components/scaffold-eth'
 
 type InputBaseProps<T> = CommonInputProps<T> & {
-  error?: boolean;
-  prefix?: ReactNode;
-  suffix?: ReactNode;
-  reFocus?: boolean;
-};
+  error?: boolean
+  prefix?: ReactNode
+  suffix?: ReactNode
+  reFocus?: boolean
+}
 
 export const InputBase = <T extends { toString: () => string } | undefined = string>({
   name,
@@ -19,32 +19,32 @@ export const InputBase = <T extends { toString: () => string } | undefined = str
   suffix,
   reFocus,
 }: InputBaseProps<T>) => {
-  const inputReft = useRef<HTMLInputElement>(null);
+  const inputReft = useRef<HTMLInputElement>(null)
 
-  let modifier = "";
+  let modifier = ''
   if (error) {
-    modifier = "border-error";
+    modifier = 'border-error'
   } else if (disabled) {
-    modifier = "border-disabled bg-base-300";
+    modifier = 'border-disabled '
   }
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      onChange(e.target.value as unknown as T);
+      onChange(e.target.value as unknown as T)
     },
     [onChange],
-  );
+  )
 
   // Runs only when reFocus prop is passed, useful for setting the cursor
   // at the end of the input. Example AddressInput
   const onFocus = (e: FocusEvent<HTMLInputElement, Element>) => {
     if (reFocus !== undefined) {
-      e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length);
+      e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length)
     }
-  };
+  }
   useEffect(() => {
-    if (reFocus !== undefined && reFocus === true) inputReft.current?.focus();
-  }, [reFocus]);
+    if (reFocus !== undefined && reFocus === true) inputReft.current?.focus()
+  }, [reFocus])
 
   return (
     <div className={`flex border-2 border-base-300 bg-base-200 rounded-full text-accent ${modifier}`}>
@@ -62,5 +62,5 @@ export const InputBase = <T extends { toString: () => string } | undefined = str
       />
       {suffix}
     </div>
-  );
-};
+  )
+}

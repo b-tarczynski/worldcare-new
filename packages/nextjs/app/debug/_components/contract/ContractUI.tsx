@@ -1,35 +1,35 @@
-"use client";
+'use client'
 
 // @refresh reset
-import { useReducer } from "react";
-import { ContractReadMethods } from "./ContractReadMethods";
-import { ContractVariables } from "./ContractVariables";
-import { ContractWriteMethods } from "./ContractWriteMethods";
-import { Address, Balance } from "~~/components/scaffold-eth";
-import { useDeployedContractInfo, useNetworkColor } from "~~/hooks/scaffold-eth";
-import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
-import { ContractName } from "~~/utils/scaffold-eth/contract";
+import { useReducer } from 'react'
+import { ContractReadMethods } from './ContractReadMethods'
+import { ContractVariables } from './ContractVariables'
+import { ContractWriteMethods } from './ContractWriteMethods'
+import { Address, Balance } from '~~/components/scaffold-eth'
+import { useDeployedContractInfo, useNetworkColor } from '~~/hooks/scaffold-eth'
+import { useTargetNetwork } from '~~/hooks/scaffold-eth/useTargetNetwork'
+import { ContractName } from '~~/utils/scaffold-eth/contract'
 
 type ContractUIProps = {
-  contractName: ContractName;
-  className?: string;
-};
+  contractName: ContractName
+  className?: string
+}
 
 /**
  * UI component to interface with deployed contracts.
  **/
-export const ContractUI = ({ contractName, className = "" }: ContractUIProps) => {
-  const [refreshDisplayVariables, triggerRefreshDisplayVariables] = useReducer(value => !value, false);
-  const { targetNetwork } = useTargetNetwork();
-  const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
-  const networkColor = useNetworkColor();
+export const ContractUI = ({ contractName, className = '' }: ContractUIProps) => {
+  const [refreshDisplayVariables, triggerRefreshDisplayVariables] = useReducer((value) => !value, false)
+  const { targetNetwork } = useTargetNetwork()
+  const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName)
+  const networkColor = useNetworkColor()
 
   if (deployedContractLoading) {
     return (
       <div className="mt-14">
         <span className="loading loading-spinner loading-lg"></span>
       </div>
-    );
+    )
   }
 
   if (!deployedContractData) {
@@ -37,7 +37,7 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
       <p className="text-3xl mt-14">
         {`No contract found by the name of "${contractName}" on chain "${targetNetwork.name}"!`}
       </p>
-    );
+    )
   }
 
   return (
@@ -57,12 +57,12 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
             </div>
             {targetNetwork && (
               <p className="my-0 text-sm">
-                <span className="font-bold">Network</span>:{" "}
+                <span className="font-bold">Network</span>:{' '}
                 <span style={{ color: networkColor }}>{targetNetwork.name}</span>
               </p>
             )}
           </div>
-          <div className="bg-base-300 rounded-3xl px-6 lg:px-8 py-4 shadow-lg shadow-base-300">
+          <div className=" rounded-3xl px-6 lg:px-8 py-4 shadow-lg shadow-base-300">
             <ContractVariables
               refreshDisplayVariables={refreshDisplayVariables}
               deployedContractData={deployedContractData}
@@ -72,7 +72,7 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
         <div className="col-span-1 lg:col-span-2 flex flex-col gap-6">
           <div className="z-10">
             <div className="bg-base-100 rounded-3xl shadow-md shadow-secondary border border-base-300 flex flex-col mt-10 relative">
-              <div className="h-[5rem] w-[5.5rem] bg-base-300 absolute self-start rounded-[22px] -top-[38px] -left-[1px] -z-10 py-[0.65rem] shadow-lg shadow-base-300">
+              <div className="h-[5rem] w-[5.5rem]  absolute self-start rounded-[22px] -top-[38px] -left-[1px] -z-10 py-[0.65rem] shadow-lg shadow-base-300">
                 <div className="flex items-center justify-center space-x-2">
                   <p className="my-0 text-sm">Read</p>
                 </div>
@@ -84,7 +84,7 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
           </div>
           <div className="z-10">
             <div className="bg-base-100 rounded-3xl shadow-md shadow-secondary border border-base-300 flex flex-col mt-10 relative">
-              <div className="h-[5rem] w-[5.5rem] bg-base-300 absolute self-start rounded-[22px] -top-[38px] -left-[1px] -z-10 py-[0.65rem] shadow-lg shadow-base-300">
+              <div className="h-[5rem] w-[5.5rem]  absolute self-start rounded-[22px] -top-[38px] -left-[1px] -z-10 py-[0.65rem] shadow-lg shadow-base-300">
                 <div className="flex items-center justify-center space-x-2">
                   <p className="my-0 text-sm">Write</p>
                 </div>
@@ -100,5 +100,5 @@ export const ContractUI = ({ contractName, className = "" }: ContractUIProps) =>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
