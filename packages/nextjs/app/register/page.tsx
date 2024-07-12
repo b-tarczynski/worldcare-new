@@ -5,7 +5,7 @@ import { Heading3 } from '~~/components/ui/Heading3'
 
 export default function Register() {
   return (
-    <div className="text-center min-w-[1000px] m-auto">
+    <div className="text-center">
       <Heading1>Register</Heading1>
       <Heading3>Who you are?</Heading3>
 

@@ -2,8 +2,9 @@ import { ReactNode } from 'react'
 
 interface Props {
   children: ReactNode
+  className?: string
 }
 
-export function Heading3({ children }: Props) {
-  return <h3 className="text-lg font-bold text-neutral">{children}</h3>
+export function Heading3({ children, className }: Props) {
+  return <h3 className={`text-lg font-bold text-neutral ${className}`}>{children}</h3>
 }
