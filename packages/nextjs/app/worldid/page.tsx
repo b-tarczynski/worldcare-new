@@ -1,11 +1,28 @@
 'use client'
-
-import { IDKitWidget, ISuccessResult, VerificationLevel } from '@worldcoin/idkit'
+import { IDKitWidget, ISuccessResult } from '@worldcoin/idkit'
 import type { NextPage } from 'next'
+import { useAccount } from 'wagmi';
+import { useScaffoldWriteContract } from '~~/hooks/scaffold-eth';
+import { decodeAbiParameters } from 'viem'
+
 
 const WorldId: NextPage = () => {
+  const { address: connectedAddress } = useAccount();
+  const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract("WorldCare");
+
   const onSuccess = (result: ISuccessResult) => {
-    console.log(result)
+    console.log('result', result)
+    const unpackedProof = decodeAbiParameters([{ type: 'uint256[8]' }], result.proof as `0x${string}`)[0]
+    
+    writeYourContractAsync({
+      functionName: "registerPatient",
+      args: [
+        connectedAddress,
+        BigInt(result.merkle_root),
+        BigInt(result.nullifier_hash),
+        unpackedProof
+      ],
+    })
   }
 
   return (
