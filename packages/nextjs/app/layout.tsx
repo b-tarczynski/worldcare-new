@@ -1,3 +1,4 @@
+import "@rainbow-me/rainbowkit/styles.css";
 import { Sora } from 'next/font/google'
 import { ScaffoldEthAppWithProviders } from '~~/components/ScaffoldEthAppWithProviders'
 import { ThemeProvider } from '~~/components/ThemeProvider'
