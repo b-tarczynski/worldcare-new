@@ -2,6 +2,7 @@
 
 import { NextPage } from "next";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   return (
@@ -11,20 +12,26 @@ const Home: NextPage = () => {
         <span className="text-xl">Welcome to Worldcare platform</span>
       </div>
       <div className="card card-bordered border-black min-w-[900px]">
-        <div className="card-body px-20 py-5">
-          <div className="flex flex-row items-center gap-4 min-h-44">
-            <span className="text-3xl">I already have an account</span>
-            <ArrowRightIcon className="w-5 h-5" />
+        <Link href="/login">
+          <div className="card-body px-20 py-5">
+            <div className="flex flex-row items-center gap-4 min-h-44">
+              <span className="text-3xl">I already have an account</span>
+              <ArrowRightIcon className="w-5 h-5" />
+            </div>
           </div>
-        </div>
+          <img className="absolute right-5 bottom-0" alt="home login" src="/home-login.svg" />
+        </Link>
       </div>
       <div className="card card-bordered border-black min-w-[900px]">
-        <div className="card-body px-20 py-5">
-          <div className="flex flex-row items-center gap-4 min-h-44">
-            <span className="text-3xl">I don&apos;t have an account</span>
-            <ArrowRightIcon className="w-5 h-5" />
+        <Link href="/register">
+          <div className="card-body px-20 py-5">
+            <div className="flex flex-row items-center gap-4 min-h-44">
+              <span className="text-3xl">I don&apos;t have an account</span>
+              <ArrowRightIcon className="w-5 h-5" />
+            </div>
           </div>
-        </div>
+          <img className="absolute right-5 bottom-0" alt="home login" src="/home-register.svg" />
+        </Link>
       </div>
     </div>
   );
