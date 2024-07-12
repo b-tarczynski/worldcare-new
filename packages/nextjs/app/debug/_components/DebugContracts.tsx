@@ -1,22 +1,28 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useLocalStorage } from 'usehooks-ts'
-import { BarsArrowUpIcon } from '@heroicons/react/20/solid'
-import { ContractUI } from '~~/app/debug/_components/contract'
-import { ContractName } from '~~/utils/scaffold-eth/contract'
-import { getAllContracts } from '~~/utils/scaffold-eth/contractsData'
+import { useEffect, useState } from "react";
+import { useLocalStorage } from "usehooks-ts";
+import { BarsArrowUpIcon } from "@heroicons/react/20/solid";
+import { ContractUI } from "~~/app/debug/_components/contract";
+import { ContractName } from "~~/utils/scaffold-eth/contract";
+import { getAllContracts } from "~~/utils/scaffold-eth/contractsData";
 
 const selectedContractStorageKey = 'scaffoldEth2.selectedContract'
 const contractsData = getAllContracts()
 const contractNames = Object.keys(contractsData) as ContractName[]
 
 export function DebugContracts() {
-  const [selectedContract, setSelectedContract] = useLocalStorage<ContractName>(
-    selectedContractStorageKey,
+  // const [selectedContract, setSelectedContract] = useLocalStorage<ContractName>(
+  //   selectedContractStorageKey,
+  //   contractNames[0],
+  //   { initializeWithValue: false },
+  // );
+
+  const [selectedContract, setSelectedContract] = useState<ContractName>(
+    // selectedContractStorageKey,
     contractNames[0],
-    { initializeWithValue: false },
-  )
+    // { initializeWithValue: false },
+  );
 
   useEffect(() => {
     if (!contractNames.includes(selectedContract)) {
