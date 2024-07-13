@@ -46,7 +46,7 @@ const Home: NextPage = () => {
         <img className="absolute right-5 bottom-0" alt="home login" src="/home-login.svg"/>
       </div>
       <div className="card card-bordered border-black min-w-[900px]">
-        <Link href="/register">
+        <Link href="/register/select">
           <div className="card-body px-20 py-5">
             <div className="flex flex-row items-center gap-4 min-h-44">
               <span className="text-3xl">I don&apos;t have an account</span>

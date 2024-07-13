@@ -11,7 +11,7 @@ export default function Register() {
       <Heading3>Who you are?</Heading3>
 
       <div className="flex justify-center gap-6">
-        <Link href="/">
+        <Link href="/packages/nextjs/public">
           <RegisterCard className="bg-primary hover:bg-[#AEE5F5]">
             <div className="flex items-center gap-3 justify-center">
               <Heading1>I’m a doctor</Heading1>
