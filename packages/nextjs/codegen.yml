@@ -1,0 +1,38 @@
+overwrite: true
+config:
+  fetcher:
+    endpoint: "https://api.studio.thegraph.com/query/83120/worldcare/version/latest"
+  strictScalars: true
+  reactQueryVersion: 5
+  scalars:
+    BigInt: string
+    BigDecimal: string
+    Bytes: string
+    Int8: number
+    Timestamp: number
+  gqlImport: 'graphql-request#gql'
+generates:
+  generated/graphql/worldcare/types.ts:
+    schema: "queries/worldcare.graphql"
+    documents: "queries/worldcare/*.graphql"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+  generated/graphql/worldcare/server.ts:
+    schema: "queries/worldcare.graphql"
+    documents: "queries/worldcare/*.graphql"
+    plugins:
+      - "typescript-graphql-request"
+    preset:
+      import-types
+    presetConfig:
+      typesPath: "./types"
+  generated/graphql/worldcare/client.ts:
+    schema: "queries/worldcare.graphql"
+    documents: "queries/worldcare/*.graphql"
+    plugins:
+      - "typescript-react-query"
+    preset:
+      import-types
+    presetConfig:
+      typesPath: "./types"
