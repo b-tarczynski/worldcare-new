@@ -1,106 +1,61 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { readContract, waitForTransactionReceipt, writeContract } from '@wagmi/core'
-import { Address, Hex, http, parseAbi } from 'viem'
-import { sepolia } from 'viem/chains'
-import { createConfig } from 'wagmi'
+import { addEnsContracts } from '@ensdomains/ensjs'
+import { getPrice } from '@ensdomains/ensjs/public'
+import { randomSecret, RegistrationParameters } from '@ensdomains/ensjs/utils'
+import { commitName, registerName } from '@ensdomains/ensjs/wallet'
+import { Hex, Address, createClient, http, publicActions, walletActions } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
-
-// only on Sepolia
-const ensRegistrat = '0xFED6a969AaA60E4961FCD3EBF1A2e8913ac65B72'
-const refistratAbi = parseAbi([
-  'function makeCommitment(string memory name,address owner, uint256 duration, bytes32 secret, address resolver, bytes[] calldata data, bool reverseRecord, uint16 ownerControlledFuses) public pure returns (bytes32)',
-  'function commit(bytes32 commitment) public',
-  'function rentPrice(string memory name,uint256 duration) public view returns (uint256 base, uint256 premium)',
-  'function register(string calldata name, address owner, uint256 duration, bytes32 secret, address resolver, bytes[] calldata data, bool reverseRecord, uint16 ownerControlledFuses) public payable',
-])
-
-const oneYear = BigInt(31536000)
-const secret = '0x0000000000000000000000000000000000000000000000000000000000000000'
+import { sepolia } from 'viem/chains'
 
 const account = privateKeyToAccount(process.env.BACKEND_SENDER_PRIVATE_KEY as Hex)
 
-const config = createConfig({
-  chains: [sepolia],
-  transports: {
-    [sepolia.id]: http(`https://sepolia.infura.io/v3/${process.env.INFURA_KEY}`),
-  },
+const client = createClient({
+  account,
+  chain: addEnsContracts(sepolia),
+  transport: http(),
   cacheTime: 0,
 })
-const hardcodedNextNonce = 12
+  .extend(publicActions)
+  .extend(walletActions)
+
+const oneYear = 60 * 60 * 24 * 365
+const hardcodedNextNonce = 22
 
 export async function addPatient(formData: FormData, address: Address) {
-  const rawFormData = {
-    age: formData.get('age'),
-    nickname: formData.get('nickname') as string,
-  }
+  const nickname = formData.get('nickname') as string
 
-  if (!rawFormData.nickname) {
+  if (!nickname) {
     redirect('/history')
     return
   }
 
-  const registerArgs = [rawFormData.nickname, address, oneYear, secret, address, [], false, 0] as const
+  const registerArgs = {
+    name: nickname,
+    owner: address,
+    duration: oneYear,
+    secret: randomSecret(),
+    records: {
+      coins: [{ coin: 60, value: address }],
+    },
+    resolverAddress: '0x8FADE66B79cC9f707aB26799354482EB93a5B7dD', // Default public resolver, find it for your chain here https://docs.ens.domains/learn/deployments
+  } satisfies RegistrationParameters
 
-  const makeCommitmentResp = await readContract(config, {
-    abi: refistratAbi,
-    account,
-    address: ensRegistrat,
-    chainId: sepolia.id,
-    functionName: 'makeCommitment',
-    args: registerArgs,
+  const commitmentHash = await commitName(client, registerArgs)
+  await client.waitForTransactionReceipt({ hash: commitmentHash }) // wait for the first transaction to succeed
+  console.log('waiting')
+  await new Promise((resolve) => setTimeout(resolve, 65_000)) // wait for commitment to be valid
+  console.log('finished waiting 65 seconds')
+
+  const { base, premium } = await getPrice(client, {
+    nameOrNames: nickname,
+    duration: oneYear,
   })
 
-  const commitHash = await writeContract(config, {
-    abi: refistratAbi,
-    account,
-    address: ensRegistrat,
-    chainId: sepolia.id,
-    functionName: 'commit',
-    args: [makeCommitmentResp],
-    nonce: hardcodedNextNonce
-  })
-  console.log('commitHash1: ', commitHash)
-  const receipt = await waitForTransactionReceipt(config, {
-    chainId: sepolia.id,
-    hash: commitHash,
-  })
-  console.log('receipt: ', receipt)
+  const value = ((base + premium) * 110n) / 100n // add 10% to the price for buffer
+  const hash = await registerName(client, { ...registerArgs, value })
 
-  const readPriceResp = await readContract(config, {
-    abi: refistratAbi,
-    account,
-    address: ensRegistrat,
-    chainId: sepolia.id,
-    functionName: 'rentPrice',
-    args: [rawFormData.nickname, oneYear],
-  })
-  console.log('readPriceResp: ', readPriceResp)
-
-  await sleep(70_000)
-
-  const registerHash = await writeContract(config, {
-    abi: refistratAbi,
-    account,
-    address: ensRegistrat,
-    chainId: sepolia.id,
-    functionName: 'register',
-    args: registerArgs,
-    value: readPriceResp[0] + readPriceResp[1],
-    nonce: hardcodedNextNonce + 1,
-  })
-
-  const registerReceiptResp = await waitForTransactionReceipt(config, {
-    chainId: sepolia.id,
-    hash: registerHash,
-  })
-  console.log('registerReceiptResp: ', registerReceiptResp)
-}
-
-async function sleep(ms: number) {
-  return new Promise((resolve) => {
-    console.log('started waiting')
-    setTimeout(resolve, ms)
-  })
+  await client.waitForTransactionReceipt({ hash })
+  console.log('finished registering ENS')
 }
