@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     Counter: {
-      address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+      address: "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
       abi: [
         {
           inputs: [],
@@ -53,7 +53,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     WorldCare: {
-      address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      address: "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
       abi: [
         {
           inputs: [
@@ -184,7 +184,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     WorldId: {
-      address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      address: "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
       abi: [
         {
           inputs: [
@@ -228,6 +228,272 @@ const deployedContracts = {
       inheritedFunctions: {
         verifyProof: "contracts/interfaces/IWorldID.sol",
       },
+    },
+  },
+  11155111: {
+    WorldCare: {
+      address: "0xa4DEDd69aDeF6D85d79Cd7cF19B14621096D1218",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "contract IWorldID",
+              name: "_worldId",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "_appId",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_actionId",
+              type: "string",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "InvalidNullifier",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "doctors",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getDoctors",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getPatients",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "patients",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "registerDoctor",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "signal",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "root",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nullifierHash",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256[8]",
+              name: "proof",
+              type: "uint256[8]",
+            },
+          ],
+          name: "registerPatient",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+  },
+  11155420: {
+    WorldCare: {
+      address: "0x58034592879fAFF08fBa5192bFf244f0B8bA6dD9",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "contract IWorldID",
+              name: "_worldId",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "_appId",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_actionId",
+              type: "string",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "InvalidNullifier",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "doctors",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getDoctors",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getPatients",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "patients",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "registerDoctor",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "signal",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "root",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nullifierHash",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256[8]",
+              name: "proof",
+              type: "uint256[8]",
+            },
+          ],
+          name: "registerPatient",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
     },
   },
 } as const;

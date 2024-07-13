@@ -1,0 +1,262 @@
+{
+  "address": "0x58034592879fAFF08fBa5192bFf244f0B8bA6dD9",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "contract IWorldID",
+          "name": "_worldId",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_appId",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_actionId",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidNullifier",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "doctors",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getDoctors",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getPatients",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "patients",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "registerDoctor",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "signal",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "root",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "nullifierHash",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256[8]",
+          "name": "proof",
+          "type": "uint256[8]"
+        }
+      ],
+      "name": "registerPatient",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x399fcf7dc8e008bfca93fca73a2aa1af766c269960e58c45ecea21a5284c725c",
+  "receipt": {
+    "to": null,
+    "from": "0x9F5eF94605496003D50E0c6d7641969feAc9dd41",
+    "contractAddress": "0x58034592879fAFF08fBa5192bFf244f0B8bA6dD9",
+    "transactionIndex": 3,
+    "gasUsed": "361639",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x1c08fc66791b334a8b39d106bbe3fc670403920f4428cf66b03874ca08b807c4",
+    "transactionHash": "0x399fcf7dc8e008bfca93fca73a2aa1af766c269960e58c45ecea21a5284c725c",
+    "logs": [],
+    "blockNumber": 14528123,
+    "cumulativeGasUsed": "659946",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x11cA3127182f7583EfC416a8771BD4d11Fae4334",
+    "app_staging_47391015481f14b9ef820719cb4383a7",
+    "register-user"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "18ee6a313efb054840550d7735daf7a4",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract IWorldID\",\"name\":\"_worldId\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"_appId\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"_actionId\",\"type\":\"string\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"InvalidNullifier\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"doctors\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getDoctors\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPatients\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"patients\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"registerDoctor\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"signal\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"root\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nullifierHash\",\"type\":\"uint256\"},{\"internalType\":\"uint256[8]\",\"name\":\"proof\",\"type\":\"uint256[8]\"}],\"name\":\"registerPatient\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"constructor\":{\"params\":{\"_actionId\":\"The World ID action ID\",\"_appId\":\"The World ID app ID\",\"_worldId\":\"The WorldID instance that will verify the proofs\"}},\"registerPatient(address,uint256,uint256,uint256[8])\":{\"details\":\"Feel free to rename this method however you want! We've used `claim`, `verify` or `execute` in the past.\",\"params\":{\"nullifierHash\":\"The nullifier hash for this proof, preventing double signaling (returned by the JS widget).\",\"proof\":\"The zero-knowledge proof that demonstrates the claimer is registered with World ID (returned by the JS widget).\",\"root\":\"The root of the Merkle tree (returned by the JS widget).\",\"signal\":\"An arbitrary input from the user, usually the user's wallet address (check README for further details)\"}}},\"stateVariables\":{\"externalNullifier\":{\"details\":\"The contract's external nullifier hash\"},\"groupId\":{\"details\":\"The World ID group ID (always 1)\"},\"nullifierHashes\":{\"details\":\"Whether a nullifier hash has been used already. Used to guarantee an action is only performed once by a single person\"},\"worldId\":{\"details\":\"The World ID instance that will be used for verifying proofs\"}},\"version\":1},\"userdoc\":{\"errors\":{\"InvalidNullifier()\":[{\"notice\":\"Thrown when attempting to reuse a nullifier\"}]},\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/WorldCare.sol\":\"WorldCare\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/WorldCare.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0 <0.9.0;\\n\\nimport { ByteHasher } from \\\"./helpers/ByteHasher.sol\\\";\\nimport { IWorldID } from \\\"./interfaces/IWorldID.sol\\\";\\n\\ncontract WorldCare {\\n    address[] public patients;\\n    address[] public doctors;\\n\\n    using ByteHasher for bytes;\\n\\n    ///////////////////////////////////////////////////////////////////////////////\\n    ///                                  ERRORS                                ///\\n    //////////////////////////////////////////////////////////////////////////////\\n\\n    /// @notice Thrown when attempting to reuse a nullifier\\n    error InvalidNullifier();\\n\\n    /// @dev The World ID instance that will be used for verifying proofs\\n    IWorldID internal immutable worldId;\\n\\n    /// @dev The contract's external nullifier hash\\n    uint256 internal immutable externalNullifier;\\n\\n    /// @dev The World ID group ID (always 1)\\n    uint256 internal immutable groupId = 1;\\n\\n    /// @dev Whether a nullifier hash has been used already. Used to guarantee an action is only performed once by a single person\\n    mapping(uint256 => bool) internal nullifierHashes;\\n\\n    /// @param _worldId The WorldID instance that will verify the proofs\\n    /// @param _appId The World ID app ID\\n    /// @param _actionId The World ID action ID\\n    constructor(\\n        IWorldID _worldId,\\n        string memory _appId,\\n        string memory _actionId\\n    ) {\\n        worldId = _worldId;\\n        externalNullifier = abi\\n            .encodePacked(abi.encodePacked(_appId).hashToField(), _actionId)\\n            .hashToField();\\n    }\\n\\n    /// @param signal An arbitrary input from the user, usually the user's wallet address (check README for further details)\\n    /// @param root The root of the Merkle tree (returned by the JS widget).\\n    /// @param nullifierHash The nullifier hash for this proof, preventing double signaling (returned by the JS widget).\\n    /// @param proof The zero-knowledge proof that demonstrates the claimer is registered with World ID (returned by the JS widget).\\n    /// @dev Feel free to rename this method however you want! We've used `claim`, `verify` or `execute` in the past.\\n    function registerPatient(\\n        address signal,\\n        uint256 root,\\n        uint256 nullifierHash,\\n        uint256[8] calldata proof\\n    ) public {\\n        // First, we make sure this person hasn't done this before\\n        if (nullifierHashes[nullifierHash]) revert InvalidNullifier();\\n\\n        // We now verify the provided proof is valid and the user is verified by World ID\\n        worldId.verifyProof(\\n            root,\\n            groupId,\\n            abi.encodePacked(signal).hashToField(),\\n            nullifierHash,\\n            externalNullifier,\\n            proof\\n        );\\n\\n        // We now record the user has done this, so they can't do it again (proof of uniqueness)\\n        nullifierHashes[nullifierHash] = true;\\n\\n        patients.push(signal);\\n\\n        // Finally, execute your logic here, for example issue a token, NFT, etc...\\n        // Make sure to emit some kind of event afterwards!\\n    }\\n\\n\\n    // function registerPatient() public {\\n    //     patients.push(msg.sender);\\n    // }\\n\\n    function registerDoctor() public {\\n        doctors.push(msg.sender);\\n    }\\n\\n    function getPatients() public view returns (address[] memory) {\\n        return patients;\\n    }\\n\\n    function getDoctors() public view returns (address[] memory) {\\n        return doctors;\\n    }\\n}\",\"keccak256\":\"0xaadb35c2f1694568f85c12bd52127a16aa04ff544c2b7a7dba747f65ade6d6d1\",\"license\":\"MIT\"},\"contracts/helpers/ByteHasher.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.10;\\n\\nlibrary ByteHasher {\\n    /// @dev Creates a keccak256 hash of a bytestring.\\n    /// @param value The bytestring to hash\\n    /// @return The hash of the specified value\\n    /// @dev `>> 8` makes sure that the result is included in our field\\n    function hashToField(bytes memory value) internal pure returns (uint256) {\\n        return uint256(keccak256(abi.encodePacked(value))) >> 8;\\n    }\\n}\\n\",\"keccak256\":\"0x225f0627ac21d07df35533f605936035d74aa0f05a632cb8d150d3af50408cd0\",\"license\":\"MIT\"},\"contracts/interfaces/IWorldID.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\npragma solidity ^0.8.10;\\n\\ninterface IWorldID {\\n    /// @notice Reverts if the zero-knowledge proof is invalid.\\n    /// @param root The of the Merkle tree\\n    /// @param groupId The id of the Semaphore group\\n    /// @param signalHash A keccak256 hash of the Semaphore signal\\n    /// @param nullifierHash The nullifier hash\\n    /// @param externalNullifierHash A keccak256 hash of the external nullifier\\n    /// @param proof The zero-knowledge proof\\n    /// @dev  Note that a double-signaling check is not included here, and should be carried by the caller.\\n    function verifyProof(\\n        uint256 root,\\n        uint256 groupId,\\n        uint256 signalHash,\\n        uint256 nullifierHash,\\n        uint256 externalNullifierHash,\\n        uint256[8] calldata proof\\n    ) external view;\\n}\\n\",\"keccak256\":\"0x20fc12dea0b817fb8b7bc1a851082676ed2dcb844d3673d60aa5570da3e1b62e\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60e0604052600160c05234801561001557600080fd5b506040516107d63803806107d68339810160408190526100349161018c565b6001600160a01b03831660805260405161008a906100789061005a90859060200161020e565b60405160208183030381529060405261009660201b6103c31760201c565b8260405160200161005a92919061022a565b60a05250610250915050565b60006008826040516020016100ab919061020e565b60408051601f198184030181529190528051602090910120901c92915050565b634e487b7160e01b600052604160045260246000fd5b60005b838110156100fc5781810151838201526020016100e4565b50506000910152565b600082601f83011261011657600080fd5b81516001600160401b0380821115610130576101306100cb565b604051601f8301601f19908116603f01168101908282118183101715610158576101586100cb565b8160405283815286602085880101111561017157600080fd5b6101828460208301602089016100e1565b9695505050505050565b6000806000606084860312156101a157600080fd5b83516001600160a01b03811681146101b857600080fd5b60208501519093506001600160401b03808211156101d557600080fd5b6101e187838801610105565b935060408601519150808211156101f757600080fd5b5061020486828701610105565b9150509250925092565b600082516102208184602087016100e1565b9190910192915050565b828152600082516102428160208501602087016100e1565b919091016020019392505050565b60805160a05160c05161055761027f60003960006101ea0152600061024c015260006101ba01526105576000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c806312ad1c37146100675780631a1984de146100855780633a631019146100cd5780636efb1b84146100e057806393119a831461010b578063b13d5d941461011e575b600080fd5b61006f610126565b60405161007c91906103f8565b60405180910390f35b6100cb6001805480820182556000919091527fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf60180546001600160a01b03191633179055565b005b6100cb6100db366004610445565b610188565b6100f36100ee3660046104a1565b610329565b6040516001600160a01b03909116815260200161007c565b6100f36101193660046104a1565b610353565b61006f610363565b6060600080548060200260200160405190810160405280929190818152602001828054801561017e57602002820191906000526020600020905b81546001600160a01b03168152600190910190602001808311610160575b5050505050905090565b60008281526002602052604090205460ff16156101b857604051632ec8265960e11b815260040160405180910390fd5b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316633bc778e3847f000000000000000000000000000000000000000000000000000000000000000061024988604051602001610235919060609190911b6bffffffffffffffffffffffff1916815260140190565b6040516020818303038152906040526103c3565b867f0000000000000000000000000000000000000000000000000000000000000000876040518763ffffffff1660e01b815260040161028d969594939291906104ba565b60006040518083038186803b1580156102a557600080fd5b505afa1580156102b9573d6000803e3d6000fd5b50505060009283525050600260205260408120805460ff19166001908117909155815490810182559080527f290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e5630180546001600160a01b039093166001600160a01b03199093169290921790915550565b6001818154811061033957600080fd5b6000918252602090912001546001600160a01b0316905081565b6000818154811061033957600080fd5b6060600180548060200260200160405190810160405280929190818152602001828054801561017e576020028201919060005260206000209081546001600160a01b03168152600190910190602001808311610160575050505050905090565b60006008826040516020016103d891906104f2565b60408051601f198184030181529190528051602090910120901c92915050565b6020808252825182820181905260009190848201906040850190845b818110156104395783516001600160a01b031683529284019291840191600101610414565b50909695505050505050565b60008060008061016080868803121561045d57600080fd5b85356001600160a01b038116811461047457600080fd5b9450602086013593506040860135925080860187101561049357600080fd5b509295919450926060019150565b6000602082840312156104b357600080fd5b5035919050565b60006101a0820190508782528660208301528560408301528460608301528360808301526101008360a0840137979650505050505050565b6000825160005b8181101561051357602081860181015185830152016104f9565b50600092019182525091905056fea26469706673582212202e5fbae167ee7b3ccc8c3003bb10ef0ca1f8aa1036c5b83ba8966fafe4178a2e64736f6c63430008110033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100625760003560e01c806312ad1c37146100675780631a1984de146100855780633a631019146100cd5780636efb1b84146100e057806393119a831461010b578063b13d5d941461011e575b600080fd5b61006f610126565b60405161007c91906103f8565b60405180910390f35b6100cb6001805480820182556000919091527fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf60180546001600160a01b03191633179055565b005b6100cb6100db366004610445565b610188565b6100f36100ee3660046104a1565b610329565b6040516001600160a01b03909116815260200161007c565b6100f36101193660046104a1565b610353565b61006f610363565b6060600080548060200260200160405190810160405280929190818152602001828054801561017e57602002820191906000526020600020905b81546001600160a01b03168152600190910190602001808311610160575b5050505050905090565b60008281526002602052604090205460ff16156101b857604051632ec8265960e11b815260040160405180910390fd5b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316633bc778e3847f000000000000000000000000000000000000000000000000000000000000000061024988604051602001610235919060609190911b6bffffffffffffffffffffffff1916815260140190565b6040516020818303038152906040526103c3565b867f0000000000000000000000000000000000000000000000000000000000000000876040518763ffffffff1660e01b815260040161028d969594939291906104ba565b60006040518083038186803b1580156102a557600080fd5b505afa1580156102b9573d6000803e3d6000fd5b50505060009283525050600260205260408120805460ff19166001908117909155815490810182559080527f290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e5630180546001600160a01b039093166001600160a01b03199093169290921790915550565b6001818154811061033957600080fd5b6000918252602090912001546001600160a01b0316905081565b6000818154811061033957600080fd5b6060600180548060200260200160405190810160405280929190818152602001828054801561017e576020028201919060005260206000209081546001600160a01b03168152600190910190602001808311610160575050505050905090565b60006008826040516020016103d891906104f2565b60408051601f198184030181529190528051602090910120901c92915050565b6020808252825182820181905260009190848201906040850190845b818110156104395783516001600160a01b031683529284019291840191600101610414565b50909695505050505050565b60008060008061016080868803121561045d57600080fd5b85356001600160a01b038116811461047457600080fd5b9450602086013593506040860135925080860187101561049357600080fd5b509295919450926060019150565b6000602082840312156104b357600080fd5b5035919050565b60006101a0820190508782528660208301528560408301528460608301528360808301526101008360a0840137979650505050505050565b6000825160005b8181101561051357602081860181015185830152016104f9565b50600092019182525091905056fea26469706673582212202e5fbae167ee7b3ccc8c3003bb10ef0ca1f8aa1036c5b83ba8966fafe4178a2e64736f6c63430008110033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "constructor": {
+        "params": {
+          "_actionId": "The World ID action ID",
+          "_appId": "The World ID app ID",
+          "_worldId": "The WorldID instance that will verify the proofs"
+        }
+      },
+      "registerPatient(address,uint256,uint256,uint256[8])": {
+        "details": "Feel free to rename this method however you want! We've used `claim`, `verify` or `execute` in the past.",
+        "params": {
+          "nullifierHash": "The nullifier hash for this proof, preventing double signaling (returned by the JS widget).",
+          "proof": "The zero-knowledge proof that demonstrates the claimer is registered with World ID (returned by the JS widget).",
+          "root": "The root of the Merkle tree (returned by the JS widget).",
+          "signal": "An arbitrary input from the user, usually the user's wallet address (check README for further details)"
+        }
+      }
+    },
+    "stateVariables": {
+      "externalNullifier": {
+        "details": "The contract's external nullifier hash"
+      },
+      "groupId": {
+        "details": "The World ID group ID (always 1)"
+      },
+      "nullifierHashes": {
+        "details": "Whether a nullifier hash has been used already. Used to guarantee an action is only performed once by a single person"
+      },
+      "worldId": {
+        "details": "The World ID instance that will be used for verifying proofs"
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "errors": {
+      "InvalidNullifier()": [
+        {
+          "notice": "Thrown when attempting to reuse a nullifier"
+        }
+      ]
+    },
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 8,
+        "contract": "contracts/WorldCare.sol:WorldCare",
+        "label": "patients",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_array(t_address)dyn_storage"
+      },
+      {
+        "astId": 11,
+        "contract": "contracts/WorldCare.sol:WorldCare",
+        "label": "doctors",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_array(t_address)dyn_storage"
+      },
+      {
+        "astId": 33,
+        "contract": "contracts/WorldCare.sol:WorldCare",
+        "label": "nullifierHashes",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_uint256,t_bool)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_address)dyn_storage": {
+        "base": "t_address",
+        "encoding": "dynamic_array",
+        "label": "address[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_uint256,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
