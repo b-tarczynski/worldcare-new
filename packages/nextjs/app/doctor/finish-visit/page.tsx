@@ -7,6 +7,7 @@ import { Heading1 } from '~~/components/ui/Heading1'
 import { Heading3 } from '~~/components/ui/Heading3'
 import { Input } from '~~/components/ui/Input'
 import { Separator } from '~~/components/ui/Separator'
+import {addVisit} from "~~/app/doctor/finish-visit/addVisit";
 
 const FinishVisit: NextPage = () => {
   return (
@@ -18,15 +19,15 @@ const FinishVisit: NextPage = () => {
         <Heading3 className="mt-4">Please provide all details of the visit</Heading3>
       </div>
 
-      <form action="">
-        <Input label="Visit Description" placeholder="Patient presents with complaints..." textarea />
-        <Input label="Recommendations" textarea placeholder="Complete Blood Count (CBC)..." />
-        <Input label="Medicines" textarea placeholder="Metformin (Glucophage) - 500 mg..." />
+      <form action={addVisit}>
+        <Input id="description" label="Visit Description" placeholder="Patient presents with complaints..." textarea />
+        <Input id="recommendations" label="Recommendations" textarea placeholder="Complete Blood Count (CBC)..." />
+        <Input id="medicines" label="Medicines" textarea placeholder="Metformin (Glucophage) - 500 mg..." />
 
         <Separator />
 
         <div className="max-w-64">
-          <Input label="Price" placeholder="100" />
+          <Input id="price" label="Price" placeholder="100" />
         </div>
         <div className="text-xs font-semibold mt-1 text-slate-500">Price in dollars [$]</div>
 
