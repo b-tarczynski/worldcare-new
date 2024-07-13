@@ -22,18 +22,6 @@ const signAuthMessage = async(privateKey: string) =>{
   return(JWT)
 }
 
-
-function visitToText(formData: FormData) {
-  const rawFormData = {
-    description: formData.get('description'),
-    recommendations: formData.get('recommendations'),
-    medicines: formData.get('medicines'),
-    price: formData.get('price'),
-  }
-
-  return JSON.stringify(rawFormData)
-}
-
 async function uploadDescription(formData: FormData, signedMessage: string) {
   const rawFormData = {
     description: formData.get('description'),
@@ -60,12 +48,20 @@ async function uploadPrescription(formData: FormData, signedMessage: string) {
   return response.data.Hash
 }
 
+async function shareFile(owner: string, recipient: string, cid: string, signedMessage: string) {
+  const shareResponse = await lighthouse.shareFile(owner, [recipient], cid, signedMessage)
+  console.log('share response: ', shareResponse)
+}
+
 export async function addVisit(formData: FormData) {
   const signedMessage = await signAuthMessage(privateBackendKey)
   console.log('signedMessage: ', signedMessage)
 
   const descriptionCid = await uploadDescription(formData, signedMessage)
   const prescriptionCid = await uploadPrescription(formData, signedMessage)
+
+  await shareFile(publicBackendKey, publicPatientKey, descriptionCid, signedMessage)
+
   console.log('descriptionCid: ', descriptionCid)
   console.log('prescriptionCid: ', prescriptionCid)
 }
