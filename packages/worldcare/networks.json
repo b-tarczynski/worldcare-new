@@ -1,0 +1,8 @@
+{
+  "optimism-sepolia": {
+    "WorldCare": {
+      "address": "0x27EcDfea73eFC671bF57852aEC460cCA4Ba14327",
+      "startBlock": 14548730
+    }
+  }
+}

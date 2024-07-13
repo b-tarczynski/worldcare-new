@@ -9,44 +9,28 @@ import { Heading1 } from '~~/components/ui/Heading1'
 import { PaymentDoctor } from '~~/components/ui/PaymentDoctor'
 import { Visit } from '~~/types/Data'
 
-const historyData = [
+const graphData: Visit[] = [
   {
     id: 1,
+    cid: 'bafkreiececvwdsmzljjmwkr5zw74ruenjudeof4soes737tknytfcmvwbe',
     date: new Date(),
     doctor: {
       avatar: '/doctor-1.png',
       name: 'Jackie Chan',
       specialization: 'Internist',
     },
-    description:
-      'Patient presents with complaints of persistent fatigue and unintended weight loss of approximately 15 pounds over the last three months. He reports feeling unusually tired even after adequate sleep and has experienced a significant decrease in appetite. There are no reports of fever, night sweats, or gastrointestinal symptoms. He denies any recent changes in medications or lifestyle.',
-    recommendations: `Complete Blood Count (CBC): To check for anemia or signs of infection.
-Comprehensive Metabolic Panel (CMP): To evaluate liver and kidney function, and electrolyte balance.
-Thyroid Function Tests (TFTs): To rule out hypo- or hyperthyroidism.
-Hemoglobin A1c: To assess current glycemic control, given his history of diabetes.
-HIV Test: To rule out chronic infection as a cause of weight loss and fatigue.
-Serum Protein Electrophoresis (SPEP): To rule out multiple myeloma or other plasma cell disorders.`,
-    medication: [
-      'Metformin (Glucophage) - 500 mg twice daily',
-      'Glipizide (Glucotrol) - 500 mg twice daily',
-      'Insulin (Lantus, Humalog) - 500 mg twice daily',
-    ],
     transaction: 'https://eth.blockscout.com/tx/0x7e7b4d2e56a735bbb89c5cda4d9eb39ec719d6cf4cc3468701bbca9b375f7475',
-    price: 100,
   },
   {
     id: 2,
+    cid: 'bafkreif52hzybepv44gsoqnigg7766pw4jbjwt4aa6kb76hch7nq2nahpm',
     date: new Date(),
     doctor: {
       avatar: '/doctor-2.png',
       name: 'Bruce Lee',
       specialization: 'Psychologist',
     },
-    description: '',
-    recommendations: '',
-    medication: [],
     transaction: 'https://eth.blockscout.com/tx/0x7e7b4d2e56a735bbb89c5cda4d9eb39ec719d6cf4cc3468701bbca9b375f7475',
-    price: 100,
   },
 ]
 
@@ -59,14 +43,14 @@ const DoctorHistory: NextPage = () => {
       <Heading1>Your client history:</Heading1>
 
       <div className="bg-[#4ADE80] p-3 mt-8 font-semibold flex items-center justify-center gap-8">
-        Medical data is currenty shared from john.eth
+        Medical data is currently shared from john.eth
         <Link href="/doctor/finish-visit">
           <button className="btn btn-outline rounded-full min-w-56 bg-white">Finish the visit</button>
         </Link>
       </div>
-      <HistoryTable data={historyData} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
+      <HistoryTable data={graphData} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
 
-      <PaymentDoctor isOpen={showPaymentModal} visit={historyData[0]} onClose={() => setShowPaymentModal(false)} />
+      <PaymentDoctor isOpen={showPaymentModal} visit={graphData[0]} onClose={() => setShowPaymentModal(false)} />
       <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit} />
       <img className="absolute bottom-0 right-0" src="/history.svg" alt="" />
     </div>

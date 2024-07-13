@@ -7,13 +7,10 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
 import { useRouter } from 'next/navigation'
 import { IDKitWidget, ISuccessResult } from "@worldcoin/idkit";
-import { decodeAbiParameters } from "viem";
-import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 import { worldAction, worldIdApp } from "~~/app/constants";
 
 const DoctorSignin: NextPage = () => {
   const { openConnectModal } = useConnectModal()
-  const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract("WorldCare");
 
   const { isConnected, address } = useAccount()
   const router = useRouter()
@@ -26,21 +23,12 @@ const DoctorSignin: NextPage = () => {
   }
 
   const onSuccess = async (result: ISuccessResult) => {
-    const unpackedProof = decodeAbiParameters([{ type: 'uint256[8]' }], result.proof as `0x${string}`)[0]
-    await writeYourContractAsync({
-      functionName: "registerPatient",
-      args: [
-        address,
-        BigInt(result.merkle_root),
-        BigInt(result.nullifier_hash),
-        unpackedProof,
-        '0xbafkreibpppzeta6odb3k25ctwwqqq3zxqa4v67k3lc7ryh7dw2vcjot63u'
-      ],
-    }, {
-      onSuccess: () => {
-        router.push('/register/doctor/info')
-      }
-    })
+    const redirectParams = new URLSearchParams()
+    redirectParams.append('address', address as string)
+    redirectParams.append('merkle_root', result.merkle_root)
+    redirectParams.append('nullifier_hash', result.nullifier_hash)
+    redirectParams.append('proof', result.proof)
+    router.push(`/register/doctor/info?${redirectParams.toString()}`)
   }
 
 

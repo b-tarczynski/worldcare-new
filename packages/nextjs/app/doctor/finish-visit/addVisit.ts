@@ -1,26 +1,11 @@
 'use server'
 
-import {ethers} from "ethers"
 import lighthouse from '@lighthouse-web3/sdk'
-import kavach from "@lighthouse-web3/kavach"
+import { signAuthMessage } from '~~/utils/signAuthMessage'
+import {shareFile} from "~~/utils/shareFile";
+import {patientPublicKey, privateBackendKey, publicBackendKey} from "../../../../../hardcodes";
 
-const apiKey = "640bbf99.36a02140bffb48af8da4739a77a5854f"
-const publicBackendKey = "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199"
-const privateBackendKey = "0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e"
-const patientPublicKey = "0xdD2FD4581271e230360230F9337D5c0430Bf44C0"
-
-
-const signAuthMessage = async (privateKey: string) => {
-  const signer = new ethers.Wallet(privateKey)
-  const authMessage = await kavach.getAuthMessage(signer.address)
-  // @ts-ignore
-  const signedMessage = await signer.signMessage(authMessage.message)
-  const {JWT, error} = await kavach.getJWT(signer.address, signedMessage)
-  if (error) {
-    throw new Error(error)
-  }
-  return (JWT)
-}
+const apiKey = process.env.LIGHTHOUSE_API_KEY as string
 
 async function uploadVisit(formData: FormData, signedMessage: string) {
   const rawFormData = {
@@ -35,11 +20,6 @@ async function uploadVisit(formData: FormData, signedMessage: string) {
   console.log('visit upload response: ', response)
 
   return response.data.Hash
-}
-
-async function shareFile(owner: string, recipient: string, cid: string, signedMessage: string) {
-  const shareResponse = await lighthouse.shareFile(owner, [recipient], cid, signedMessage)
-  console.log('share response: ', shareResponse)
 }
 
 export async function addVisit(formData: FormData) {

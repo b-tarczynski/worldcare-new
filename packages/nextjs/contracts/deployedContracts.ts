@@ -109,26 +109,21 @@ const deployedContracts = {
               name: "patient",
               type: "address",
             },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "doctor",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "string",
-              name: "description",
-              type: "string",
-            },
+          ],
+          name: "PatientRegistered",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
             {
               indexed: false,
               internalType: "string",
-              name: "prescription",
+              name: "visitCid",
               type: "string",
             },
           ],
-          name: "DocumentAdded",
+          name: "TransactionPaid",
           type: "event",
         },
         {
@@ -141,13 +136,25 @@ const deployedContracts = {
               type: "address",
             },
             {
+              indexed: true,
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
               indexed: false,
               internalType: "string",
-              name: "filesCid",
+              name: "visitCid",
               type: "string",
             },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
           ],
-          name: "PatientRegistered",
+          name: "VisitAdded",
           type: "event",
         },
         {
@@ -164,16 +171,16 @@ const deployedContracts = {
             },
             {
               internalType: "string",
-              name: "description",
+              name: "visitCid",
               type: "string",
             },
             {
-              internalType: "string",
-              name: "prescription",
-              type: "string",
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
             },
           ],
-          name: "AddDocument",
+          name: "addVisit",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -243,6 +250,19 @@ const deployedContracts = {
         {
           inputs: [
             {
+              internalType: "string",
+              name: "visitCid",
+              type: "string",
+            },
+          ],
+          name: "payForVisit",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
               internalType: "address",
               name: "signal",
               type: "address",
@@ -295,11 +315,6 @@ const deployedContracts = {
               name: "proof",
               type: "uint256[8]",
             },
-            {
-              internalType: "string",
-              name: "filesCid",
-              type: "string",
-            },
           ],
           name: "registerPatient",
           outputs: [],
@@ -330,6 +345,40 @@ const deployedContracts = {
           name: "shareProfile",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          name: "visitdetails",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "paid",
+              type: "bool",
+            },
+            {
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
       ],
@@ -384,7 +433,7 @@ const deployedContracts = {
   },
   84532: {
     WorldCare: {
-      address: "0x58034592879fAFF08fBa5192bFf244f0B8bA6dD9",
+      address: "0x27EcDfea73eFC671bF57852aEC460cCA4Ba14327",
       abi: [
         {
           inputs: [
@@ -413,45 +462,95 @@ const deployedContracts = {
           type: "error",
         },
         {
+          anonymous: false,
           inputs: [
             {
+              indexed: true,
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "filesCid",
+              type: "string",
+            },
+          ],
+          name: "DoctorRegistered",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+          ],
+          name: "PatientRegistered",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "visitCid",
+              type: "string",
+            },
+          ],
+          name: "TransactionPaid",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "visitCid",
+              type: "string",
+            },
+            {
+              indexed: false,
               internalType: "uint256",
-              name: "",
+              name: "price",
               type: "uint256",
+            },
+          ],
+          name: "VisitFinalized",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
             },
           ],
           name: "doctors",
           outputs: [
             {
-              internalType: "address",
+              internalType: "bool",
               name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "getDoctors",
-          outputs: [
-            {
-              internalType: "address[]",
-              name: "",
-              type: "address[]",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "getPatients",
-          outputs: [
-            {
-              internalType: "address[]",
-              name: "",
-              type: "address[]",
+              type: "bool",
             },
           ],
           stateMutability: "view",
@@ -460,24 +559,115 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "uint256",
+              internalType: "address",
               name: "",
-              type: "uint256",
+              type: "address",
             },
-          ],
-          name: "patients",
-          outputs: [
             {
               internalType: "address",
               name: "",
               type: "address",
             },
           ],
+          name: "doctorsPermissions",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
           stateMutability: "view",
           type: "function",
         },
         {
-          inputs: [],
+          inputs: [
+            {
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "visitCid",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
+          ],
+          name: "finalizeVisit",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "patients",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "visitCid",
+              type: "string",
+            },
+          ],
+          name: "payForVisit",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "signal",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "root",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nullifierHash",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256[8]",
+              name: "proof",
+              type: "uint256[8]",
+            },
+            {
+              internalType: "string",
+              name: "filesCid",
+              type: "string",
+            },
+          ],
           name: "registerDoctor",
           outputs: [],
           stateMutability: "nonpayable",
@@ -509,6 +699,66 @@ const deployedContracts = {
           name: "registerPatient",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+          ],
+          name: "revokeProfile",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+          ],
+          name: "shareProfile",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          name: "visitdetails",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "paid",
+              type: "bool",
+            },
+            {
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
       ],
@@ -650,7 +900,7 @@ const deployedContracts = {
   },
   11155420: {
     WorldCare: {
-      address: "0x58034592879fAFF08fBa5192bFf244f0B8bA6dD9",
+      address: "0x27EcDfea73eFC671bF57852aEC460cCA4Ba14327",
       abi: [
         {
           inputs: [
@@ -679,45 +929,95 @@ const deployedContracts = {
           type: "error",
         },
         {
+          anonymous: false,
           inputs: [
             {
+              indexed: true,
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "filesCid",
+              type: "string",
+            },
+          ],
+          name: "DoctorRegistered",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+          ],
+          name: "PatientRegistered",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "visitCid",
+              type: "string",
+            },
+          ],
+          name: "TransactionPaid",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "visitCid",
+              type: "string",
+            },
+            {
+              indexed: false,
               internalType: "uint256",
-              name: "",
+              name: "price",
               type: "uint256",
+            },
+          ],
+          name: "VisitFinalized",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
             },
           ],
           name: "doctors",
           outputs: [
             {
-              internalType: "address",
+              internalType: "bool",
               name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "getDoctors",
-          outputs: [
-            {
-              internalType: "address[]",
-              name: "",
-              type: "address[]",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "getPatients",
-          outputs: [
-            {
-              internalType: "address[]",
-              name: "",
-              type: "address[]",
+              type: "bool",
             },
           ],
           stateMutability: "view",
@@ -726,24 +1026,115 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "uint256",
+              internalType: "address",
               name: "",
-              type: "uint256",
+              type: "address",
             },
-          ],
-          name: "patients",
-          outputs: [
             {
               internalType: "address",
               name: "",
               type: "address",
             },
           ],
+          name: "doctorsPermissions",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
           stateMutability: "view",
           type: "function",
         },
         {
-          inputs: [],
+          inputs: [
+            {
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "visitCid",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
+          ],
+          name: "finalizeVisit",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "patients",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "visitCid",
+              type: "string",
+            },
+          ],
+          name: "payForVisit",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "signal",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "root",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nullifierHash",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256[8]",
+              name: "proof",
+              type: "uint256[8]",
+            },
+            {
+              internalType: "string",
+              name: "filesCid",
+              type: "string",
+            },
+          ],
           name: "registerDoctor",
           outputs: [],
           stateMutability: "nonpayable",
@@ -775,6 +1166,66 @@ const deployedContracts = {
           name: "registerPatient",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+          ],
+          name: "revokeProfile",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+          ],
+          name: "shareProfile",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          name: "visitdetails",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "paid",
+              type: "bool",
+            },
+            {
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
       ],
