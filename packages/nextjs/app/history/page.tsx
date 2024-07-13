@@ -1,9 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { NextPage } from 'next'
 import { HistoryDetails } from '~~/components/HistoryDetails'
 import { HistoryTable } from '~~/components/HistoryTable'
+import { Button } from '~~/components/ui/Button'
 import { Heading1 } from '~~/components/ui/Heading1'
 import { Heading3 } from '~~/components/ui/Heading3'
 import { Visit } from '~~/types/Data'
@@ -54,6 +56,12 @@ const History: NextPage = () => {
       <Heading3 className="mt-8">Your history:</Heading3>
 
       <HistoryTable data={historyData} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
+
+      <div className="flex items-center justify-center p-8">
+        <Link href="/history/share">
+          <Button>Share your data with client</Button>
+        </Link>
+      </div>
 
       <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit} />
       <img className="absolute bottom-0 right-0" src="/history.svg" alt="" />
