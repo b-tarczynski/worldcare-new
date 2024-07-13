@@ -1,10 +1,16 @@
 'use server'
 
+import lighthouse from '@lighthouse-web3/sdk'
+
 export async function addDoctor(formData: FormData) {
   const rawFormData = {
-    customerId: formData.get('name'),
-    amount: formData.get('surname'),
-    status: formData.get('specialisation'),
+    name: formData.get('name'),
+    surname: formData.get('surname'),
+    specialisation: formData.get('specialisation'),
   }
-  console.log('rawFormData: ', rawFormData)
+
+  const textToUpload = JSON.stringify(rawFormData)
+
+  const response = await lighthouse.uploadText(textToUpload, process.env.LIGHTHOUSE_API_KEY as string, rawFormData.name as string)
+  console.log('response: ', response)
 }

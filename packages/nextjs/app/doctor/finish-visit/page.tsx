@@ -1,6 +1,7 @@
 'use client'
 
 import { NextPage } from 'next'
+import { addVisit } from '~~/app/doctor/finish-visit/addVisit'
 import { BackButton } from '~~/components/ui/BackButton'
 import { Button } from '~~/components/ui/Button'
 import { Heading1 } from '~~/components/ui/Heading1'
@@ -18,7 +19,7 @@ const FinishVisit: NextPage = () => {
         <Heading3 className="mt-4">Please provide all details of the visit</Heading3>
       </div>
 
-      <form action="">
+      <form action={addVisit}>
         <Input id="description" label="Visit Description" placeholder="Patient presents with complaints..." textarea />
         <Input id="recommendations" label="Recommendations" textarea placeholder="Complete Blood Count (CBC)..." />
         <Input id="medicines" label="Medicines" textarea placeholder="Metformin (Glucophage) - 500 mg..." />

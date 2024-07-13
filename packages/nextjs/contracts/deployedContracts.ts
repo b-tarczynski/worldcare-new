@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     Counter: {
-      address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
       abi: [
         {
           inputs: [],
@@ -53,7 +53,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     WorldCare: {
-      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
       abi: [
         {
           inputs: [
@@ -82,45 +82,116 @@ const deployedContracts = {
           type: "error",
         },
         {
+          anonymous: false,
           inputs: [
             {
-              internalType: "uint256",
+              indexed: true,
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "filesCid",
+              type: "string",
+            },
+          ],
+          name: "DoctorRegistered",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "description",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "prescription",
+              type: "string",
+            },
+          ],
+          name: "DocumentAdded",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "filesCid",
+              type: "string",
+            },
+          ],
+          name: "PatientRegistered",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "description",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "prescription",
+              type: "string",
+            },
+          ],
+          name: "AddDocument",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
               name: "",
-              type: "uint256",
+              type: "address",
             },
           ],
           name: "doctors",
           outputs: [
             {
-              internalType: "address",
+              internalType: "bool",
               name: "",
-              type: "address",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "getDoctors",
-          outputs: [
-            {
-              internalType: "address[]",
-              name: "",
-              type: "address[]",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "getPatients",
-          outputs: [
-            {
-              internalType: "address[]",
-              name: "",
-              type: "address[]",
+              type: "bool",
             },
           ],
           stateMutability: "view",
@@ -129,17 +200,17 @@ const deployedContracts = {
         {
           inputs: [
             {
-              internalType: "uint256",
+              internalType: "address",
               name: "",
-              type: "uint256",
+              type: "address",
             },
           ],
           name: "patients",
           outputs: [
             {
-              internalType: "address",
+              internalType: "bool",
               name: "",
-              type: "address",
+              type: "bool",
             },
           ],
           stateMutability: "view",
@@ -166,6 +237,11 @@ const deployedContracts = {
               internalType: "uint256[8]",
               name: "proof",
               type: "uint256[8]",
+            },
+            {
+              internalType: "string",
+              name: "filesCid",
+              type: "string",
             },
           ],
           name: "registerDoctor",
@@ -195,6 +271,11 @@ const deployedContracts = {
               name: "proof",
               type: "uint256[8]",
             },
+            {
+              internalType: "string",
+              name: "filesCid",
+              type: "string",
+            },
           ],
           name: "registerPatient",
           outputs: [],
@@ -205,7 +286,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     WorldId: {
-      address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
       abi: [
         {
           inputs: [
