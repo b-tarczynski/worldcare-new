@@ -1045,7 +1045,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lighthouse-web3/kavach@npm:^0.1.6":
+"@lighthouse-web3/kavach@npm:^0.1.6, @lighthouse-web3/kavach@npm:^0.1.8":
   version: 0.1.8
   resolution: "@lighthouse-web3/kavach@npm:0.1.8"
   dependencies:
@@ -7927,7 +7927,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:^6.7.1":
+"ethers@npm:^6.13.1, ethers@npm:^6.7.1":
   version: 6.13.1
   resolution: "ethers@npm:6.13.1"
   dependencies:
@@ -13693,6 +13693,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "se-2@workspace:."
   dependencies:
+    "@lighthouse-web3/kavach": ^0.1.8
+    ethers: ^6.13.1
     husky: ^8.0.1
     lint-staged: ^13.0.3
   languageName: unknown
