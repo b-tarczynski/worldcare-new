@@ -15,7 +15,6 @@ export function LogoutButton() {
     enabled: !!address,
   })
 
-  console.log('data: ', data)
 
   const router = useRouter()
   const { disconnectAsync } = useDisconnect({

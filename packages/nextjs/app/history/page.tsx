@@ -1,7 +1,9 @@
 'use client'
 
-import {useState} from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
+import { useQuery } from '@tanstack/react-query'
+import { GraphQLClient, gql } from 'graphql-request'
 import { NextPage } from 'next'
 import { HistoryDetails } from '~~/components/HistoryDetails'
 import { HistoryTable } from '~~/components/HistoryTable'
@@ -9,6 +11,7 @@ import { Button } from '~~/components/ui/Button'
 import { Heading1 } from '~~/components/ui/Heading1'
 import { Heading3 } from '~~/components/ui/Heading3'
 import { PaymentModal } from '~~/components/ui/PaymentModal'
+import { visitFinalizeds } from '~~/graphql/queries'
 import { Visit } from '~~/types/Data'
 
 const graphData: Visit[] = [
@@ -36,17 +39,27 @@ const graphData: Visit[] = [
   },
 ]
 
+const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
 
 const History: NextPage = () => {
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>(undefined)
   const mostRecentVisit = graphData[0]
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['finalizedVisits'],
+    queryFn: async () => {
+      const data: any = await client.request(visitFinalizeds)
+
+      return data?.visitFinalizeds
+    },
+  })
 
   return (
     <div>
       <Heading1>Hello! Nice to see you here!</Heading1>
       <Heading3 className="mt-8">Your history:</Heading3>
 
-      <HistoryTable data={graphData} selectRow={(visit: Visit) => setSelectedVisit(visit)}/>
+      <HistoryTable data={graphData} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
 
       <div className="flex items-center justify-center p-8">
         <Link href="/history/share">
