@@ -1,13 +1,13 @@
 'use client'
 
 import { NextPage } from 'next'
+import { addVisit } from '~~/app/doctor/finish-visit/addVisit'
 import { BackButton } from '~~/components/ui/BackButton'
 import { Button } from '~~/components/ui/Button'
 import { Heading1 } from '~~/components/ui/Heading1'
 import { Heading3 } from '~~/components/ui/Heading3'
 import { Input } from '~~/components/ui/Input'
 import { Separator } from '~~/components/ui/Separator'
-import {addVisit} from "~~/app/doctor/finish-visit/addVisit";
 
 const FinishVisit: NextPage = () => {
   return (
