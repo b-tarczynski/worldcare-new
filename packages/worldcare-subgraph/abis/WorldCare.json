@@ -6,8 +6,16 @@
         "name": "_worldId",
         "type": "address"
       },
-      { "internalType": "string", "name": "_appId", "type": "string" },
-      { "internalType": "string", "name": "_actionId", "type": "string" }
+      {
+        "internalType": "string",
+        "name": "_appId",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_actionId",
+        "type": "string"
+      }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -89,11 +97,31 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "signal", "type": "address" },
-      { "internalType": "uint256", "name": "root", "type": "uint256" },
-      { "internalType": "uint256", "name": "nullifierHash", "type": "uint256" },
-      { "internalType": "uint256[8]", "name": "proof", "type": "uint256[8]" },
-      { "internalType": "string", "name": "filesCid", "type": "string" }
+      {
+        "internalType": "address",
+        "name": "signal",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "root",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nullifierHash",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256[8]",
+        "name": "proof",
+        "type": "uint256[8]"
+      },
+      {
+        "internalType": "string",
+        "name": "filesCid",
+        "type": "string"
+      }
     ],
     "name": "registerPatient",
     "outputs": [],
@@ -102,11 +130,31 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "signal", "type": "address" },
-      { "internalType": "uint256", "name": "root", "type": "uint256" },
-      { "internalType": "uint256", "name": "nullifierHash", "type": "uint256" },
-      { "internalType": "uint256[8]", "name": "proof", "type": "uint256[8]" },
-      { "internalType": "string", "name": "filesCid", "type": "string" }
+      {
+        "internalType": "address",
+        "name": "signal",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "root",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nullifierHash",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256[8]",
+        "name": "proof",
+        "type": "uint256[8]"
+      },
+      {
+        "internalType": "string",
+        "name": "filesCid",
+        "type": "string"
+      }
     ],
     "name": "registerDoctor",
     "outputs": [],
@@ -115,11 +163,31 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "patient", "type": "address" },
-      { "internalType": "address", "name": "doctor", "type": "address" },
-      { "internalType": "string", "name": "description", "type": "string" },
-      { "internalType": "string", "name": "prescription", "type": "string" },
-      { "internalType": "uint256", "name": "price", "type": "uint256" }
+      {
+        "internalType": "address",
+        "name": "patient",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "doctor",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "prescription",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      }
     ],
     "name": "AddDocument",
     "outputs": [],
@@ -127,31 +195,11 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "doctors",
-    "outputs": [
-      {
-        "internalType": "mapping(address => bool)",
-        "name": "",
-        "type": "mapping"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
+    "stateMutability": "payable",
+    "type": "receive"
   },
   {
-    "inputs": [],
-    "name": "patients",
-    "outputs": [
-      {
-        "internalType": "mapping(address => bool)",
-        "name": "",
-        "type": "mapping"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  { "stateMutability": "payable", "type": "receive" },
-  { "stateMutability": "payable", "type": "fallback" }
+    "stateMutability": "payable",
+    "type": "fallback"
+  }
 ]
