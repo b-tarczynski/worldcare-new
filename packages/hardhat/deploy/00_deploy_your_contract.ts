@@ -32,7 +32,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   //   autoMine: true,
   // });
 
-  await deploy("WorldCare", {
+  const worldId =  await deploy("WorldId", {
     from: deployer,
     // Contract constructor arguments
     log: true,
@@ -40,6 +40,25 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     // automatically mining the contract deployment transaction. There is no effect on live networks.
     autoMine: true,
   });
+
+  if (!worldId.receipt){
+    throw new Error('WorldId contract deployment failed')
+  }
+  
+  await deploy("WorldCare", {
+    from: deployer,
+    // Contract constructor arguments
+    log: true,
+    args: [
+      worldId.receipt.contractAddress,
+      'app_staging_47391015481f14b9ef820719cb4383a7',
+      'register-user',
+    ],
+    // autoMine: can be passed to the deploy function to make the deployment process faster on local networks by
+    // automatically mining the contract deployment transaction. There is no effect on live networks.
+    autoMine: true,
+  });
+
 
   await deploy("Counter", {
     from: deployer,
