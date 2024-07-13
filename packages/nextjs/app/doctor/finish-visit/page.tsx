@@ -19,14 +19,14 @@ const FinishVisit: NextPage = () => {
       </div>
 
       <form action="">
-        <Input label="Visit Description" placeholder="Patient presents with complaints..." textarea />
-        <Input label="Recommendations" textarea placeholder="Complete Blood Count (CBC)..." />
-        <Input label="Medicines" textarea placeholder="Metformin (Glucophage) - 500 mg..." />
+        <Input id="description" label="Visit Description" placeholder="Patient presents with complaints..." textarea />
+        <Input id="recommendations" label="Recommendations" textarea placeholder="Complete Blood Count (CBC)..." />
+        <Input id="medicines" label="Medicines" textarea placeholder="Metformin (Glucophage) - 500 mg..." />
 
         <Separator />
 
         <div className="max-w-64">
-          <Input label="Price" placeholder="100" />
+          <Input id="price" label="Price" placeholder="100" />
         </div>
         <div className="text-xs font-semibold mt-1 text-slate-500">Price in dollars [$]</div>
 
