@@ -5,55 +5,9 @@
 import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
 const deployedContracts = {
-  31337: {
-    Counter: {
-      address: "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
-      abi: [
-        {
-          inputs: [],
-          name: "count",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "dec",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "get",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "inc",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-      ],
-      inheritedFunctions: {},
-    },
+  84532: {
     WorldCare: {
-      address: "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+      address: "0x58034592879fAFF08fBa5192bFf244f0B8bA6dD9",
       abi: [
         {
           inputs: [
@@ -182,52 +136,6 @@ const deployedContracts = {
         },
       ],
       inheritedFunctions: {},
-    },
-    WorldId: {
-      address: "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
-      abi: [
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "root",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "groupId",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "signalHash",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "nullifierHash",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "externalNullifierHash",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256[8]",
-              name: "proof",
-              type: "uint256[8]",
-            },
-          ],
-          name: "verifyProof",
-          outputs: [],
-          stateMutability: "view",
-          type: "function",
-        },
-      ],
-      inheritedFunctions: {
-        verifyProof: "contracts/interfaces/IWorldID.sol",
-      },
     },
   },
   11155111: {
