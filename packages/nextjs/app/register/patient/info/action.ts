@@ -28,7 +28,7 @@ const config = createConfig({
   },
   cacheTime: 0,
 })
-const hardcodedNextNonce = 9
+const hardcodedNextNonce = 12
 
 export async function addPatient(formData: FormData, address: Address) {
   const rawFormData = {
@@ -59,7 +59,7 @@ export async function addPatient(formData: FormData, address: Address) {
     chainId: sepolia.id,
     functionName: 'commit',
     args: [makeCommitmentResp],
-    //nonce: hardcodedNextNonce
+    nonce: hardcodedNextNonce
   })
   console.log('commitHash1: ', commitHash)
   const receipt = await waitForTransactionReceipt(config, {
@@ -88,7 +88,7 @@ export async function addPatient(formData: FormData, address: Address) {
     functionName: 'register',
     args: registerArgs,
     value: readPriceResp[0] + readPriceResp[1],
-    //nonce: hardcodedNextNonce + 1
+    nonce: hardcodedNextNonce + 1,
   })
 
   const registerReceiptResp = await waitForTransactionReceipt(config, {
@@ -96,8 +96,6 @@ export async function addPatient(formData: FormData, address: Address) {
     hash: registerHash,
   })
   console.log('registerReceiptResp: ', registerReceiptResp)
-
-  redirect('/history')
 }
 
 async function sleep(ms: number) {
