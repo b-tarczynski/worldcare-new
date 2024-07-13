@@ -46,7 +46,7 @@ Serum Protein Electrophoresis (SPEP): To rule out multiple myeloma or other plas
 ]
 
 const History: NextPage = () => {
-  const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>(historyData[0])
+  const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>()
 
   return (
     <div>
