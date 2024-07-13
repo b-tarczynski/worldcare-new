@@ -5,6 +5,8 @@ import { Heading1 } from '~~/components/ui/Heading1'
 import { Heading3 } from '~~/components/ui/Heading3'
 import { Input } from '~~/components/ui/Input'
 import { addDoctor } from './action'
+import { Button } from '~~/components/ui/Button'
+
 
 const DoctorInfo: NextPage = () => {
   return <div className="flex flex-col items-center justify-center gap-10 mt-24">
@@ -18,7 +20,7 @@ const DoctorInfo: NextPage = () => {
         <Input id="surname" label="Surname" placeholder="Doe" />
       </div>
       <Input id="specialisation" label="Specialisation" placeholder="Internist" className="w-full" />
-      <button type="submit">Submit</button>
+      <Button type="submit">Submit</Button>
     </form>
   </div>
 }
