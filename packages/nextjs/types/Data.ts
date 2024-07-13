@@ -4,8 +4,11 @@ export interface Doctor {
   specialization: string
 }
 
-export interface Prescription {
+export interface Visit {
   id: number
   date: Date
   doctor: Doctor
+  description: string
+  recommendations: string
+  medication: string[]
 }

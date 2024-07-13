@@ -1,26 +1,27 @@
 import { ReactNode } from 'react'
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
-import { Prescription } from '~~/types/Data'
+import { Visit } from '~~/types/Data'
 
 interface Props {
-  data: Prescription[]
+  data: Visit[]
+  selectRow: (visit: Visit) => void
 }
 
-export function HistoryTable({ data }: Props) {
+export function HistoryTable({ data, selectRow }: Props) {
   return (
     <table className="table border bg-white z-10">
       <tbody>
-        {data.map(({ id, doctor, date }) => (
-          <tr key={id}>
-            <TD>{date.toDateString()}</TD>
+        {data.map((visit) => (
+          <tr key={visit.id}>
+            <TD>{visit.date.toDateString()}</TD>
             <TD>
               <div className="flex items-center gap-3">
-                <img className="w-10 h-10" src={doctor.avatar} alt="" /> {doctor.name}
+                <img className="w-10 h-10" src={visit.doctor.avatar} alt="" /> {visit.doctor.name}
               </div>
             </TD>
-            <TD>{doctor.specialization}</TD>
+            <TD>{visit.doctor.specialization}</TD>
             <TD>
-              <div className="flex items-center gap-2">
+              <div onClick={() => selectRow(visit)} className="cursor-pointer flex items-center gap-2">
                 See details <ArrowRightIcon className="h-4 w-4" />
               </div>
             </TD>
