@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import { IDKitWidget, ISuccessResult } from "@worldcoin/idkit";
 import { decodeAbiParameters } from "viem";
 import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
+import { worldAction, worldIdApp } from "~~/app/constants";
 
 const PatientSignin: NextPage = () => {
   const { openConnectModal } = useConnectModal()
@@ -58,8 +59,8 @@ const PatientSignin: NextPage = () => {
 
     {address && (
       <IDKitWidget
-        app_id="app_staging_47391015481f14b9ef820719cb4383a7" // obtained from the Developer Portal
-        action="register-user" // obtained from the Developer Portal
+        app_id={worldIdApp} // obtained from the Developer Portal
+        action={worldAction} // obtained from the Developer Portal
         onSuccess={onSuccess} // callback when the modal is closed
         signal={address} // the signal to be verified
       // handleVerify={handleVerify} // callback when the proof is received
