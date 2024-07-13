@@ -1,4 +1,4 @@
-import { Logo } from "~~/components/Logo";
+import { Logo } from '~~/components/Logo'
 
 const RegisterLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -8,7 +8,7 @@ const RegisterLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default RegisterLayout;
+export default RegisterLayout

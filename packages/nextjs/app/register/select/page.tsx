@@ -9,7 +9,7 @@ export default function Register() {
     <div className="flex flex-col gap-6 text-center">
       <div>
         <Heading1>Register</Heading1>
-        <Heading3>Who you are?</Heading3>
+        <Heading3 className='mt-3'>Who you are?</Heading3>
       </div>
 
       <div className="flex justify-center gap-6">
@@ -48,7 +48,7 @@ interface CardProps {
 function RegisterCard({ children, className }: CardProps) {
   return (
     <div
-      className={`border w-full border-transparent hover:border-black overflow-hidden relative min-h-96 p-8 rounded-2xl ${className}`}
+      className={`border w-full border-transparent hover:border-black overflow-hidden relative min-h-96 p-8 px-14 rounded-2xl ${className}`}
     >
       {children}
     </div>
