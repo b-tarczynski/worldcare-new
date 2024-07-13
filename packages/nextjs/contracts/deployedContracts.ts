@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     Counter: {
-      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
       abi: [
         {
           inputs: [],
@@ -53,7 +53,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     WorldCare: {
-      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
       abi: [
         {
           inputs: [
@@ -90,6 +90,12 @@ const deployedContracts = {
               name: "doctor",
               type: "address",
             },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "filesCid",
+              type: "string",
+            },
           ],
           name: "DoctorRegistered",
           type: "event",
@@ -103,9 +109,74 @@ const deployedContracts = {
               name: "patient",
               type: "address",
             },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "description",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "prescription",
+              type: "string",
+            },
+          ],
+          name: "DocumentAdded",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "filesCid",
+              type: "string",
+            },
           ],
           name: "PatientRegistered",
           type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "description",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "prescription",
+              type: "string",
+            },
+          ],
+          name: "AddDocument",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
         },
         {
           inputs: [
@@ -167,6 +238,11 @@ const deployedContracts = {
               name: "proof",
               type: "uint256[8]",
             },
+            {
+              internalType: "string",
+              name: "filesCid",
+              type: "string",
+            },
           ],
           name: "registerDoctor",
           outputs: [],
@@ -195,6 +271,11 @@ const deployedContracts = {
               name: "proof",
               type: "uint256[8]",
             },
+            {
+              internalType: "string",
+              name: "filesCid",
+              type: "string",
+            },
           ],
           name: "registerPatient",
           outputs: [],
@@ -205,7 +286,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     WorldId: {
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
       abi: [
         {
           inputs: [
