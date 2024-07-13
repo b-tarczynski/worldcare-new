@@ -1,4 +1,5 @@
 interface InputProps {
+  id: string
   label?: string
   placeholder?: string
   className?: string
@@ -6,15 +7,15 @@ interface InputProps {
   textarea?: boolean
 }
 
-export const Input = ({ label, placeholder, className, textarea }: InputProps) => {
+export const Input = ({ id, label, placeholder, className, textarea }: InputProps) => {
   return (
     <label className={className}>
       <div className="label">{label && <span className="label-text">{label}</span>}</div>
 
       {textarea ? (
-        <textarea rows={6} placeholder={placeholder} className="input p-3 input-bordered w-full bg-white h-auto mb-4" />
+        <textarea id={id} name={id} rows={6} placeholder={placeholder} className="input p-3 input-bordered w-full bg-white h-auto mb-4" />
       ) : (
-        <input type="text" placeholder={placeholder} className="input input-bordered w-full bg-white" />
+        <input id={id} name={id} type="text" placeholder={placeholder} className="input input-bordered w-full bg-white" />
       )}
     </label>
   )
