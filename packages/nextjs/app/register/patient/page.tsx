@@ -34,7 +34,6 @@ const PatientSignin: NextPage = () => {
         BigInt(result.merkle_root),
         BigInt(result.nullifier_hash),
         unpackedProof,
-        '0xbafkreibpppzeta6odb3k25ctwwqqq3zxqa4v67k3lc7ryh7dw2vcjot63u'
       ],
     }, {
       onSuccess: () => {
