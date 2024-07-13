@@ -27,8 +27,7 @@ const DoctorInfo: NextPage = () => {
     if (!address || !merkle_root || !nullifier_hash || !proof || !formData) {
       throw new Error('Invalid parameters')
     }
-    // const cid = await addDoctor(formData)
-    const cid = 'rand_string'
+    const cid = await addDoctor(formData)
     const unpackedProof = decodeAbiParameters([{ type: 'uint256[8]' }], proof as `0x${string}`)[0]
     await writeYourContractAsync({
       functionName: "registerDoctor",
