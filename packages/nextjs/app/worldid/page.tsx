@@ -31,6 +31,7 @@ const WorldId: NextPage = () => {
         app_id="app_staging_47391015481f14b9ef820719cb4383a7" // obtained from the Developer Portal
         action="register-user" // obtained from the Developer Portal
         onSuccess={onSuccess} // callback when the modal is closed
+        signal={connectedAddress} // the signal to be verified
       // handleVerify={handleVerify} // callback when the proof is received
       // verification_level={VerificationLevel.Orb}
       >
