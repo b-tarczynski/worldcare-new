@@ -122,7 +122,7 @@ const config: HardhatUserConfig = {
   // configuration for harhdat-verify plugin
   etherscan: {
     apiKey: {
-      optimismSepolia: `${etherscanApiKey}`
+      optimismSepolia: 'HE856Y2IHANM72HHNQX1QT4DUT5UN87IK7'
     },
     customChains: [
       {
