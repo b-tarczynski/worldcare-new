@@ -3,7 +3,7 @@ import { IDKitWidget, ISuccessResult } from '@worldcoin/idkit'
 import type { NextPage } from 'next'
 import { useAccount } from 'wagmi';
 import { useScaffoldWriteContract } from '~~/hooks/scaffold-eth';
-import { decodeAbiParameters } from 'viem'
+import { decodeAbiParameters, toHex } from 'viem'
 
 
 const WorldId: NextPage = () => {
@@ -20,7 +20,8 @@ const WorldId: NextPage = () => {
         connectedAddress,
         BigInt(result.merkle_root),
         BigInt(result.nullifier_hash),
-        unpackedProof
+        unpackedProof,
+        toHex('0xbafkreibpppzeta6odb3k25ctwwqqq3zxqa4v67k3lc7ryh7dw2vcjot63u')
       ],
     })
   }

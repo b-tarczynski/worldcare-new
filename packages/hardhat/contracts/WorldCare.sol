@@ -32,8 +32,10 @@ contract WorldCare {
     /// @dev Whether a nullifier hash has been used already. Used to guarantee an action is only performed once by a single person
     mapping(uint256 => bool) internal nullifierHashes;
 
-    event DoctorRegistered(address indexed doctor);
-    event PatientRegistered(address indexed patient);
+    event DoctorRegistered(address indexed doctor, string filesCid);
+    event PatientRegistered(address indexed patient, string filesCid);
+
+    event DocumentAdded(address indexed patient, address indexed doctor, string description, string prescription);
 
     /// @param _worldId The WorldID instance that will verify the proofs
     /// @param _appId The World ID app ID
@@ -58,7 +60,8 @@ contract WorldCare {
         address signal,
         uint256 root,
         uint256 nullifierHash,
-        uint256[8] calldata proof
+        uint256[8] calldata proof,
+        string calldata filesCid
     ) public {
         // First, we make sure this person hasn't done this before
         if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
@@ -78,7 +81,7 @@ contract WorldCare {
 
         patients[signal] = true;
 
-        emit PatientRegistered(signal);
+        emit PatientRegistered(signal, filesCid);
 
         // Finally, execute your logic here, for example issue a token, NFT, etc...
         // Make sure to emit some kind of event afterwards!
@@ -98,7 +101,8 @@ contract WorldCare {
         address signal,
         uint256 root,
         uint256 nullifierHash,
-        uint256[8] calldata proof
+        uint256[8] calldata proof,
+        string calldata filesCid
     ) public {
         // First, we make sure this person hasn't done this before
         if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
@@ -118,12 +122,21 @@ contract WorldCare {
 
         doctors[signal] = true;
 
-        emit DoctorRegistered(signal);
+        emit DoctorRegistered(signal, filesCid);
 
         // Finally, execute your logic here, for example issue a token, NFT, etc...
         // Make sure to emit some kind of event afterwards!
     }
 
+    function AddDocument(
+        address patient,
+        address doctor, 
+        string calldata description,
+        string calldata prescription) public {
+        require(doctors[doctor], "Only doctors can add documents");
+        require(patients[patient], "Only patients can have documents");
+        emit DocumentAdded(patient, doctor, description, prescription);
+    }
 
 
     // function registerDoctor() public {
