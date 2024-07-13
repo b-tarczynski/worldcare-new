@@ -38,7 +38,7 @@ const Home: NextPage = () => {
         <Heading1>Hello!</Heading1>
         <Heading3>Welcome to Worldcare platform</Heading3>
       </div>
-      <div className="card card-bordered border-black min-w-[900px] cursor-pointer" onClick={onLogin}>
+      <div className="card card-bordered border-black min-w-[900px] cursor-pointer hover:bg-[#FDFF7D]" onClick={onLogin}>
         <div className="card-body px-20 py-5">
           <div className="flex flex-row items-center gap-4 min-h-44">
             <span className="text-3xl">I already have an account</span>
@@ -47,7 +47,7 @@ const Home: NextPage = () => {
         </div>
         <img className="absolute right-5 bottom-0" alt="home login" src="/home-login.svg" />
       </div>
-      <div className="card card-bordered border-black min-w-[900px]">
+      <div className="card card-bordered border-black min-w-[900px] hover:bg-[#AEE5F5]">
         <Link href="/register/select">
           <div className="card-body px-20 py-5">
             <div className="flex flex-row items-center gap-4 min-h-44">
