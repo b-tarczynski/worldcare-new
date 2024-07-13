@@ -5,8 +5,9 @@ import { Separator } from './ui/Separator'
 import kavach from '@lighthouse-web3/kavach'
 import lighthouse from '@lighthouse-web3/sdk'
 import { useQuery } from '@tanstack/react-query'
-import { ethers } from 'ethers'
 import { QRCodeSVG } from 'qrcode.react'
+import { Hex } from 'viem'
+import { useAccount, useSignMessage } from 'wagmi'
 import { ArrowUpOnSquareIcon } from '@heroicons/react/24/outline'
 import { Visit, VisitHiddenData } from '~~/types/Data'
 
@@ -15,26 +16,8 @@ interface Props {
   onClose: () => void
 }
 
-const patientPublicKey = '0xdD2FD4581271e230360230F9337D5c0430Bf44C0'
-const patientPrivateKey = '0xde9be858da4a475276426320d5e9262ecfc3ba460bfac56360bfa6c4c28b4ee0'
-
-async function encryptionSignature() {
-  const signer = new ethers.Wallet(patientPrivateKey)
-  const authMessage = await kavach.getAuthMessage(signer.address)
-
-  // @ts-ignore
-  const signedMessage = await signer.signMessage(authMessage.message)
-
-  return {
-    signedMessage,
-    publicKey: signer.address,
-  }
-}
-
-async function fetchHistoryData(cid: string): Promise<VisitHiddenData> {
-  const { signedMessage, publicKey } = await encryptionSignature()
-
-  const keyObject = await lighthouse.fetchEncryptionKey(cid, publicKey, signedMessage)
+async function fetchHistoryData(address: string, cid: string, signature: Hex): Promise<VisitHiddenData> {
+  const keyObject = await lighthouse.fetchEncryptionKey(cid, address, signature)
 
   const fileType = 'text'
   const decrypted = await lighthouse.decryptFile(cid, keyObject.data.key as string, fileType)
@@ -46,15 +29,29 @@ async function fetchHistoryData(cid: string): Promise<VisitHiddenData> {
 }
 
 export function HistoryDetails({ visit, onClose }: Props) {
-  if (!visit) return null
+  const { signMessageAsync } = useSignMessage()
+  const { address } = useAccount()
 
   const { data, isLoading } = useQuery({
     queryKey: ['history', visit?.cid],
     queryFn: async () => {
-      return await fetchHistoryData(visit?.cid as string)
+      if (!address) {
+        throw new Error('wallet not connected')
+      }
+
+      const message = await kavach.getAuthMessage(address)
+      if (!message.message) {
+        throw new Error('failed to generate auth message')
+      }
+      const signature = await signMessageAsync({
+        message: message.message,
+      })
+      return await fetchHistoryData(address, visit?.cid as string, signature)
     },
     enabled: !!visit,
   })
+
+  if (!visit) return null
 
   return (
     <>
