@@ -1,12 +1,13 @@
 import { Logo } from '~~/components/Logo'
 import { LogoutButton } from '~~/components/LogoutButton'
+import { useEnsName } from 'wagmi'
 
 const RegisterLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-w-[1000px] mx-auto">
       <div className="flex items-center justify-between h-24">
         <Logo />
-      <LogoutButton user='mauro.eth' />
+        <LogoutButton />
       </div>
       {children}
     </div>
