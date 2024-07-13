@@ -1,15 +1,45 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { NextPage } from 'next'
-import { addVisit } from '~~/app/doctor/finish-visit/addVisit'
+import { useAccount } from 'wagmi'
+import { addVisitFile } from '~~/app/doctor/finish-visit/addVisitFile'
 import { BackButton } from '~~/components/ui/BackButton'
 import { Button } from '~~/components/ui/Button'
 import { Heading1 } from '~~/components/ui/Heading1'
 import { Heading3 } from '~~/components/ui/Heading3'
 import { Input } from '~~/components/ui/Input'
 import { Separator } from '~~/components/ui/Separator'
+import { useScaffoldWriteContract } from '~~/hooks/scaffold-eth'
+import {patientPublicKey} from "../../../../../hardcodes";
 
 const FinishVisit: NextPage = () => {
+  const { isConnected, address: doctorsAddress } = useAccount()
+  if (!isConnected || !doctorsAddress) {
+    throw new Error('Not connected')
+  }
+
+  const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract('WorldCare')
+
+  const router = useRouter()
+
+  const onSubmit = async (formData: FormData) => {
+    const visitCid = await addVisitFile(formData)
+    const price = (formData.get('price') || 100).toString()
+
+    await writeYourContractAsync(
+      {
+        functionName: 'finalizeVisit',
+        args: [patientPublicKey, doctorsAddress, visitCid, BigInt(price)],
+      },
+      {
+        onSuccess: () => {
+          router.push('/doctor')
+        },
+      },
+    )
+  }
+
   return (
     <div>
       <BackButton href="/doctor/history" />
@@ -19,7 +49,7 @@ const FinishVisit: NextPage = () => {
         <Heading3 className="mt-4">Please provide all details of the visit</Heading3>
       </div>
 
-      <form action={addVisit}>
+      <form action={onSubmit}>
         <Input id="description" label="Visit Description" placeholder="Patient presents with complaints..." textarea />
         <Input id="recommendations" label="Recommendations" textarea placeholder="Complete Blood Count (CBC)..." />
         <Input id="medicines" label="Medicines" textarea placeholder="Metformin (Glucophage) - 500 mg..." />
