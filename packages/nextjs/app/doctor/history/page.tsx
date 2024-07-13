@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { NextPage } from 'next'
+import { transactionType } from 'viem'
 import { HistoryDetails } from '~~/components/HistoryDetails'
 import { HistoryTable } from '~~/components/HistoryTable'
 import { Button } from '~~/components/ui/Button'
@@ -32,6 +33,7 @@ Serum Protein Electrophoresis (SPEP): To rule out multiple myeloma or other plas
       'Glipizide (Glucotrol) - 500 mg twice daily',
       'Insulin (Lantus, Humalog) - 500 mg twice daily',
     ],
+    transaction: 'https://eth.blockscout.com/tx/0x7e7b4d2e56a735bbb89c5cda4d9eb39ec719d6cf4cc3468701bbca9b375f7475',
   },
   {
     id: 2,
@@ -44,6 +46,7 @@ Serum Protein Electrophoresis (SPEP): To rule out multiple myeloma or other plas
     description: '',
     recommendations: '',
     medication: [],
+    transaction: 'https://eth.blockscout.com/tx/0x7e7b4d2e56a735bbb89c5cda4d9eb39ec719d6cf4cc3468701bbca9b375f7475',
   },
 ]
 

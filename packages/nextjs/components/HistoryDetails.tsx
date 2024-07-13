@@ -1,7 +1,7 @@
 import { Heading1 } from './ui/Heading1'
-import { Heading3 } from './ui/Heading3'
 import { Separator } from './ui/Separator'
 import { QRCodeSVG } from 'qrcode.react'
+import { ArrowUpOnSquareIcon } from '@heroicons/react/24/outline'
 import { Visit } from '~~/types/Data'
 
 interface Props {
@@ -21,13 +21,25 @@ export function HistoryDetails({ visit, onClose }: Props) {
 }
 
 function Details({ visit, onClose }: { visit: Visit; onClose: () => void }) {
-  const { doctor } = visit
+  const { doctor, transaction } = visit
   const { name, avatar, specialization } = doctor
 
   return (
-    <div className="bg-white max-w-[1000px] absolute right-0 top-0 h-screen z-30 py-5 px-20 overflow-y-scroll">
+    <div className="bg-white w-[1000px] absolute right-0 top-0 h-screen z-30 py-5 px-20 overflow-y-scroll">
       <div className="flex items-center mb-8 justify-between">
-        <div className="font-bold">{visit?.date.toDateString()}</div>
+        <div className="flex items-center gap-3">
+          <div className="font-bold">{visit?.date.toDateString()}</div>
+
+          <div className="h-2 w-2 bg-black rounded-full mx-6" />
+          <div className="rounded-full bg-[#4ADE80] font-semibold px-3">Paid</div>
+          <a
+            href={transaction}
+            target="_blank"
+            className="text-sm font-semibold underline flex items-center gap-1"
+          >
+            <span>See on the Blockscout</span> <ArrowUpOnSquareIcon className="h-5 w-5" />
+          </a>
+        </div>
         <button onClick={onClose} className="btn btn-ghost text-red-500">
           Close
         </button>
@@ -47,17 +59,17 @@ function Details({ visit, onClose }: { visit: Visit; onClose: () => void }) {
 
       <Separator />
 
-      <Heading3 className="text-black mb-4">Visit Description</Heading3>
+      <div className="text-black text-lg font-bold mb-4">Visit Description</div>
       <div className="font-bold text-neutral">{visit.description}</div>
 
       <Separator />
 
-      <Heading3 className="text-black mb-4">Recommendation</Heading3>
+      <div className="text-black text-lg font-bold mb-4">Recommendation</div>
       <div className="font-bold text-neutral">{visit.recommendations}</div>
 
       <Separator />
 
-      <Heading3 className="text-black mb-4">Medicines</Heading3>
+      <div className="text-black text-lg font-bold mb-4">Medicines</div>
       <div className="flex items-center gap-6">
         <QRCodeSVG value={'bawimy sie'} size={128} />
         <ul className="font-bold text-neutral list-none">
@@ -66,6 +78,7 @@ function Details({ visit, onClose }: { visit: Visit; onClose: () => void }) {
           ))}
         </ul>
       </div>
+      <div className="bg-[#AEE5F5] p-3 px-6 rounded-xl font-semibold my-5">Show QR code in the pharmacy :)</div>
     </div>
   )
 }
