@@ -35,7 +35,7 @@ contract WorldCare {
     mapping(uint256 => bool) internal nullifierHashes;
 
     event DoctorRegistered(address indexed doctor, string filesCid);
-    event PatientRegistered(address indexed patient, string filesCid);
+    event PatientRegistered(address indexed patient);
 
     event DocumentAdded(address indexed patient, address indexed doctor, string description, string prescription, uint price);
 
@@ -62,8 +62,7 @@ contract WorldCare {
         address signal,
         uint256 root,
         uint256 nullifierHash,
-        uint256[8] calldata proof,
-        string calldata filesCid
+        uint256[8] calldata proof
     ) public {
         // First, we make sure this person hasn't done this before
         if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
@@ -83,7 +82,7 @@ contract WorldCare {
 
         patients[signal] = true;
 
-        emit PatientRegistered(signal, filesCid);
+        emit PatientRegistered(signal);
 
         // Finally, execute your logic here, for example issue a token, NFT, etc...
         // Make sure to emit some kind of event afterwards!
