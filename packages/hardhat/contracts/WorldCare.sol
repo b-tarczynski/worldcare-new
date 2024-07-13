@@ -5,8 +5,11 @@ import { ByteHasher } from "./helpers/ByteHasher.sol";
 import { IWorldID } from "./interfaces/IWorldID.sol";
 
 contract WorldCare {
-    address[] public patients;
-    address[] public doctors;
+    // address[] public patients;
+    // address[] public doctors;
+
+    mapping(address => bool) public patients;
+    mapping(address => bool) public doctors;
 
     using ByteHasher for bytes;
 
@@ -28,6 +31,9 @@ contract WorldCare {
 
     /// @dev Whether a nullifier hash has been used already. Used to guarantee an action is only performed once by a single person
     mapping(uint256 => bool) internal nullifierHashes;
+
+    event DoctorRegistered(address indexed doctor);
+    event PatientRegistered(address indexed patient);
 
     /// @param _worldId The WorldID instance that will verify the proofs
     /// @param _appId The World ID app ID
@@ -70,7 +76,9 @@ contract WorldCare {
         // We now record the user has done this, so they can't do it again (proof of uniqueness)
         nullifierHashes[nullifierHash] = true;
 
-        patients.push(signal);
+        patients[signal] = true;
+
+        emit PatientRegistered(signal);
 
         // Finally, execute your logic here, for example issue a token, NFT, etc...
         // Make sure to emit some kind of event afterwards!
@@ -108,21 +116,17 @@ contract WorldCare {
         // We now record the user has done this, so they can't do it again (proof of uniqueness)
         nullifierHashes[nullifierHash] = true;
 
-        doctors.push(signal);
+        doctors[signal] = true;
+
+        emit DoctorRegistered(signal);
 
         // Finally, execute your logic here, for example issue a token, NFT, etc...
         // Make sure to emit some kind of event afterwards!
     }
 
+
+
     // function registerDoctor() public {
     //     doctors.push(msg.sender);
     // }
-
-    function getPatients() public view returns (address[] memory) {
-        return patients;
-    }
-
-    function getDoctors() public view returns (address[] memory) {
-        return doctors;
-    }
 }
