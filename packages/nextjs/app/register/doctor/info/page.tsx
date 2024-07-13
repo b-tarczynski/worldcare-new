@@ -31,7 +31,7 @@ const DoctorInfo: NextPage = () => {
     const cid = 'rand_string'
     const unpackedProof = decodeAbiParameters([{ type: 'uint256[8]' }], proof as `0x${string}`)[0]
     await writeYourContractAsync({
-      functionName: "registerPatient",
+      functionName: "registerDoctor",
       args: [
         address,
         BigInt(merkle_root),
@@ -41,7 +41,7 @@ const DoctorInfo: NextPage = () => {
       ],
     }, {
       onSuccess: () => {
-        router.push('/history')
+        router.push('/doctor')
       }
     })
 
