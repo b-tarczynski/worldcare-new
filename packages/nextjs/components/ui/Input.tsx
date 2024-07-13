@@ -2,6 +2,7 @@ interface InputProps {
   label?: string
   placeholder?: string
   className?: string
+  inputClass?: string
 }
 
 export const Input = ({ label, placeholder, className }: InputProps) => {
