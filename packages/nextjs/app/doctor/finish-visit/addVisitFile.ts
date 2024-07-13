@@ -22,7 +22,7 @@ async function uploadVisit(formData: FormData, signedMessage: string) {
   return response.data.Hash
 }
 
-export async function addVisit(formData: FormData) {
+export async function addVisitFile(formData: FormData) {
   const signedMessage = await signAuthMessage(privateBackendKey)
   console.log('signedMessage: ', signedMessage)
 
@@ -30,5 +30,5 @@ export async function addVisit(formData: FormData) {
 
   await shareFile(publicBackendKey, patientPublicKey, visitCid, signedMessage)
 
-  console.log('descriptionCid: ', visitCid)
+  return visitCid
 }
