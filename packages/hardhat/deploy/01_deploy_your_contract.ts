@@ -4,7 +4,8 @@ import { Contract } from "ethers";
 
 const worldRouterAddresses = {
   sepolia: '0x469449f251692e0779667583026b5a1e99512157',
-  optimismSepolia: '0x11cA3127182f7583EfC416a8771BD4d11Fae4334'
+  optimismSepolia: '0x11cA3127182f7583EfC416a8771BD4d11Fae4334',
+  baseSepolia: '0x42FF98C4E85212a5D31358ACbFe76a621b50fC02',
 }
 
 /**
@@ -21,7 +22,8 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     return
   }
 
-  if (hre.network.name != 'sepolia' && hre.network.name != 'optimismSepolia') {
+  if (hre.network.name != 'sepolia' && hre.network.name != 'optimismSepolia' && hre.network.name != 'baseSepolia') {
+    console.log('SEARCH THIS STAFF And add condition')
     return
   }
 

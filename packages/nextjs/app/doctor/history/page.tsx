@@ -47,21 +47,20 @@ Serum Protein Electrophoresis (SPEP): To rule out multiple myeloma or other plas
   },
 ]
 
-const History: NextPage = () => {
+const DoctorHistory: NextPage = () => {
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>()
 
   return (
     <div>
-      <Heading1>Hello! Nice to see you here!</Heading1>
-      <Heading3 className="mt-8">Your history:</Heading3>
+      <Heading1>Your client history:</Heading1>
 
-      <HistoryTable data={historyData} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
-
-      <div className="flex items-center justify-center p-8">
-        <Link href="/history/share">
-          <Button>Share your data with client</Button>
+      <div className="bg-[#4ADE80] p-3 mt-8 font-semibold flex items-center justify-center gap-8">
+        Medical data is currenty shared from john.eth
+        <Link href="/doctor/finish-visit">
+          <button className="btn btn-outline rounded-full min-w-56 bg-white">Finish the visit</button>
         </Link>
       </div>
+      <HistoryTable data={historyData} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
 
       <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit} />
       <img className="absolute bottom-0 right-0" src="/history.svg" alt="" />
@@ -69,4 +68,4 @@ const History: NextPage = () => {
   )
 }
 
-export default History
+export default DoctorHistory
