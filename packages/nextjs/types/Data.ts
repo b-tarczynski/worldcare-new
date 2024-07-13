@@ -11,5 +11,6 @@ export interface Visit {
   description: string
   recommendations: string
   medication: string[]
-  transaction: string
+  transaction?: string
+  price: number
 }

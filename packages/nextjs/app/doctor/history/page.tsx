@@ -34,6 +34,7 @@ Serum Protein Electrophoresis (SPEP): To rule out multiple myeloma or other plas
       'Insulin (Lantus, Humalog) - 500 mg twice daily',
     ],
     transaction: 'https://eth.blockscout.com/tx/0x7e7b4d2e56a735bbb89c5cda4d9eb39ec719d6cf4cc3468701bbca9b375f7475',
+    price: 100,
   },
   {
     id: 2,
@@ -47,6 +48,7 @@ Serum Protein Electrophoresis (SPEP): To rule out multiple myeloma or other plas
     recommendations: '',
     medication: [],
     transaction: 'https://eth.blockscout.com/tx/0x7e7b4d2e56a735bbb89c5cda4d9eb39ec719d6cf4cc3468701bbca9b375f7475',
+    price: 100,
   },
 ]
 

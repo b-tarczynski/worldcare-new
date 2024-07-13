@@ -35,7 +35,7 @@ contract WorldCare {
     event DoctorRegistered(address indexed doctor, string filesCid);
     event PatientRegistered(address indexed patient, string filesCid);
 
-    event DocumentAdded(address indexed patient, address indexed doctor, string description, string prescription);
+    event DocumentAdded(address indexed patient, address indexed doctor, string description, string prescription, uint price);
 
     /// @param _worldId The WorldID instance that will verify the proofs
     /// @param _appId The World ID app ID
@@ -132,12 +132,13 @@ contract WorldCare {
         address patient,
         address doctor, 
         string calldata description,
-        string calldata prescription) public {
+        string calldata prescription,
+        uint price
+    ) public {
         require(doctors[doctor], "Only doctors can add documents");
         require(patients[patient], "Only patients can have documents");
-        emit DocumentAdded(patient, doctor, description, prescription);
+        emit DocumentAdded(patient, doctor, description, prescription, price);
     }
-
 
     // function registerDoctor() public {
     //     doctors.push(msg.sender);
