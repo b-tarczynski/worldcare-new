@@ -3,12 +3,10 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { NextPage } from 'next'
-import { transactionType } from 'viem'
 import { HistoryDetails } from '~~/components/HistoryDetails'
 import { HistoryTable } from '~~/components/HistoryTable'
-import { Button } from '~~/components/ui/Button'
 import { Heading1 } from '~~/components/ui/Heading1'
-import { Heading3 } from '~~/components/ui/Heading3'
+import { PaymentDoctor } from '~~/components/ui/PaymentDoctor'
 import { Visit } from '~~/types/Data'
 
 const historyData = [
@@ -54,6 +52,7 @@ Serum Protein Electrophoresis (SPEP): To rule out multiple myeloma or other plas
 
 const DoctorHistory: NextPage = () => {
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>()
+  const [showPaymentModal, setShowPaymentModal] = useState(true)
 
   return (
     <div>
@@ -67,6 +66,7 @@ const DoctorHistory: NextPage = () => {
       </div>
       <HistoryTable data={historyData} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
 
+      <PaymentDoctor isOpen={showPaymentModal} visit={historyData[0]} onClose={() => setShowPaymentModal(false)} />
       <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit} />
       <img className="absolute bottom-0 right-0" src="/history.svg" alt="" />
     </div>

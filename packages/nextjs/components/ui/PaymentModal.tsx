@@ -1,5 +1,4 @@
 import { Button } from './Button'
-import { Heading1 } from './Heading1'
 import { Heading3 } from './Heading3'
 import { Visit } from '~~/types/Data'
 

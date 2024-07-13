@@ -9,7 +9,7 @@ export default function Register() {
     <div className="flex flex-col gap-6 text-center">
       <div>
         <Heading1>Register</Heading1>
-        <Heading3 className='mt-3'>Who you are?</Heading3>
+        <Heading3 className="mt-3">Who you are?</Heading3>
       </div>
 
       <div className="flex justify-center gap-6">
@@ -35,7 +35,9 @@ export default function Register() {
         </Link>
       </div>
 
-      <div className="underline text-sm font-bold">I already have an account</div>
+      <Link href="/history">
+        <div className="underline text-sm font-bold">I already have an account</div>
+      </Link>
     </div>
   )
 }
