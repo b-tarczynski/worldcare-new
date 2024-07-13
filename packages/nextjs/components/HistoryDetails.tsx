@@ -46,14 +46,13 @@ async function fetchHistoryData(cid: string): Promise<VisitHiddenData> {
 }
 
 export function HistoryDetails({visit, onClose}: Props) {
-  const {data, isLoading, error} = useQuery({
+  const {data, isLoading} = useQuery({
     queryKey: ['history', visit?.cid],
     queryFn: async () => {
       return await fetchHistoryData(visit?.cid as string)
     },
     enabled: !!visit,
   })
-  console.log({error})
 
   if (!visit) return null
 
