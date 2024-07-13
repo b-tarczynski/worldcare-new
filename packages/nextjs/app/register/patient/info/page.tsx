@@ -3,7 +3,7 @@
 import { addEnsContracts } from '@ensdomains/ensjs'
 import { setPrimaryName } from '@ensdomains/ensjs/wallet'
 import { NextPage } from 'next'
-import { createClient, createWalletClient, custom, http } from 'viem'
+import { createWalletClient, custom } from 'viem'
 import { sepolia } from 'viem/chains'
 import { useAccount, useWaitForTransactionReceipt } from 'wagmi'
 import { useMutation } from 'wagmi/query'
@@ -20,6 +20,10 @@ const PatientInfo: NextPage = () => {
 
   const {mutateAsync, data, isPending: isActionLoading} = useMutation({
     mutationFn: async (formData: FormData) => {
+      if (!formData.get('nickname')) {
+        return undefined
+      }
+
       if (!address) {
         throw new Error('Wallet not connected')
       }
