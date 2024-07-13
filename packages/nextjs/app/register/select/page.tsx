@@ -6,9 +6,11 @@ import { Heading3 } from '~~/components/ui/Heading3'
 
 export default function Register() {
   return (
-    <div className="text-center">
-      <Heading1>Register</Heading1>
-      <Heading3>Who you are?</Heading3>
+    <div className="flex flex-col gap-6 text-center">
+      <div>
+        <Heading1>Register</Heading1>
+        <Heading3>Who you are?</Heading3>
+      </div>
 
       <div className="flex justify-center gap-6">
         <Link href="/register/doctor">
