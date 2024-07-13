@@ -39,7 +39,7 @@ const graphData: Visit[] = [
 
 const History: NextPage = () => {
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>(undefined)
-  const mostRecentVisit = historyData[0]
+  const mostRecentVisit = graphData[0]
 
   return (
     <div>
