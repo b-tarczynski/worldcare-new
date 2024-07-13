@@ -154,36 +154,8 @@ const deployedContracts = {
               type: "uint256",
             },
           ],
-          name: "VisitAdded",
+          name: "VisitFinalized",
           type: "event",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "patient",
-              type: "address",
-            },
-            {
-              internalType: "address",
-              name: "doctor",
-              type: "address",
-            },
-            {
-              internalType: "string",
-              name: "visitCid",
-              type: "string",
-            },
-            {
-              internalType: "uint256",
-              name: "price",
-              type: "uint256",
-            },
-          ],
-          name: "addVisit",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
         },
         {
           inputs: [
@@ -226,6 +198,34 @@ const deployedContracts = {
             },
           ],
           stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "visitCid",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
+          ],
+          name: "finalizeVisit",
+          outputs: [],
+          stateMutability: "nonpayable",
           type: "function",
         },
         {
