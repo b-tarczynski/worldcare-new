@@ -109,32 +109,21 @@ const deployedContracts = {
               name: "patient",
               type: "address",
             },
-            {
-              indexed: true,
-              internalType: "address",
-              name: "doctor",
-              type: "address",
-            },
-            {
-              indexed: false,
-              internalType: "string",
-              name: "description",
-              type: "string",
-            },
+          ],
+          name: "PatientRegistered",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
             {
               indexed: false,
               internalType: "string",
-              name: "prescription",
+              name: "visitCid",
               type: "string",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "price",
-              type: "uint256",
             },
           ],
-          name: "DocumentAdded",
+          name: "TransactionPaid",
           type: "event",
         },
         {
@@ -146,8 +135,26 @@ const deployedContracts = {
               name: "patient",
               type: "address",
             },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "visitCid",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
           ],
-          name: "PatientRegistered",
+          name: "VisitAdded",
           type: "event",
         },
         {
@@ -164,12 +171,7 @@ const deployedContracts = {
             },
             {
               internalType: "string",
-              name: "description",
-              type: "string",
-            },
-            {
-              internalType: "string",
-              name: "prescription",
+              name: "visitCid",
               type: "string",
             },
             {
@@ -178,7 +180,7 @@ const deployedContracts = {
               type: "uint256",
             },
           ],
-          name: "AddDocument",
+          name: "addVisit",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
@@ -243,6 +245,19 @@ const deployedContracts = {
             },
           ],
           stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "visitCid",
+              type: "string",
+            },
+          ],
+          name: "payForVisit",
+          outputs: [],
+          stateMutability: "payable",
           type: "function",
         },
         {
@@ -330,6 +345,40 @@ const deployedContracts = {
           name: "shareProfile",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          name: "visitdetails",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "price",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "paid",
+              type: "bool",
+            },
+            {
+              internalType: "address",
+              name: "doctor",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "patient",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
       ],
