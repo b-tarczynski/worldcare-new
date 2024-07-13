@@ -11,6 +11,8 @@ contract WorldCare {
     mapping(address => bool) public patients;
     mapping(address => bool) public doctors;
 
+    mapping(address => mapping(address => bool)) public doctorsPermissions;
+
     using ByteHasher for bytes;
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -138,6 +140,18 @@ contract WorldCare {
         emit DocumentAdded(patient, doctor, description, prescription);
     }
 
+
+    function shareProfile(address doctor) public {
+        require(doctors[doctor], "Only doctors can be shared with");
+        require(patients[msg.sender], "Only patients can share their profile");
+        doctorsPermissions[doctor][msg.sender] = true;
+    }
+    
+    function revokeProfile(address doctor) public {
+        require(doctors[doctor], "Only doctors can be shared with");
+        require(patients[msg.sender], "Only patients can share their profile");
+        doctorsPermissions[doctor][msg.sender] = false;
+    }
 
     // function registerDoctor() public {
     //     doctors.push(msg.sender);
