@@ -11,7 +11,7 @@ export default function Register() {
       <Heading3>Who you are?</Heading3>
 
       <div className="flex justify-center gap-6">
-        <Link href="/packages/nextjs/public">
+        <Link href="/register/doctor">
           <RegisterCard className="bg-primary hover:bg-[#AEE5F5]">
             <div className="flex items-center gap-3 justify-center">
               <Heading1>I’m a doctor</Heading1>
@@ -20,7 +20,7 @@ export default function Register() {
             <img className="absolute bottom-0 left-0" src="/register-doctor.svg" alt="" />
           </RegisterCard>
         </Link>
-        <Link href="/history">
+        <Link href="/register/patient">
           <RegisterCard className="bg-accent hover:bg-[#FDFF7D]">
             <Heading1>
               <div className="flex items-center gap-3 justify-center">
