@@ -8,9 +8,16 @@ export interface Visit {
   id: number
   date: Date
   doctor: Doctor
+  cid: string
+  transaction: string
+}
+
+
+export interface VisitHiddenData {
   description: string
   recommendations: string
-  medication: string[]
+  medicines: string
   transaction?: string
   price: number
 }
+
