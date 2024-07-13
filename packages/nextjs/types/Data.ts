@@ -17,5 +17,7 @@ export interface VisitHiddenData {
   description: string
   recommendations: string
   medicines: string
+  transaction?: string
+  price: number
 }
 

@@ -2,13 +2,14 @@
 
 import {useState} from 'react'
 import Link from 'next/link'
-import {NextPage} from 'next'
-import {HistoryDetails} from '~~/components/HistoryDetails'
-import {HistoryTable} from '~~/components/HistoryTable'
-import {Button} from '~~/components/ui/Button'
-import {Heading1} from '~~/components/ui/Heading1'
-import {Heading3} from '~~/components/ui/Heading3'
-import {Visit} from '~~/types/Data'
+import { NextPage } from 'next'
+import { HistoryDetails } from '~~/components/HistoryDetails'
+import { HistoryTable } from '~~/components/HistoryTable'
+import { Button } from '~~/components/ui/Button'
+import { Heading1 } from '~~/components/ui/Heading1'
+import { Heading3 } from '~~/components/ui/Heading3'
+import { PaymentModal } from '~~/components/ui/PaymentModal'
+import { Visit } from '~~/types/Data'
 
 const graphData: Visit[] = [
   {
@@ -38,6 +39,7 @@ const graphData: Visit[] = [
 
 const History: NextPage = () => {
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>(undefined)
+  const mostRecentVisit = historyData[0]
 
   return (
     <div>
@@ -48,12 +50,14 @@ const History: NextPage = () => {
 
       <div className="flex items-center justify-center p-8">
         <Link href="/history/share">
-          <Button>Share your data with client</Button>
+          <Button>Share your data with doctor</Button>
         </Link>
       </div>
 
-      <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit}/>
-      <img className="absolute bottom-0 right-0" src="/history.svg" alt=""/>
+      <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit} />
+
+      {!mostRecentVisit.transaction && <PaymentModal visit={mostRecentVisit} />}
+      <img className="absolute bottom-0 right-0" src="/history.svg" alt="" />
     </div>
   )
 }
