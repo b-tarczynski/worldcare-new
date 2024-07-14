@@ -14,6 +14,16 @@ export const visitFinalizeds = gql`
   }
 `
 
+export const getDoctor = gql`
+  query getDoctor($doctor: String!) {
+    doctorRegistereds(where: { doctor: $doctor }) {
+      id
+      doctor
+      filesCid
+    }
+  }
+`
+
 export const patientRegistereds = gql`
   {
     patientRegistereds {
