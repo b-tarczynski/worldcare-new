@@ -13,3 +13,14 @@ export const visitFinalizeds = gql`
     }
   }
 `
+
+export const patientRegistereds = gql`
+  {
+    patientRegistereds {
+      id
+      patient
+      transactionHash
+      blockTimestamp
+    }
+  }
+`
