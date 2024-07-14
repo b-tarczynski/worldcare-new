@@ -8,6 +8,14 @@ import { HistoryTable } from '~~/components/HistoryTable'
 import { Heading1 } from '~~/components/ui/Heading1'
 import { PaymentDoctor } from '~~/components/ui/PaymentDoctor'
 import { Visit } from '~~/types/Data'
+import { useQuery } from '@tanstack/react-query'
+import { GraphQLClient } from 'graphql-request'
+import { patientRegistereds } from '~~/graphql/queries'
+import { Loader } from '~~/components/ui/Loader'
+import { useDeployedContractInfo, useScaffoldReadContract } from '~~/hooks/scaffold-eth'
+import { useAccount, useReadContracts } from 'wagmi'
+
+const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
 
 const graphData: Visit[] = [
   {
@@ -37,22 +45,52 @@ const graphData: Visit[] = [
 const DoctorHistory: NextPage = () => {
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>()
   const [showPaymentModal, setShowPaymentModal] = useState(true)
+  const { address } = useAccount()
+
+  const { data: patients, isLoading } = useQuery({
+    queryKey: ['allPatients'],
+    queryFn: async () => {
+      const data: any = await client.request(patientRegistereds)
+      return data?.patientRegistereds.map((patient: any) => patient.patient)
+    },
+  })
+
+  const { data: deployedContract } = useDeployedContractInfo('WorldCare')
+  const contractData = {
+    address: deployedContract?.address,
+    abi: deployedContract?.abi,
+  } as const
+
+  const { data: permissionsResult, isLoading: arePermissionLoading } = useReadContracts({
+    contracts: patients?.map((patient: string) => ({
+      ...contractData,
+      functionName: 'doctorsPermissions',
+      args: [address, patient],
+    })),
+  })
+  console.log('permissions: ', permissionsResult)
+  const permissions = permissionsResult?.filter((permission) => !!permission.result).map((permission) => permission.result)
+  console.log('permissions: ', permissions)
+
 
   return (
     <div>
       <Heading1>Your client history:</Heading1>
+      {(isLoading || arePermissionLoading) ? <Loader /> : (
+        <>
+          <div className="bg-[#4ADE80] p-3 mt-8 font-semibold flex items-center justify-center gap-8">
+            Medical data is currently shared from john.eth
+            <Link href="/doctor/finish-visit">
+              <button className="btn btn-outline rounded-full min-w-56 bg-white">Finish the visit</button>
+            </Link>
+          </div>
+          <HistoryTable data={graphData} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
 
-      <div className="bg-[#4ADE80] p-3 mt-8 font-semibold flex items-center justify-center gap-8">
-        Medical data is currently shared from john.eth
-        <Link href="/doctor/finish-visit">
-          <button className="btn btn-outline rounded-full min-w-56 bg-white">Finish the visit</button>
-        </Link>
-      </div>
-      <HistoryTable data={graphData} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
-
-      <PaymentDoctor isOpen={showPaymentModal} visit={graphData[0]} onClose={() => setShowPaymentModal(false)} />
-      <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit} />
-      <img className="absolute bottom-0 right-0" src="/history.svg" alt="" />
+          <PaymentDoctor isOpen={showPaymentModal} visit={graphData[0]} onClose={() => setShowPaymentModal(false)} />
+          <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit} />
+          <img className="absolute bottom-0 right-0" src="/history.svg" alt="" />
+        </>
+      )}
     </div>
   )
 }
