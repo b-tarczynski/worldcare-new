@@ -19,6 +19,7 @@ const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/wo
 
 const History: NextPage = () => {
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>(undefined)
+  const [showPaymentModal, setShowPaymentModal] = useState(true)
 
   const { data, isLoading } = useQuery({
     queryKey: ['finalizedVisits'],
@@ -36,7 +37,7 @@ const History: NextPage = () => {
         },
         price: visit.price / 1000000000000000,
         transaction: visit.transactionHash,
-      }))
+      })) as Visit[]
     },
   })
 
@@ -49,7 +50,11 @@ const History: NextPage = () => {
         <Loader />
       ) : (
         <>
-          <HistoryTable data={data} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
+          {
+            data?.length && (
+              <HistoryTable data={data} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
+            )
+          }
           <div className="flex items-center justify-center p-8">
             <Link href="/history/share">
               <Button>Share your data with doctor</Button>
@@ -60,7 +65,8 @@ const History: NextPage = () => {
 
       <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit} />
 
-      {/* {!mostRecentVisit.transaction && <PaymentModal visit={mostRecentVisit} />} */}
+      {showPaymentModal && data?.[0] && <PaymentModal visit={data[0]} onClose={() => setShowPaymentModal(false)} />}
+
       <img className="absolute bottom-0 right-0" src="/history.svg" alt="" />
     </div>
   )
