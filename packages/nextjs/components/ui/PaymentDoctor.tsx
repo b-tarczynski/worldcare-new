@@ -11,13 +11,13 @@ export function PaymentDoctor({ visit, onClose, isOpen }: { visit: Visit; onClos
     <>
       <div className="shadow bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 p-10 rounded-2xl flex flex-col gap-4 items-center">
         <img src="/paid.svg" className="w-64" alt="" />
-        <div className="text-4xl font-bold">{price}$</div>
+        <div className="text-4xl font-bold">{price?.toString()}$</div>
 
         <Heading3>Visit is paid!</Heading3>
 
         <div>
           <a
-            href={transaction}
+            href={`https://optimism-sepolia.blockscout.com/tx/${transaction}`}
             target="_blank"
             className="btn btn-primary border-none rounded-full bg-primary min-w-60 flex items-center gap-1 mb-2"
           >

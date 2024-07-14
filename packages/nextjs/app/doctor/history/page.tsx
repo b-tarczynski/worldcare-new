@@ -14,17 +14,11 @@ import { patientRegistereds } from '~~/graphql/queries'
 import { Loader } from '~~/components/ui/Loader'
 import { useDeployedContractInfo } from '~~/hooks/scaffold-eth'
 import { useAccount, useReadContracts } from 'wagmi'
-import { createPublicClient, getAddress, http } from 'viem'
-import { addEnsContracts } from '@ensdomains/ensjs'
-import { sepolia } from 'viem/chains'
+import { getAddress } from 'viem'
 import { getName } from '@ensdomains/ensjs/public'
+import { ensClient } from '~~/utils/ensClient'
 
 const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare-new/version/latest')
-
-const ensClient = createPublicClient({
-  chain: addEnsContracts(sepolia),
-  transport: http(),
-})
 
 const graphData: Visit[] = [
   {
@@ -120,7 +114,7 @@ const DoctorHistory: NextPage = () => {
         <>
           <div className="bg-[#4ADE80] p-3 mt-8 font-semibold flex items-center justify-center gap-8">
             Medical data is currently shared from {ensName}
-            <Link href="/doctor/finish-visit">
+            <Link href={`/doctor/finish-visit?patientAddress=${patientAddress}`}>
               <button className="btn btn-outline rounded-full min-w-56 bg-white">Finish the visit</button>
             </Link>
           </div>

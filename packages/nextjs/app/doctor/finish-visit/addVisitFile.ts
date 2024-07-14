@@ -2,8 +2,8 @@
 
 import lighthouse from '@lighthouse-web3/sdk'
 import { signAuthMessage } from '~~/utils/signAuthMessage'
-import {shareFile} from "~~/utils/shareFile";
-import {patientPublicKey, privateBackendKey, publicBackendKey} from "../../../../../hardcodes";
+import { shareFile } from '~~/utils/shareFile'
+import { privateBackendKey, publicBackendKey } from '../../../../../hardcodes'
 
 const apiKey = process.env.LIGHTHOUSE_API_KEY as string
 
@@ -22,13 +22,13 @@ async function uploadVisit(formData: FormData, signedMessage: string) {
   return response.data.Hash
 }
 
-export async function addVisitFile(formData: FormData) {
+export async function addVisitFile(formData: FormData, patientAddress: string) {
   const signedMessage = await signAuthMessage(privateBackendKey)
   console.log('signedMessage: ', signedMessage)
 
   const visitCid = await uploadVisit(formData, signedMessage)
 
-  await shareFile(publicBackendKey, patientPublicKey, visitCid, signedMessage)
+  await shareFile(publicBackendKey, patientAddress, visitCid, signedMessage)
 
   return visitCid
 }

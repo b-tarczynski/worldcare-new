@@ -63,11 +63,11 @@ const History: NextPage = () => {
           cid: visit.visitCid,
           date: new Date(visit.blockTimestamp * 1000),
           doctor: {
-            avatar: `/doctor-${i + 1}.png`,
+            avatar: `/doctor-${name}.png`,
             name,
             specialization,
           },
-          price: visit.price / 1000000000000000,
+          price: BigInt(visit.price),
           transaction: visit.transactionHash,
         })
       }

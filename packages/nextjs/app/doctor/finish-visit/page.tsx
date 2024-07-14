@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { NextPage } from 'next'
 import { useAccount } from 'wagmi'
 import { addVisitFile } from '~~/app/doctor/finish-visit/addVisitFile'
@@ -11,9 +11,10 @@ import { Heading3 } from '~~/components/ui/Heading3'
 import { Input } from '~~/components/ui/Input'
 import { Separator } from '~~/components/ui/Separator'
 import { useScaffoldWriteContract } from '~~/hooks/scaffold-eth'
-import {patientPublicKey} from "../../../../../hardcodes";
 
 const FinishVisit: NextPage = () => {
+  const searchParams = useSearchParams()
+  const patientAddress = searchParams?.get('patientAddress') || ''
   const { isConnected, address: doctorsAddress } = useAccount()
   if (!isConnected || !doctorsAddress) {
     throw new Error('Not connected')
@@ -24,13 +25,13 @@ const FinishVisit: NextPage = () => {
   const router = useRouter()
 
   const onSubmit = async (formData: FormData) => {
-    const visitCid = await addVisitFile(formData)
+    const visitCid = await addVisitFile(formData, patientAddress)
     const price = (formData.get('price') || 100).toString()
 
     await writeYourContractAsync(
       {
         functionName: 'finalizeVisit',
-        args: [patientPublicKey, doctorsAddress, visitCid, BigInt(price)],
+        args: [patientAddress, doctorsAddress, visitCid, BigInt(price)],
       },
       {
         onSuccess: () => {
