@@ -145,13 +145,9 @@ const DoctorHistory: NextPage = () => {
               <button className="btn btn-outline rounded-full min-w-56 bg-white">Finish the visit</button>
             </Link>
           </div>
-          <HistoryTable data={data as any} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
+          <HistoryTable isDoctor data={data as any} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
 
-          <PaymentDoctor
-            isOpen={showPaymentModal}
-            visit={data?.[0]}
-            onClose={() => setShowPaymentModal(false)}
-          />
+          <PaymentDoctor isOpen={showPaymentModal} visit={data?.[0]} onClose={() => setShowPaymentModal(false)} />
           <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit} />
           <img className="absolute bottom-0 right-0" src="/history.svg" alt="" />
         </>
