@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import { GraphQLClient, gql } from 'graphql-request'
 import { NextPage } from 'next'
+import { useAccount } from 'wagmi'
 import { HistoryDetails } from '~~/components/HistoryDetails'
 import { HistoryTable } from '~~/components/HistoryTable'
 import { Button } from '~~/components/ui/Button'
@@ -18,12 +19,16 @@ import { Visit } from '~~/types/Data'
 const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
 
 const History: NextPage = () => {
+  const { address } = useAccount()
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>(undefined)
+  const [showPaymentModal, setShowPaymentModal] = useState(true)
 
   const { data, isLoading } = useQuery({
     queryKey: ['finalizedVisits'],
     queryFn: async () => {
-      const data: any = await client.request(visitFinalizeds)
+      const data: any = await client.request(visitFinalizeds, {
+        patient: address,
+      })
 
       return data?.visitFinalizeds.map((visit: any, index: number) => ({
         id: visit.id,
@@ -36,7 +41,7 @@ const History: NextPage = () => {
         },
         price: visit.price / 1000000000000000,
         transaction: visit.transactionHash,
-      }))
+      })) as Visit[]
     },
   })
 
@@ -49,7 +54,11 @@ const History: NextPage = () => {
         <Loader />
       ) : (
         <>
-          <HistoryTable data={data} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
+          {
+            data?.length && (
+              <HistoryTable data={data} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
+            )
+          }
           <div className="flex items-center justify-center p-8">
             <Link href="/history/share">
               <Button>Share your data with doctor</Button>
@@ -60,7 +69,6 @@ const History: NextPage = () => {
 
       <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit} />
 
-      {/* {!mostRecentVisit.transaction && <PaymentModal visit={mostRecentVisit} />} */}
       <img className="absolute bottom-0 right-0" src="/history.svg" alt="" />
     </div>
   )

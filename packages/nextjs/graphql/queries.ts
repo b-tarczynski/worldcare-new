@@ -1,8 +1,8 @@
 import { gql } from 'graphql-request'
 
 export const visitFinalizeds = gql`
-  {
-    visitFinalizeds {
+  query getFinalized($patient: String!) {
+    visitFinalizeds(where: { patient: $patient }) {
       id
       patient
       doctor

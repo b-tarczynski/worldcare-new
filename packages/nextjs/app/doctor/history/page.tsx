@@ -17,9 +17,11 @@ import { useAccount, useReadContracts } from 'wagmi'
 
 const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
 
+
 const graphData: Visit[] = [
   {
     id: 1,
+    price: 10000000n,
     cid: 'bafkreiececvwdsmzljjmwkr5zw74ruenjudeof4soes737tknytfcmvwbe',
     date: new Date(),
     doctor: {
@@ -31,6 +33,7 @@ const graphData: Visit[] = [
   },
   {
     id: 2,
+    price: 20000000n,
     cid: 'bafkreif52hzybepv44gsoqnigg7766pw4jbjwt4aa6kb76hch7nq2nahpm',
     date: new Date(),
     doctor: {
