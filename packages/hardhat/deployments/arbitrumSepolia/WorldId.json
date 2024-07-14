@@ -1,0 +1,95 @@
+{
+  "address": "0x58034592879fAFF08fBa5192bFf244f0B8bA6dD9",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "root",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "groupId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "signalHash",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "nullifierHash",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "externalNullifierHash",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256[8]",
+          "name": "proof",
+          "type": "uint256[8]"
+        }
+      ],
+      "name": "verifyProof",
+      "outputs": [],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x3e66aaa68870ba8fd2b8e1f3ad9ff35b78716e52532e519631fd2566474f42a3",
+  "receipt": {
+    "to": null,
+    "from": "0x9F5eF94605496003D50E0c6d7641969feAc9dd41",
+    "contractAddress": "0x58034592879fAFF08fBa5192bFf244f0B8bA6dD9",
+    "transactionIndex": 1,
+    "gasUsed": "98557",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x16fc3ca32a500d0e59a393d8c75ff31c4dab0ad1f692ab136c3b2ae800165829",
+    "transactionHash": "0x3e66aaa68870ba8fd2b8e1f3ad9ff35b78716e52532e519631fd2566474f42a3",
+    "logs": [],
+    "blockNumber": 63691431,
+    "cumulativeGasUsed": "98557",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "dc3b8a713307ee414b3889d3a2506864",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"root\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"groupId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"signalHash\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nullifierHash\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"externalNullifierHash\",\"type\":\"uint256\"},{\"internalType\":\"uint256[8]\",\"name\":\"proof\",\"type\":\"uint256[8]\"}],\"name\":\"verifyProof\",\"outputs\":[],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"verifyProof(uint256,uint256,uint256,uint256,uint256,uint256[8])\":{\"details\":\"In a real-world scenario, this would not be secure or practical.\",\"params\":{\"externalNullifierHash\":\"A keccak256 hash of the external nullifier (ignored in this mock).\",\"groupId\":\"The id of the Semaphore group (ignored in this mock).\",\"nullifierHash\":\"The nullifier hash (ignored in this mock).\",\"proof\":\"The zero-knowledge proof (ignored in this mock).\",\"root\":\"The root of the Merkle tree (ignored in this mock).\",\"signalHash\":\"A keccak256 hash of the Semaphore signal (ignored in this mock).\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"verifyProof(uint256,uint256,uint256,uint256,uint256,uint256[8])\":{\"notice\":\"This implementation of IWorldID's verifyProof method always passes successfully.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/WorldId.sol\":\"WorldId\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/WorldId.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.10;\\n\\nimport \\\"./interfaces/IWorldID.sol\\\";\\n\\ncontract WorldId is IWorldID {\\n    /// @notice This implementation of IWorldID's verifyProof method always passes successfully.\\n    /// @dev In a real-world scenario, this would not be secure or practical.\\n    /// @param root The root of the Merkle tree (ignored in this mock).\\n    /// @param groupId The id of the Semaphore group (ignored in this mock).\\n    /// @param signalHash A keccak256 hash of the Semaphore signal (ignored in this mock).\\n    /// @param nullifierHash The nullifier hash (ignored in this mock).\\n    /// @param externalNullifierHash A keccak256 hash of the external nullifier (ignored in this mock).\\n    /// @param proof The zero-knowledge proof (ignored in this mock).\\n    function verifyProof(\\n        uint256 root,\\n        uint256 groupId,\\n        uint256 signalHash,\\n        uint256 nullifierHash,\\n        uint256 externalNullifierHash,\\n        uint256[8] calldata proof\\n    ) external view override {\\n        // In a real implementation, you would verify the zero-knowledge proof here.\\n        // This mock implementation simply passes to fulfill the interface requirement without any actual verification.\\n    }\\n}\",\"keccak256\":\"0x7ffbef9c09a25928c0394b9d19ed5dd7adb17595041efa4c3b8984c19129d105\",\"license\":\"MIT\"},\"contracts/interfaces/IWorldID.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\npragma solidity ^0.8.10;\\n\\ninterface IWorldID {\\n    /// @notice Reverts if the zero-knowledge proof is invalid.\\n    /// @param root The of the Merkle tree\\n    /// @param groupId The id of the Semaphore group\\n    /// @param signalHash A keccak256 hash of the Semaphore signal\\n    /// @param nullifierHash The nullifier hash\\n    /// @param externalNullifierHash A keccak256 hash of the external nullifier\\n    /// @param proof The zero-knowledge proof\\n    /// @dev  Note that a double-signaling check is not included here, and should be carried by the caller.\\n    function verifyProof(\\n        uint256 root,\\n        uint256 groupId,\\n        uint256 signalHash,\\n        uint256 nullifierHash,\\n        uint256 externalNullifierHash,\\n        uint256[8] calldata proof\\n    ) external view;\\n}\\n\",\"keccak256\":\"0x20fc12dea0b817fb8b7bc1a851082676ed2dcb844d3673d60aa5570da3e1b62e\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060d18061001f6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c80633bc778e314602d575b600080fd5b604060383660046042565b505050505050565b005b6000806000806000806101a080888a031215605c57600080fd5b8735965060208801359550604088013594506060880135935060808801359250888189011115608a57600080fd5b5060a087019050929550929550929556fea2646970667358221220e0e966e4b8c986a9094a606cc1b00798f1760f9d37ccd5e0438e9f42a2e69ce464736f6c63430008110033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c80633bc778e314602d575b600080fd5b604060383660046042565b505050505050565b005b6000806000806000806101a080888a031215605c57600080fd5b8735965060208801359550604088013594506060880135935060808801359250888189011115608a57600080fd5b5060a087019050929550929550929556fea2646970667358221220e0e966e4b8c986a9094a606cc1b00798f1760f9d37ccd5e0438e9f42a2e69ce464736f6c63430008110033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "verifyProof(uint256,uint256,uint256,uint256,uint256,uint256[8])": {
+        "details": "In a real-world scenario, this would not be secure or practical.",
+        "params": {
+          "externalNullifierHash": "A keccak256 hash of the external nullifier (ignored in this mock).",
+          "groupId": "The id of the Semaphore group (ignored in this mock).",
+          "nullifierHash": "The nullifier hash (ignored in this mock).",
+          "proof": "The zero-knowledge proof (ignored in this mock).",
+          "root": "The root of the Merkle tree (ignored in this mock).",
+          "signalHash": "A keccak256 hash of the Semaphore signal (ignored in this mock)."
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "verifyProof(uint256,uint256,uint256,uint256,uint256,uint256[8])": {
+        "notice": "This implementation of IWorldID's verifyProof method always passes successfully."
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}
