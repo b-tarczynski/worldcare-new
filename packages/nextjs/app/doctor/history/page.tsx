@@ -17,8 +17,7 @@ import { getDoctor, patientRegistereds, visitFinalizeds } from '~~/graphql/queri
 import { useDeployedContractInfo } from '~~/hooks/scaffold-eth'
 import { Visit } from '~~/types/Data'
 import { ensClient } from '~~/utils/ensClient'
-
-const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare-new/version/latest')
+import { useGraphQLClient } from '~~/hooks/useGraphQLClient'
 
 interface DoctorsProfile {
   name: string
@@ -46,11 +45,12 @@ const DoctorHistory: NextPage = () => {
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>()
   const [showPaymentModal, setShowPaymentModal] = useState(true)
   const { address } = useAccount()
+  const graphClient = useGraphQLClient()
 
   const { data: patients, isLoading } = useQuery({
     queryKey: ['allPatients'],
     queryFn: async () => {
-      const data: any = await client.request(patientRegistereds)
+      const data: any = await graphClient.request(patientRegistereds)
       return data?.patientRegistereds.map((patient: any) => patient.patient)
     },
   })

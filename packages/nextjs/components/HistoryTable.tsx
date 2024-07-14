@@ -37,7 +37,6 @@ function HistoryRow({
     }
   }, [visitDetails])
 
-  console.log(showPaymentModal)
 
   return (
     <>
@@ -64,7 +63,7 @@ function HistoryRow({
 }
 
 export function HistoryTable({ data, selectRow, isDoctor }: Props) {
-  const dataFiltered = data.filter((visit) => visit.cid.length > 10)
+  const dataFiltered = data?.filter((visit) => visit.cid.length > 10) ?? []
 
   return (
     <table className="table border bg-white z-10">
