@@ -10,13 +10,29 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import { Heading1 } from '~~/components/ui/Heading1'
 import { Heading3 } from '~~/components/ui/Heading3'
 import { useQuery } from '@tanstack/react-query'
+import { useScaffoldReadContract } from '~~/hooks/scaffold-eth'
+
 
 const Home: NextPage = () => {
   const { openConnectModal } = useConnectModal()
-  const { isConnected } = useAccount()
+  const { isConnected, address } = useAccount()
   const router = useRouter()
 
   const [clickedConnect, setClickedConnect] = useState(false)
+  const { data: isPatient, isLoading: isLoadingPatient } = useScaffoldReadContract({
+    contractName: "WorldCare",
+    functionName: "patients",
+    args: [address],
+  })
+
+  const { data: isDoctor, isLoading: isLoadingDoctor } = useScaffoldReadContract({
+    contractName: "WorldCare",
+    functionName: "doctors",
+    args: [address],
+  })
+
+  console.log('isDoctor', isDoctor)
+  console.log('isPatient', isPatient)
 
   const { data } = useQuery({
     queryKey: ['home', 'doctors'],
@@ -27,17 +43,24 @@ const Home: NextPage = () => {
     },
   })
 
-  useEffect(() => {
-    if (clickedConnect && isConnected) {
+  
+  const redirect = () => {
+    if(isDoctor) {
+      router.push('/doctor/history')
+    }
+    if(isPatient) {
       router.push('/history')
     }
-  }, [clickedConnect, isConnected, router])
+  }
+  
+  useEffect(() => {
+    if (clickedConnect && isConnected && !isLoadingPatient && !isLoadingDoctor) {
+      redirect()
+    }
+  }, [clickedConnect, isConnected, router, isDoctor, isPatient, isLoadingPatient, isLoadingDoctor])
 
   const onLogin = () => {
-    if (isConnected) {
-      router.push('/history')
-      return
-    }
+    redirect()
     openConnectModal?.()
     setClickedConnect(true)
   }
