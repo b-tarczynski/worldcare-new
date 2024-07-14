@@ -1,8 +1,8 @@
 import { ReactNode, useEffect, useState } from 'react'
-import { ArrowRightIcon } from '@heroicons/react/20/solid'
-import { Visit } from '~~/types/Data'
-import { useScaffoldReadContract } from '~~/hooks/scaffold-eth'
 import { PaymentModal } from './ui/PaymentModal'
+import { ArrowRightIcon } from '@heroicons/react/20/solid'
+import { useScaffoldReadContract } from '~~/hooks/scaffold-eth'
+import { Visit } from '~~/types/Data'
 
 const zeroAddress = '0x0000000000000000000000000000000000000000'
 
@@ -11,22 +11,33 @@ const isValidAddress = (address: string) => address !== zeroAddress
 interface Props {
   data: Visit[]
   selectRow: (visit: Visit) => void
+  isDoctor?: boolean
 }
 
-function HistoryRow({ visit, selectRow }: { visit: Visit; selectRow: (visit: Visit) => void }) {
+function HistoryRow({
+  visit,
+  selectRow,
+  isDoctor,
+}: {
+  visit: Visit
+  selectRow: (visit: Visit) => void
+  isDoctor?: boolean
+}) {
   const [showPaymentModal, setShowPaymentModal] = useState(false)
 
   const { data: visitDetails } = useScaffoldReadContract({
-    contractName: "WorldCare",
-    functionName: "visitdetails",
+    contractName: 'WorldCare',
+    functionName: 'visitdetails',
     args: [visit.cid],
   })
 
   useEffect(() => {
-    if (visitDetails?.[1] === false && isValidAddress(visitDetails?.[2])) {
+    if (visitDetails?.[1] === false && !isDoctor) {
       setShowPaymentModal(true)
     }
-  },[visitDetails])
+  }, [visitDetails])
+
+  console.log(showPaymentModal)
 
   return (
     <>
@@ -48,14 +59,11 @@ function HistoryRow({ visit, selectRow }: { visit: Visit; selectRow: (visit: Vis
         </TD>
       </tr>
       {showPaymentModal && visit && <PaymentModal visit={visit} onClose={() => setShowPaymentModal(false)} />}
-
     </>
   )
 }
 
-
-export function HistoryTable({ data, selectRow }: Props) {
-
+export function HistoryTable({ data, selectRow, isDoctor }: Props) {
   const dataFiltered = data.filter((visit) => visit.cid.length > 10)
 
   return (
@@ -63,7 +71,7 @@ export function HistoryTable({ data, selectRow }: Props) {
       <tbody>
         {dataFiltered.length ? (
           dataFiltered.map((visit) => (
-            <HistoryRow key={visit.id} visit={visit} selectRow={selectRow} />
+            <HistoryRow key={visit.id} isDoctor={isDoctor} visit={visit} selectRow={selectRow} />
           ))
         ) : (
           <tr>
