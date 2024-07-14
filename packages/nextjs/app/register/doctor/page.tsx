@@ -35,7 +35,7 @@ const DoctorSignin: NextPage = () => {
   return <div className="flex flex-col justify-center items-center gap-10 mt-24">
     <div className="flex flex-col gap-1">
       <Heading1>Create account</Heading1>
-      <Heading3>Connect with World ID to create account</Heading3>
+      <Heading3 className="mt-4">Connect with World ID to create account</Heading3>
     </div>
 
     {!address && (
