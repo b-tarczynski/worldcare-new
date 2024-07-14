@@ -1,0 +1,38 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/interfaces/IWorldID.sol": {
+      "content": "//SPDX-License-Identifier: MIT\npragma solidity ^0.8.10;\n\ninterface IWorldID {\n    /// @notice Reverts if the zero-knowledge proof is invalid.\n    /// @param root The of the Merkle tree\n    /// @param groupId The id of the Semaphore group\n    /// @param signalHash A keccak256 hash of the Semaphore signal\n    /// @param nullifierHash The nullifier hash\n    /// @param externalNullifierHash A keccak256 hash of the external nullifier\n    /// @param proof The zero-knowledge proof\n    /// @dev  Note that a double-signaling check is not included here, and should be carried by the caller.\n    function verifyProof(\n        uint256 root,\n        uint256 groupId,\n        uint256 signalHash,\n        uint256 nullifierHash,\n        uint256 externalNullifierHash,\n        uint256[8] calldata proof\n    ) external view;\n}\n"
+    },
+    "contracts/WorldId.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.10;\n\nimport \"./interfaces/IWorldID.sol\";\n\ncontract WorldId is IWorldID {\n    /// @notice This implementation of IWorldID's verifyProof method always passes successfully.\n    /// @dev In a real-world scenario, this would not be secure or practical.\n    /// @param root The root of the Merkle tree (ignored in this mock).\n    /// @param groupId The id of the Semaphore group (ignored in this mock).\n    /// @param signalHash A keccak256 hash of the Semaphore signal (ignored in this mock).\n    /// @param nullifierHash The nullifier hash (ignored in this mock).\n    /// @param externalNullifierHash A keccak256 hash of the external nullifier (ignored in this mock).\n    /// @param proof The zero-knowledge proof (ignored in this mock).\n    function verifyProof(\n        uint256 root,\n        uint256 groupId,\n        uint256 signalHash,\n        uint256 nullifierHash,\n        uint256 externalNullifierHash,\n        uint256[8] calldata proof\n    ) external view override {\n        // In a real implementation, you would verify the zero-knowledge proof here.\n        // This mock implementation simply passes to fulfill the interface requirement without any actual verification.\n    }\n}"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
