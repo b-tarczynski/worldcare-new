@@ -15,9 +15,9 @@ import { Loader } from '~~/components/ui/Loader'
 import { PaymentDoctor } from '~~/components/ui/PaymentDoctor'
 import { getDoctor, patientRegistereds, visitFinalizeds } from '~~/graphql/queries'
 import { useDeployedContractInfo } from '~~/hooks/scaffold-eth'
+import { useGraphQLClient } from '~~/hooks/useGraphQLClient'
 import { Visit } from '~~/types/Data'
 import { ensClient } from '~~/utils/ensClient'
-import { useGraphQLClient } from '~~/hooks/useGraphQLClient'
 
 interface DoctorsProfile {
   name: string
@@ -114,6 +114,8 @@ const DoctorHistory: NextPage = () => {
       return finalizedVisits
     },
   })
+
+  console.log({ data })
 
   if (isLoading || arePermissionLoading || isEnsLoading || isLoadingVisits) {
     return (
