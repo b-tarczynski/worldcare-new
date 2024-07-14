@@ -42,7 +42,6 @@ async function getDoctorsProfile(doctor: string): Promise<DoctorsProfile> {
 const History: NextPage = () => {
   const { address } = useAccount()
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>(undefined)
-  const [showPaymentModal, setShowPaymentModal] = useState(true)
 
   const { data, isLoading } = useQuery({
     queryKey: ['finalizedVisits'],
