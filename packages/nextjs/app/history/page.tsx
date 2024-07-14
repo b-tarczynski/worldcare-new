@@ -16,7 +16,7 @@ import { PaymentModal } from '~~/components/ui/PaymentModal'
 import { visitFinalizeds } from '~~/graphql/queries'
 import { Visit } from '~~/types/Data'
 
-const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
+const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare-new/version/latest')
 
 const History: NextPage = () => {
   const { address } = useAccount()

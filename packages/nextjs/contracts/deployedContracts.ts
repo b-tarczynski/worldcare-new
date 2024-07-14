@@ -900,7 +900,7 @@ const deployedContracts = {
   },
   11155420: {
     WorldCare: {
-      address: "0x27EcDfea73eFC671bF57852aEC460cCA4Ba14327",
+      address: "0x4bc307d03B49D8e2cb4d678a962E27b02C7747b2",
       abi: [
         {
           inputs: [

@@ -15,7 +15,7 @@ import { Loader } from '~~/components/ui/Loader'
 import { useDeployedContractInfo, useScaffoldReadContract } from '~~/hooks/scaffold-eth'
 import { useAccount, useReadContracts } from 'wagmi'
 
-const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
+const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare-new/version/latest')
 
 
 const graphData: Visit[] = [
