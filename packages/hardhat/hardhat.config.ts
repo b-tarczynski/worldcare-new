@@ -122,7 +122,9 @@ const config: HardhatUserConfig = {
   // configuration for harhdat-verify plugin
   etherscan: {
     apiKey: {
-      optimismSepolia: 'HE856Y2IHANM72HHNQX1QT4DUT5UN87IK7'
+      optimismSepolia: 'HE856Y2IHANM72HHNQX1QT4DUT5UN87IK7',
+      arbitrumSepolia: 'B86G4N3STWVUCETM4FE838FM1P7TZ8WVZQ',
+      baseSepolia: '8B13SQTTPTIF77V1NSBXEIWY4WIGVVIPK1'
     },
     customChains: [
       {
@@ -131,6 +133,22 @@ const config: HardhatUserConfig = {
         urls: {
           apiURL: "https://api-sepolia-optimistic.etherscan.io/api",
           browserURL: "https://sepolia-optimism.etherscan.io/"
+        }
+      },
+      {
+        network: "arbitrumSepolia",
+        chainId: 421614,
+        urls: {
+          apiURL: "https://api-sepolia.arbiscan.io/api",
+          browserURL: "https://sepolia.arbiscan.io/"
+        }
+      },
+      {
+        network: "baseSepolia",
+        chainId: 84532,
+        urls: {
+          apiURL: "https://api-sepolia.basescan.org/api",
+          browserURL: "https://sepolia.basescan.org/"
         }
       }
     ]
