@@ -12,37 +12,69 @@ import { Button } from '~~/components/ui/Button'
 import { Heading1 } from '~~/components/ui/Heading1'
 import { Heading3 } from '~~/components/ui/Heading3'
 import { Loader } from '~~/components/ui/Loader'
-import { PaymentModal } from '~~/components/ui/PaymentModal'
 import { visitFinalizeds } from '~~/graphql/queries'
 import { Visit } from '~~/types/Data'
 
+
 const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
+
+interface DoctorsProfile {
+  name: string
+  specialization: string
+}
+
+async function getDoctorsProfile(cid: string): Promise<DoctorsProfile> {
+  console.log('CID', cid)
+
+  const url = `https://gateway.lighthouse.storage/ipfs/${cid}`
+
+  const res = await fetch(url)
+  const data = await res.json()
+  console.log({data})
+
+  return {
+    name: data.name,
+    specialization: data.specialization,
+  }
+}
 
 const History: NextPage = () => {
   const { address } = useAccount()
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>(undefined)
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['finalizedVisits'],
     queryFn: async () => {
       const data: any = await client.request(visitFinalizeds, {
         patient: address,
       })
 
-      return data?.visitFinalizeds.map((visit: any, index: number) => ({
-        id: visit.id,
-        cid: visit.visitCid,
-        date: new Date(visit.blockTimestamp * 1000),
-        doctor: {
-          avatar: `/doctor-${index + 1}.png`,
-          name: 'Bruce Lee', // TO BE REPLACED
-          specialization: 'Psychologist', // TO BE REPLACED
-        },
-        price: visit.price / 1000000000000000,
-        transaction: visit.transactionHash,
-      }))
+      console.log('data', data)
+
+      if (!data.visitFinalizeds) return []
+
+      const finalizedVisits = []
+      for (let i = 0; i < data.visitFinalizeds.length; ++i) {
+        const visit = data.visitFinalizeds[i]
+        const { name, specialization } = await getDoctorsProfile(visit.visitCid)
+
+        finalizedVisits.push({
+          id: visit.id,
+          cid: visit.visitCid,
+          date: new Date(visit.blockTimestamp * 1000),
+          doctor: {
+            avatar: `/doctor-${i + 1}.png`,
+            name,
+            specialization,
+          },
+          price: visit.price / 1000000000000000,
+          transaction: visit.transactionHash,
+        })
+      }
     },
   })
+
+  console.log('error', error)
 
   return (
     <div>
