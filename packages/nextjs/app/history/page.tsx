@@ -34,8 +34,8 @@ async function getDoctorsProfile(doctor: string): Promise<DoctorsProfile> {
   const data = await res.json()
 
   return {
-    name: data.name,
-    specialization: data.specialization,
+    name: `${data.name} ${data.surname}`,
+    specialization: data.specialisation,
   }
 }
 
@@ -48,7 +48,7 @@ const History: NextPage = () => {
     queryKey: ['finalizedVisits'],
     queryFn: async () => {
       const data: any = await client.request(visitFinalizeds, {
-        patient: '0x9d9aed9cb66266e862cd922b9f3625ce450cc777',
+        patient: '0x5d3bb56c558a7fb28f243c6a6a0f2ef07fed1737',
       })
 
       if (!data.visitFinalizeds) return []
@@ -56,9 +56,7 @@ const History: NextPage = () => {
       const finalizedVisits = []
       for (let i = 0; i < data.visitFinalizeds.length; ++i) {
         const visit = data.visitFinalizeds[i]
-        const doctorData = await getDoctorsProfile(visit.doctor)
-
-        console.log(doctorData)
+        const { name, specialization } = await getDoctorsProfile(visit.doctor)
 
         finalizedVisits.push({
           id: visit.id,
@@ -66,25 +64,15 @@ const History: NextPage = () => {
           date: new Date(visit.blockTimestamp * 1000),
           doctor: {
             avatar: `/doctor-${i + 1}.png`,
-            name: '',
-            specialization: '',
+            name,
+            specialization,
           },
           price: visit.price / 1000000000000000,
           transaction: visit.transactionHash,
         })
       }
-      return data?.visitFinalizeds.map((visit: any, index: number) => ({
-        id: visit.id,
-        cid: visit.visitCid,
-        date: new Date(visit.blockTimestamp * 1000),
-        doctor: {
-          avatar: `/doctor-${index + 1}.png`,
-          name: 'Bruce Lee', // TO BE REPLACED
-          specialization: 'Psychologist', // TO BE REPLACED
-        },
-        price: visit.price / 1000000000000000,
-        transaction: visit.transactionHash,
-      })) as Visit[]
+
+      return finalizedVisits
     },
   })
 
