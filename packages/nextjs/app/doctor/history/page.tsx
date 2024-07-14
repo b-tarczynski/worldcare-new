@@ -149,7 +149,7 @@ const DoctorHistory: NextPage = () => {
 
           <PaymentDoctor
             isOpen={showPaymentModal}
-            visit={data?.[0] as any}
+            visit={data?.[0]}
             onClose={() => setShowPaymentModal(false)}
           />
           <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit} />

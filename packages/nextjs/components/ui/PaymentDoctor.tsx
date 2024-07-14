@@ -2,8 +2,8 @@ import { Heading3 } from './Heading3'
 import { ArrowUpOnSquareIcon } from '@heroicons/react/24/outline'
 import { Visit } from '~~/types/Data'
 
-export function PaymentDoctor({ visit, onClose, isOpen }: { visit: Visit; onClose: () => void; isOpen: boolean }) {
-  if (!isOpen) return null
+export function PaymentDoctor({ visit, onClose, isOpen }: { visit?: Visit; onClose: () => void; isOpen: boolean }) {
+  if (!isOpen || !visit) return null
 
   const { price, transaction } = visit
 
