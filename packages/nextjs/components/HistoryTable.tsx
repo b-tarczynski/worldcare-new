@@ -1,9 +1,12 @@
 import { ReactNode, useEffect, useState } from 'react'
-import { Heading3 } from './ui/Heading3'
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import { Visit } from '~~/types/Data'
-import { useScaffoldReadContract, useScaffoldWriteContract } from '~~/hooks/scaffold-eth'
+import { useScaffoldReadContract } from '~~/hooks/scaffold-eth'
 import { PaymentModal } from './ui/PaymentModal'
+
+const zeroAddress = '0x0000000000000000000000000000000000000000'
+
+const isValidAddress = (address: string) => address !== zeroAddress
 
 interface Props {
   data: Visit[]
@@ -20,7 +23,7 @@ function HistoryRow({ visit, selectRow }: { visit: Visit; selectRow: (visit: Vis
   })
 
   useEffect(() => {
-    if (visitDetails?.[1] === false){
+    if (visitDetails?.[1] === false && isValidAddress(visitDetails?.[2])) {
       setShowPaymentModal(true)
     }
   },[visitDetails])
@@ -52,11 +55,14 @@ function HistoryRow({ visit, selectRow }: { visit: Visit; selectRow: (visit: Vis
 
 
 export function HistoryTable({ data, selectRow }: Props) {
+
+  const dataFiltered = data.filter((visit) => visit.cid.length > 10)
+
   return (
     <table className="table border bg-white z-10">
       <tbody>
-        {data.length ? (
-          data.map((visit) => (
+        {dataFiltered.length ? (
+          dataFiltered.map((visit) => (
             <HistoryRow key={visit.id} visit={visit} selectRow={selectRow} />
           ))
         ) : (
