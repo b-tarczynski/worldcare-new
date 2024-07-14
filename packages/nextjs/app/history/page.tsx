@@ -48,7 +48,7 @@ const History: NextPage = () => {
     queryKey: ['finalizedVisits'],
     queryFn: async () => {
       const data: any = await client.request(visitFinalizeds, {
-        patient: '0x5d3bb56c558a7fb28f243c6a6a0f2ef07fed1737',
+        patient: address,
       })
 
       if (!data.visitFinalizeds) return []
