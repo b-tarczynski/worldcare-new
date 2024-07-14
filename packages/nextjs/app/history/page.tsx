@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import { GraphQLClient, gql } from 'graphql-request'
 import { NextPage } from 'next'
+import { useAccount } from 'wagmi'
 import { HistoryDetails } from '~~/components/HistoryDetails'
 import { HistoryTable } from '~~/components/HistoryTable'
 import { Button } from '~~/components/ui/Button'
@@ -18,13 +19,16 @@ import { Visit } from '~~/types/Data'
 const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
 
 const History: NextPage = () => {
+  const { address } = useAccount()
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>(undefined)
   const [showPaymentModal, setShowPaymentModal] = useState(true)
 
   const { data, isLoading } = useQuery({
     queryKey: ['finalizedVisits'],
     queryFn: async () => {
-      const data: any = await client.request(visitFinalizeds)
+      const data: any = await client.request(visitFinalizeds, {
+        patient: address,
+      })
 
       return data?.visitFinalizeds.map((visit: any, index: number) => ({
         id: visit.id,

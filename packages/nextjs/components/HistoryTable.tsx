@@ -1,9 +1,9 @@
 import { ReactNode, useEffect, useState } from 'react'
+import { Heading3 } from './ui/Heading3'
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import { Visit } from '~~/types/Data'
 import { useScaffoldReadContract, useScaffoldWriteContract } from '~~/hooks/scaffold-eth'
 import { PaymentModal } from './ui/PaymentModal'
-
 
 interface Props {
   data: Visit[]
@@ -18,8 +18,6 @@ function HistoryRow({ visit, selectRow }: { visit: Visit; selectRow: (visit: Vis
     functionName: "visitdetails",
     args: [visit.cid],
   })
-
-  console.log(visit.cid, visitDetails?.[1])
 
   useEffect(() => {
     if (visitDetails?.[1] === false){
@@ -57,9 +55,17 @@ export function HistoryTable({ data, selectRow }: Props) {
   return (
     <table className="table border bg-white z-10">
       <tbody>
-        {data.map((visit) => (
-          <HistoryRow key={visit.id} visit={visit} selectRow={selectRow} />
-        ))}
+        {data.length ? (
+          data.map((visit) => (
+            <HistoryRow key={visit.id} visit={visit} selectRow={selectRow} />
+          ))
+        ) : (
+          <tr>
+            <td className="font-bold p-4 text-center" colSpan={5}>
+              Your history is empty.
+            </td>
+          </tr>
+        )}
       </tbody>
     </table>
   )
