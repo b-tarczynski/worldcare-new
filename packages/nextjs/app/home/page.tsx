@@ -9,6 +9,7 @@ import { useAccount } from 'wagmi'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import { Heading1 } from '~~/components/ui/Heading1'
 import { Heading3 } from '~~/components/ui/Heading3'
+import { useQuery } from '@tanstack/react-query'
 
 const Home: NextPage = () => {
   const { openConnectModal } = useConnectModal()
@@ -16,6 +17,15 @@ const Home: NextPage = () => {
   const router = useRouter()
 
   const [clickedConnect, setClickedConnect] = useState(false)
+
+  const { data } = useQuery({
+    queryKey: ['home', 'doctors'],
+    queryFn: async () => {
+      const response = await fetch('https://optimism-sepolia.blockscout.com/api?module=logs&action=getLogs&fromBlock=14548730&toBlock=latest&address=0x27EcDfea73eFC671bF57852aEC460cCA4Ba14327&topic0=0x20481b8112b5bf4734f45a473c373db9df6a79ce946cdc0e7dbc22b4f7d7f986')
+      const data = await response.json()
+      return data?.result.length
+    },
+  })
 
   useEffect(() => {
     if (clickedConnect && isConnected) {
@@ -38,7 +48,8 @@ const Home: NextPage = () => {
         <Heading1>Hello!</Heading1>
         <Heading3>Welcome to Worldcare platform</Heading3>
       </div>
-      <div className="card card-bordered border-black min-w-[900px] cursor-pointer hover:bg-[#FDFF7D]" onClick={onLogin}>
+      <div className="card card-bordered border-black min-w-[900px] cursor-pointer hover:bg-[#FDFF7D]"
+           onClick={onLogin}>
         <div className="card-body px-20 py-5">
           <div className="flex flex-row items-center gap-4 min-h-44">
             <span className="text-3xl">I already have an account</span>
@@ -58,6 +69,7 @@ const Home: NextPage = () => {
           <img className="absolute right-5 bottom-0" alt="home login" src="/home-register.svg" />
         </Link>
       </div>
+      <Heading3 className="text-[#EE73DB]">{data} registered specialists on our platform</Heading3>
     </div>
   )
 }
