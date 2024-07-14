@@ -12,9 +12,8 @@ import { Button } from '~~/components/ui/Button'
 import { Heading1 } from '~~/components/ui/Heading1'
 import { Heading3 } from '~~/components/ui/Heading3'
 import { Loader } from '~~/components/ui/Loader'
-import { visitFinalizeds } from '~~/graphql/queries'
+import { getDoctor, visitFinalizeds } from '~~/graphql/queries'
 import { Visit } from '~~/types/Data'
-
 
 const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
 
@@ -23,14 +22,16 @@ interface DoctorsProfile {
   specialization: string
 }
 
-async function getDoctorsProfile(cid: string): Promise<DoctorsProfile> {
-  console.log('CID', cid)
+async function getDoctorsProfile(doctor: string): Promise<DoctorsProfile> {
+  const doctorData: any = await client.request(getDoctor, {
+    doctor,
+  })
 
-  const url = `https://gateway.lighthouse.storage/ipfs/${cid}`
+  const fileDoctor = doctorData.doctorRegistereds[0]
 
+  const url = `https://gateway.lighthouse.storage/ipfs/${fileDoctor.filesCid}`
   const res = await fetch(url)
   const data = await res.json()
-  console.log({data})
 
   return {
     name: data.name,
@@ -42,21 +43,21 @@ const History: NextPage = () => {
   const { address } = useAccount()
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>(undefined)
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['finalizedVisits'],
     queryFn: async () => {
       const data: any = await client.request(visitFinalizeds, {
-        patient: address,
+        patient: '0x9d9aed9cb66266e862cd922b9f3625ce450cc777',
       })
-
-      console.log('data', data)
 
       if (!data.visitFinalizeds) return []
 
       const finalizedVisits = []
       for (let i = 0; i < data.visitFinalizeds.length; ++i) {
         const visit = data.visitFinalizeds[i]
-        const { name, specialization } = await getDoctorsProfile(visit.visitCid)
+        const doctorData = await getDoctorsProfile(visit.doctor)
+
+        console.log(doctorData)
 
         finalizedVisits.push({
           id: visit.id,
@@ -64,8 +65,8 @@ const History: NextPage = () => {
           date: new Date(visit.blockTimestamp * 1000),
           doctor: {
             avatar: `/doctor-${i + 1}.png`,
-            name,
-            specialization,
+            name: '',
+            specialization: '',
           },
           price: visit.price / 1000000000000000,
           transaction: visit.transactionHash,
@@ -73,8 +74,6 @@ const History: NextPage = () => {
       }
     },
   })
-
-  console.log('error', error)
 
   return (
     <div>
