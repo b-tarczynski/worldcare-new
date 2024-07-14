@@ -16,10 +16,7 @@ import { useScaffoldWriteContract } from '~~/hooks/scaffold-eth'
 const FinishVisit: NextPage = () => {
   const searchParams = useSearchParams()
   const patientAddress = searchParams?.get('patientAddress') || ''
-  const { isConnected, address: doctorsAddress } = useAccount()
-  if (!isConnected || !doctorsAddress) {
-    throw new Error('Not connected')
-  }
+  const { address: doctorsAddress } = useAccount()
 
   const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract('WorldCare')
 
@@ -49,7 +46,7 @@ const FinishVisit: NextPage = () => {
         <Heading3 className="mt-4">Please provide all details of the visit</Heading3>
       </div>
 
-      <form action={mutateAsync}>
+      <form className="form-control" action={mutateAsync}>
         <Input id="description" label="Visit Description" placeholder="Patient presents with complaints..." textarea />
         <Input id="recommendations" label="Recommendations" textarea placeholder="Complete Blood Count (CBC)..." />
         <Input id="medicines" label="Medicines" textarea placeholder="Metformin (Glucophage) - 500 mg..." />
