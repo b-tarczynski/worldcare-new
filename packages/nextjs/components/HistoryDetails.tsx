@@ -83,7 +83,7 @@ function Details({
 
           <div className="h-2 w-2 bg-black rounded-full mx-6" />
           <div className="rounded-full bg-[#4ADE80] font-semibold px-3">Paid</div>
-          <a href={transaction} target="_blank" className="text-sm font-semibold underline flex items-center gap-1">
+          <a href={`https://optimism-sepolia.blockscout.com/tx/${transaction}`} target="_blank" className="text-sm font-semibold underline flex items-center gap-1">
             <span>See on the Blockscout</span> <ArrowUpOnSquareIcon className="h-5 w-5" />
           </a>
         </div>

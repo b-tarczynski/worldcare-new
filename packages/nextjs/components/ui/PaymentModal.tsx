@@ -2,6 +2,7 @@ import { Button } from './Button'
 import { Heading3 } from './Heading3'
 import { Visit } from '~~/types/Data'
 import { useScaffoldWriteContract } from '~~/hooks/scaffold-eth'
+import { formatUnits } from 'viem'
 
 
 export function PaymentModal({ visit, onClose }: { visit: Visit, onClose: () => void }) {
@@ -12,7 +13,7 @@ export function PaymentModal({ visit, onClose }: { visit: Visit, onClose: () => 
   const onFinishVisit = async (visit: Visit) => {
     await writeYourContractAsync({
       functionName: "payForVisit",
-      value: visit.price,
+      value: BigInt(visit.price),
       args: [
         visit.cid,
       ],
@@ -28,7 +29,7 @@ export function PaymentModal({ visit, onClose }: { visit: Visit, onClose: () => 
     <>
       <div className="shadow bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 p-10 rounded-2xl flex flex-col gap-6 items-center">
         <div className="text-lg font-semibold">Doctor requests payment</div>
-        <div className="text-4xl font-bold">{price}$</div>
+        <div className="text-4xl font-bold">{formatUnits(price, 18)}$</div>
 
         <img className="h-24" src={avatar} alt="" />
 
