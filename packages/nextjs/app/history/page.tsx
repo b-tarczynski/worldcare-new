@@ -39,7 +39,7 @@ const History: NextPage = () => {
           name: 'Bruce Lee', // TO BE REPLACED
           specialization: 'Psychologist', // TO BE REPLACED
         },
-        price: visit.price / 1000000000000000,
+        price: BigInt(visit.price),
         transaction: visit.transactionHash,
       })) as Visit[]
     },

@@ -120,7 +120,7 @@ const DoctorHistory: NextPage = () => {
         <>
           <div className="bg-[#4ADE80] p-3 mt-8 font-semibold flex items-center justify-center gap-8">
             Medical data is currently shared from {ensName}
-            <Link href="/doctor/finish-visit">
+            <Link href={`/doctor/finish-visit?patientAddress=${patientAddress}`}>
               <button className="btn btn-outline rounded-full min-w-56 bg-white">Finish the visit</button>
             </Link>
           </div>
