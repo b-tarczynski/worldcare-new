@@ -7,7 +7,9 @@
       "packages/hardhat",
       "packages/nextjs",
       "packages/worldcare",
-      "packages/worldcare-new"
+      "packages/worldcare-new",
+      "packages/worldcare-arbitrum",
+      "packages/worldcare-base"
     ]
   },
   "scripts": {

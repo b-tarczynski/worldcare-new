@@ -1,0 +1,8 @@
+{
+  "arbitrum-sepolia": {
+    "WorldCare": {
+      "address": "0x4b08828e759212893Fe6978d89f879A39fe1E807",
+      "startBlock": 63691438
+    }
+  }
+}
