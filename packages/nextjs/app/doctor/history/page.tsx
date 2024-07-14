@@ -12,11 +12,19 @@ import { useQuery } from '@tanstack/react-query'
 import { GraphQLClient } from 'graphql-request'
 import { patientRegistereds } from '~~/graphql/queries'
 import { Loader } from '~~/components/ui/Loader'
-import { useDeployedContractInfo, useScaffoldReadContract } from '~~/hooks/scaffold-eth'
+import { useDeployedContractInfo } from '~~/hooks/scaffold-eth'
 import { useAccount, useReadContracts } from 'wagmi'
+import { createPublicClient, getAddress, http } from 'viem'
+import { addEnsContracts } from '@ensdomains/ensjs'
+import { sepolia } from 'viem/chains'
+import { getName } from '@ensdomains/ensjs/public'
 
 const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
 
+const ensClient = createPublicClient({
+  chain: addEnsContracts(sepolia),
+  transport: http(),
+})
 
 const graphData: Visit[] = [
   {
@@ -72,7 +80,21 @@ const DoctorHistory: NextPage = () => {
     })),
   })
 
-  if (isLoading || arePermissionLoading) {
+  const patientIndex = permissionsResult?.findIndex((permission) => !!permission.result) ?? -1
+  const patientAddress = patientIndex >= 0 ? patients[patientIndex] : undefined
+
+  const { data: ensName, isLoading: isEnsLoading } = useQuery({
+    queryKey: ['ens', patientAddress],
+    queryFn: async () => {
+      const ensName = await getName(ensClient, {
+        address: getAddress(patientAddress),
+      })
+      return ensName?.name ?? patientAddress
+    },
+    enabled: !isLoading && !arePermissionLoading,
+  })
+
+  if (isLoading || arePermissionLoading || isEnsLoading) {
     return (
       <div className="flex flex-col gap-6">
         <Heading1>Your client history:</Heading1>
@@ -80,9 +102,6 @@ const DoctorHistory: NextPage = () => {
       </div>
     )
   }
-
-  const patientIndex = permissionsResult?.findIndex((permission) => !!permission.result) ?? -1
-  const patientAddress = patientIndex >= 0 ? patients[patientIndex] : undefined
 
   return (
     <div>
@@ -100,7 +119,7 @@ const DoctorHistory: NextPage = () => {
       ) : (
         <>
           <div className="bg-[#4ADE80] p-3 mt-8 font-semibold flex items-center justify-center gap-8">
-            Medical data is currently shared from {patientAddress}
+            Medical data is currently shared from {ensName}
             <Link href="/doctor/finish-visit">
               <button className="btn btn-outline rounded-full min-w-56 bg-white">Finish the visit</button>
             </Link>
