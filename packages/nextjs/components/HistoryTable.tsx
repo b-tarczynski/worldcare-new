@@ -21,7 +21,10 @@ export function HistoryTable({ data, selectRow }: Props) {
             </TD>
             <TD>{visit.doctor.specialization}</TD>
             <TD>
-              <div onClick={() => selectRow(visit)} className="cursor-pointer flex items-center gap-2">
+              <div
+                onClick={() => selectRow(visit)}
+                className="cursor-pointer flex items-center gap-2 hover:translate-x-1 transition-transform"
+              >
                 See details <ArrowRightIcon className="h-4 w-4" />
               </div>
             </TD>

@@ -10,47 +10,33 @@ import { HistoryTable } from '~~/components/HistoryTable'
 import { Button } from '~~/components/ui/Button'
 import { Heading1 } from '~~/components/ui/Heading1'
 import { Heading3 } from '~~/components/ui/Heading3'
+import { Loader } from '~~/components/ui/Loader'
 import { PaymentModal } from '~~/components/ui/PaymentModal'
 import { visitFinalizeds } from '~~/graphql/queries'
 import { Visit } from '~~/types/Data'
-
-const graphData: Visit[] = [
-  {
-    id: 1,
-    cid: 'bafkreiececvwdsmzljjmwkr5zw74ruenjudeof4soes737tknytfcmvwbe',
-    date: new Date(),
-    doctor: {
-      avatar: '/doctor-1.png',
-      name: 'Jackie Chan',
-      specialization: 'Internist',
-    },
-    transaction: 'https://eth.blockscout.com/tx/0x7e7b4d2e56a735bbb89c5cda4d9eb39ec719d6cf4cc3468701bbca9b375f7475',
-  },
-  {
-    id: 2,
-    cid: 'bafkreif52hzybepv44gsoqnigg7766pw4jbjwt4aa6kb76hch7nq2nahpm',
-    date: new Date(),
-    doctor: {
-      avatar: '/doctor-2.png',
-      name: 'Bruce Lee',
-      specialization: 'Psychologist',
-    },
-    transaction: 'https://eth.blockscout.com/tx/0x7e7b4d2e56a735bbb89c5cda4d9eb39ec719d6cf4cc3468701bbca9b375f7475',
-  },
-]
 
 const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
 
 const History: NextPage = () => {
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>(undefined)
-  const mostRecentVisit = graphData[0]
 
   const { data, isLoading } = useQuery({
     queryKey: ['finalizedVisits'],
     queryFn: async () => {
       const data: any = await client.request(visitFinalizeds)
 
-      return data?.visitFinalizeds
+      return data?.visitFinalizeds.map((visit: any) => ({
+        id: visit.id,
+        cid: visit.visitCid,
+        date: new Date(visit.blockTimestamp * 1000),
+        doctor: {
+          avatar: '/doctor-2.png',
+          name: 'Bruce Lee', // TO BE REPLACED
+          specialization: 'Psychologist', // TO BE REPLACED
+        },
+        price: visit.price / 1000000000000000,
+        transaction: visit.transactionHash,
+      }))
     },
   })
 
@@ -59,17 +45,22 @@ const History: NextPage = () => {
       <Heading1>Hello! Nice to see you here!</Heading1>
       <Heading3 className="mt-8">Your history:</Heading3>
 
-      <HistoryTable data={graphData} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
-
-      <div className="flex items-center justify-center p-8">
-        <Link href="/history/share">
-          <Button>Share your data with doctor</Button>
-        </Link>
-      </div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <HistoryTable data={data} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
+          <div className="flex items-center justify-center p-8">
+            <Link href="/history/share">
+              <Button>Share your data with doctor</Button>
+            </Link>
+          </div>
+        </>
+      )}
 
       <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit} />
 
-      {!mostRecentVisit.transaction && <PaymentModal visit={mostRecentVisit} />}
+      {/* {!mostRecentVisit.transaction && <PaymentModal visit={mostRecentVisit} />} */}
       <img className="absolute bottom-0 right-0" src="/history.svg" alt="" />
     </div>
   )
