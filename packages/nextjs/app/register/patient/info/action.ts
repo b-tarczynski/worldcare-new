@@ -14,7 +14,7 @@ const account = privateKeyToAccount(process.env.BACKEND_SENDER_PRIVATE_KEY as He
 const client = createClient({
   account,
   chain: addEnsContracts(sepolia),
-  transport: http(),
+  transport: http(`https://sepolia.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`),
   cacheTime: 0,
 })
   .extend(publicActions)
@@ -24,12 +24,14 @@ const oneYear = 60 * 60 * 24 * 365
 const hardcodedNextNonce = 22
 
 export async function addPatient(formData: FormData, address: Address) {
-  const nickname = formData.get('nickname') as string
+  const formValue = formData.get('nickname') as string
 
-  if (!nickname) {
+  if (!formValue) {
     redirect('/history')
     return
   }
+
+  const nickname = `${formValue}.eth`
 
   const registerArgs = {
     name: nickname,

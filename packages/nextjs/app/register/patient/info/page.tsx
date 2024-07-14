@@ -37,7 +37,6 @@ const PatientInfo: NextPage = () => {
 
       return setPrimaryName(wallet, {
         name: `${formData.get('nickname')}.eth` as string,
-        address: address,
         account: address,
       })
     },
