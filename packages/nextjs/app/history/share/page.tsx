@@ -17,27 +17,22 @@ import { visitFinalizeds } from '~~/graphql/queries'
 import { GraphQLClient } from 'graphql-request'
 import { ensClient } from '~~/utils/ensClient'
 
-const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
+const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare-new/version/latest')
 
 export default function ShareHistory() {
-  const { isConnected, address: patientAddress } = useAccount()
-  if (!isConnected || !patientAddress) {
-    throw new Error('Not connected')
-  }
+  const { address: patientAddress } = useAccount()
 
   const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract('WorldCare')
 
   const { data: cids } = useQuery({
-    queryKey: ['finalizedVisits'],
+    queryKey: ['finalizedVisits', 'cids', patientAddress],
     queryFn: async () => {
       const data: any = await client.request(visitFinalizeds, {
         patient: patientAddress,
       })
-
-      return data?.visitFinalizeds.map((visit: any) => ({
-        cid: visit.visitCid,
-      })) as string[]
+      return data?.visitFinalizeds.map((visit: any) => (visit.visitCid)) as string[]
     },
+    enabled: !!patientAddress,
   })
 
   const router = useRouter()
