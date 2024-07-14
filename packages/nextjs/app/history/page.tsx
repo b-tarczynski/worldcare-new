@@ -65,8 +65,6 @@ const History: NextPage = () => {
 
       <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit} />
 
-      {showPaymentModal && data?.[0] && <PaymentModal visit={data[0]} onClose={() => setShowPaymentModal(false)} />}
-
       <img className="absolute bottom-0 right-0" src="/history.svg" alt="" />
     </div>
   )
