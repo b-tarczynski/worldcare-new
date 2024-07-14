@@ -54,11 +54,7 @@ const History: NextPage = () => {
         <Loader />
       ) : (
         <>
-          {
-            data?.length && (
-              <HistoryTable data={data} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
-            )
-          }
+          <HistoryTable data={data || []} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
           <div className="flex items-center justify-center p-8">
             <Link href="/history/share">
               <Button>Share your data with doctor</Button>
