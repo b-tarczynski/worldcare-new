@@ -1,0 +1,35 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: WorldCare
+    network: base-sepolia
+    source:
+      address: "0x579efB09dbf30435ebbC0529A4502f97303657C6"
+      abi: WorldCare
+      startBlock: 12580251
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - DoctorRegistered
+        - PatientRegistered
+        - TransactionPaid
+        - VisitFinalized
+      abis:
+        - name: WorldCare
+          file: ./abis/WorldCare.json
+      eventHandlers:
+        - event: DoctorRegistered(indexed address,string)
+          handler: handleDoctorRegistered
+        - event: PatientRegistered(indexed address)
+          handler: handlePatientRegistered
+        - event: TransactionPaid(string)
+          handler: handleTransactionPaid
+        - event: VisitFinalized(indexed address,indexed address,string,uint256)
+          handler: handleVisitFinalized
+      file: ./src/world-care.ts

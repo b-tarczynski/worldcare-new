@@ -1,0 +1,8 @@
+{
+  "base-sepolia": {
+    "WorldCare": {
+      "address": "0x579efB09dbf30435ebbC0529A4502f97303657C6",
+      "startBlock": 12580251
+    }
+  }
+}
