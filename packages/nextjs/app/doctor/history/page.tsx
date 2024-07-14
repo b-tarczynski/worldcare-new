@@ -71,18 +71,36 @@ const DoctorHistory: NextPage = () => {
       args: [address, patient],
     })),
   })
-  console.log('permissions: ', permissionsResult)
-  const permissions = permissionsResult?.filter((permission) => !!permission.result).map((permission) => permission.result)
-  console.log('permissions: ', permissions)
 
+  if (isLoading || arePermissionLoading) {
+    return (
+      <div className="flex flex-col gap-6">
+        <Heading1>Your client history:</Heading1>
+        <Loader />
+      </div>
+    )
+  }
+
+  const patientIndex = permissionsResult?.findIndex((permission) => !!permission.result) ?? -1
+  const patientAddress = patientIndex >= 0 ? patients[patientIndex] : undefined
 
   return (
     <div>
       <Heading1>Your client history:</Heading1>
-      {(isLoading || arePermissionLoading) ? <Loader /> : (
+      {(!patientAddress) ? (
+        <table className="table border bg-white z-10 mt-8">
+          <tbody className="flex flex-col justify-center items-center">
+          <tr className="">
+            <td className="font-bold text-center mt-8 w-full" colSpan={5}>
+              Noone shared medical history with you.
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      ) : (
         <>
           <div className="bg-[#4ADE80] p-3 mt-8 font-semibold flex items-center justify-center gap-8">
-            Medical data is currently shared from john.eth
+            Medical data is currently shared from {patientAddress}
             <Link href="/doctor/finish-visit">
               <button className="btn btn-outline rounded-full min-w-56 bg-white">Finish the visit</button>
             </Link>
