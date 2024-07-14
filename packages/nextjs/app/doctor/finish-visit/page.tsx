@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useMutation } from '@tanstack/react-query'
 import { NextPage } from 'next'
 import { useAccount } from 'wagmi'
 import { addVisitFile } from '~~/app/doctor/finish-visit/addVisitFile'
@@ -15,31 +16,26 @@ import { useScaffoldWriteContract } from '~~/hooks/scaffold-eth'
 const FinishVisit: NextPage = () => {
   const searchParams = useSearchParams()
   const patientAddress = searchParams?.get('patientAddress') || ''
-  const { isConnected, address: doctorsAddress } = useAccount()
-  if (!isConnected || !doctorsAddress) {
-    throw new Error('Not connected')
-  }
+  const { address: doctorsAddress } = useAccount()
 
   const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract('WorldCare')
 
   const router = useRouter()
 
-  const onSubmit = async (formData: FormData) => {
-    const visitCid = await addVisitFile(formData, patientAddress)
-    const price = (formData.get('price') || 100).toString()
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async (formData: FormData) => {
+      const visitCid = await addVisitFile(formData, patientAddress)
+      const price = (formData.get('price') || 100).toString()
 
-    await writeYourContractAsync(
-      {
+      await writeYourContractAsync({
         functionName: 'finalizeVisit',
         args: [patientAddress, doctorsAddress, visitCid, BigInt(price)],
-      },
-      {
-        onSuccess: () => {
-          router.push('/doctor')
-        },
-      },
-    )
-  }
+      })
+    },
+    onSuccess: () => {
+      router.push('/doctor')
+    },
+  })
 
   return (
     <div>
@@ -50,7 +46,7 @@ const FinishVisit: NextPage = () => {
         <Heading3 className="mt-4">Please provide all details of the visit</Heading3>
       </div>
 
-      <form action={onSubmit}>
+      <form className="form-control" action={mutateAsync}>
         <Input id="description" label="Visit Description" placeholder="Patient presents with complaints..." textarea />
         <Input id="recommendations" label="Recommendations" textarea placeholder="Complete Blood Count (CBC)..." />
         <Input id="medicines" label="Medicines" textarea placeholder="Metformin (Glucophage) - 500 mg..." />
@@ -63,7 +59,7 @@ const FinishVisit: NextPage = () => {
         <div className="text-xs font-semibold mt-1 text-slate-500">Price in dollars [$]</div>
 
         <div className="flex justify-center my-8">
-          <Button>Finish the visit</Button>
+          <Button isLoading={isPending}>Finish the visit</Button>
         </div>
       </form>
     </div>
