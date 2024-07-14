@@ -36,11 +36,17 @@ const Home: NextPage = () => {
   const { data } = useQuery({
     queryKey: ['home', 'doctors'],
     queryFn: async () => {
-      const response = await fetch(
+      const responseOS = await fetch(
         'https://optimism-sepolia.blockscout.com/api?module=logs&action=getLogs&fromBlock=14548730&toBlock=latest&address=0x4bc307d03B49D8e2cb4d678a962E27b02C7747b2&topic0=0x20481b8112b5bf4734f45a473c373db9df6a79ce946cdc0e7dbc22b4f7d7f986',
       )
-      const data = await response.json()
-      return data?.result.length
+      const dataOS = await responseOS.json()
+
+      const responseBS = await fetch(
+        'https://base-sepolia.blockscout.com/api?module=logs&action=getLogs&fromBlock=	12580250&toBlock=latest&address=0x579efB09dbf30435ebbC0529A4502f97303657C6&topic0=0x20481b8112b5bf4734f45a473c373db9df6a79ce946cdc0e7dbc22b4f7d7f986',
+      )
+      const dataBS = await responseBS.json()
+
+      return dataOS?.result.length + dataBS?.result.length
     },
   })
 
