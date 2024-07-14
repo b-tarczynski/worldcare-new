@@ -5,6 +5,7 @@ export interface Doctor {
 }
 
 export interface Visit {
+  price: bigint
   id: number
   date: Date
   doctor: Doctor

@@ -1,11 +1,28 @@
 import { Button } from './Button'
 import { Heading3 } from './Heading3'
 import { Visit } from '~~/types/Data'
+import { useScaffoldWriteContract } from '~~/hooks/scaffold-eth'
 
-export function PaymentModal({ visit }: { visit: Visit }) {
+
+export function PaymentModal({ visit, onClose }: { visit: Visit, onClose: () => void }) {
   const { price, doctor } = visit
   const { avatar, name, specialization } = doctor
+  const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract("WorldCare");
 
+  const onFinishVisit = async (visit: Visit) => {
+    await writeYourContractAsync({
+      functionName: "payForVisit",
+      value: visit.price,
+      args: [
+        visit.cid,
+      ],
+    }, {
+      onSuccess: () => {
+        console.log('Visit finished')
+        onClose()
+      }
+    })
+  }
 
   return (
     <>
@@ -20,7 +37,10 @@ export function PaymentModal({ visit }: { visit: Visit }) {
           <Heading3>{specialization}</Heading3>
         </div>
 
-        <Button>Pay</Button>
+        <Button onClick={() => onFinishVisit(visit)}>Pay</Button>
+        <button className="btn btn-ghost rounded-full min-w-60" onClick={onClose}>
+            Close
+          </button>
       </div>
       <div className="fixed top-0 right-0 w-full h-screen bg-[#AEE5F5] opacity-50 z-10" />
     </>

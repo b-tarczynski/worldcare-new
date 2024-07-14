@@ -20,6 +20,15 @@ export const getDoctor = gql`
       id
       doctor
       filesCid
+    }
+  }
+`
+
+export const patientRegistereds = gql`
+  {
+    patientRegistereds {
+      id
+      patient
       transactionHash
       blockTimestamp
     }

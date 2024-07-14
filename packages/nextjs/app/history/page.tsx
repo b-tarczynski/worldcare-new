@@ -15,7 +15,7 @@ import { Loader } from '~~/components/ui/Loader'
 import { getDoctor, visitFinalizeds } from '~~/graphql/queries'
 import { Visit } from '~~/types/Data'
 
-const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
+const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare-new/version/latest')
 
 interface DoctorsProfile {
   name: string
@@ -42,6 +42,7 @@ async function getDoctorsProfile(doctor: string): Promise<DoctorsProfile> {
 const History: NextPage = () => {
   const { address } = useAccount()
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>(undefined)
+  const [showPaymentModal, setShowPaymentModal] = useState(true)
 
   const { data, isLoading } = useQuery({
     queryKey: ['finalizedVisits'],
@@ -72,6 +73,18 @@ const History: NextPage = () => {
           transaction: visit.transactionHash,
         })
       }
+      return data?.visitFinalizeds.map((visit: any, index: number) => ({
+        id: visit.id,
+        cid: visit.visitCid,
+        date: new Date(visit.blockTimestamp * 1000),
+        doctor: {
+          avatar: `/doctor-${index + 1}.png`,
+          name: 'Bruce Lee', // TO BE REPLACED
+          specialization: 'Psychologist', // TO BE REPLACED
+        },
+        price: visit.price / 1000000000000000,
+        transaction: visit.transactionHash,
+      })) as Visit[]
     },
   })
 
@@ -84,7 +97,7 @@ const History: NextPage = () => {
         <Loader />
       ) : (
         <>
-          <HistoryTable data={data} selectRow={(visit: Visit) => setSelectedVisit(visit)} />
+          {data?.length && <HistoryTable data={data} selectRow={(visit: Visit) => setSelectedVisit(visit)} />}
           <div className="flex items-center justify-center p-8">
             <Link href="/history/share">
               <Button>Share your data with doctor</Button>
@@ -95,7 +108,6 @@ const History: NextPage = () => {
 
       <HistoryDetails onClose={() => setSelectedVisit(undefined)} visit={selectedVisit} />
 
-      {/* {!mostRecentVisit.transaction && <PaymentModal visit={mostRecentVisit} />} */}
       <img className="absolute bottom-0 right-0" src="/history.svg" alt="" />
     </div>
   )

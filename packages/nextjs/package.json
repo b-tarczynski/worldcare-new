@@ -13,7 +13,7 @@
     "check-types": "tsc --noEmit --incremental",
     "vercel": "vercel",
     "vercel:yolo": "vercel --build-env NEXT_PUBLIC_IGNORE_BUILD_ERROR=true",
-    "updateSchema": "get-graphql-schema https://api.studio.thegraph.com/query/83120/worldcare/version/latest | tee ./queries/worldcare.graphql"
+    "updateSchema": "get-graphql-schema https://api.studio.thegraph.com/query/83120/worldcare-new/version/latest | tee ./queries/worldcare.graphql"
   },
   "dependencies": {
     "@ensdomains/ensjs": "^4.0.0",

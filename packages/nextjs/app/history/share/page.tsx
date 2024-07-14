@@ -14,26 +14,44 @@ import { normalize } from 'viem/ens'
 import { sepolia } from 'viem/chains'
 import { addEnsContracts } from '@ensdomains/ensjs'
 import { getAddressRecord } from '@ensdomains/ensjs/public'
+import { useQuery } from '@tanstack/react-query'
+import { visitFinalizeds } from '~~/graphql/queries'
+import { GraphQLClient } from 'graphql-request'
 
-const client = createPublicClient({
+const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
+
+const ensClient = createPublicClient({
   chain: addEnsContracts(sepolia),
   transport: http(),
 })
 
 export default function ShareHistory() {
-  const { isConnected, address: doctorsAddress } = useAccount()
-  if (!isConnected || !doctorsAddress) {
+  const { isConnected, address: patientAddress } = useAccount()
+  if (!isConnected || !patientAddress) {
     throw new Error('Not connected')
   }
 
   const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract('WorldCare')
+
+  const { data: cids } = useQuery({
+    queryKey: ['finalizedVisits'],
+    queryFn: async () => {
+      const data: any = await client.request(visitFinalizeds, {
+        patient: patientAddress,
+      })
+
+      return data?.visitFinalizeds.map((visit: any) => ({
+        cid: visit.visitCid,
+      })) as string[]
+    },
+  })
 
   const router = useRouter()
 
   const onSubmit = async (formData: FormData) => {
     const doctorAddress = await getDoctorAddress(formData.get('doctorsAddress') as string)
 
-    await shareHistory(doctorAddress)
+    await shareHistory(doctorAddress, cids ?? [])
 
     await writeYourContractAsync(
       {
@@ -70,6 +88,6 @@ const getDoctorAddress = async (addressOrEns: string): Promise<string> => {
   if (isAddress(addressOrEns)) {
     return addressOrEns
   }
-  const result = await getAddressRecord(client, { name: normalize(addressOrEns), coin: 'ETH' })
+  const result = await getAddressRecord(ensClient, { name: normalize(addressOrEns), coin: 'ETH' })
   return result?.value ?? ''
 }
