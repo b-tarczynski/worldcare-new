@@ -24,8 +24,8 @@ interface DoctorsProfile {
   specialization: string
 }
 
-async function getDoctorsProfile(doctor: string): Promise<DoctorsProfile> {
-  const doctorData: any = await client.request(getDoctor, {
+async function getDoctorsProfile(graphqlClient: GraphQLClient, doctor: string): Promise<DoctorsProfile> {
+  const doctorData: any = await graphqlClient.request(getDoctor, {
     doctor,
   })
 
@@ -86,7 +86,7 @@ const DoctorHistory: NextPage = () => {
   const { data, isLoading: isLoadingVisits } = useQuery({
     queryKey: ['finalizedVisits'],
     queryFn: async () => {
-      const data: any = await client.request(visitFinalizeds, {
+      const data: any = await graphClient.request(visitFinalizeds, {
         patient: patientAddress,
       })
 
@@ -95,7 +95,7 @@ const DoctorHistory: NextPage = () => {
       const finalizedVisits = []
       for (let i = 0; i < data.visitFinalizeds.length; ++i) {
         const visit = data.visitFinalizeds[i]
-        const { name, specialization } = await getDoctorsProfile(visit.doctor)
+        const { name, specialization } = await getDoctorsProfile(graphClient, visit.doctor)
 
         finalizedVisits.push({
           id: visit.id,
