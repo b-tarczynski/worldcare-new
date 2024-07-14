@@ -14,17 +14,11 @@ import { patientRegistereds } from '~~/graphql/queries'
 import { Loader } from '~~/components/ui/Loader'
 import { useDeployedContractInfo } from '~~/hooks/scaffold-eth'
 import { useAccount, useReadContracts } from 'wagmi'
-import { createPublicClient, getAddress, http } from 'viem'
-import { addEnsContracts } from '@ensdomains/ensjs'
-import { sepolia } from 'viem/chains'
+import { getAddress } from 'viem'
 import { getName } from '@ensdomains/ensjs/public'
+import { ensClient } from '~~/utils/ensClient'
 
 const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare-new/version/latest')
-
-const ensClient = createPublicClient({
-  chain: addEnsContracts(sepolia),
-  transport: http(),
-})
 
 const graphData: Visit[] = [
   {

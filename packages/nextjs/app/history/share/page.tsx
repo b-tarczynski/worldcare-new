@@ -9,21 +9,15 @@ import { Heading1 } from '~~/components/ui/Heading1'
 import { Heading3 } from '~~/components/ui/Heading3'
 import { Input } from '~~/components/ui/Input'
 import { useScaffoldWriteContract } from '~~/hooks/scaffold-eth'
-import { createPublicClient, http, isAddress } from 'viem'
+import { isAddress } from 'viem'
 import { normalize } from 'viem/ens'
-import { sepolia } from 'viem/chains'
-import { addEnsContracts } from '@ensdomains/ensjs'
 import { getAddressRecord } from '@ensdomains/ensjs/public'
 import { useQuery } from '@tanstack/react-query'
 import { visitFinalizeds } from '~~/graphql/queries'
 import { GraphQLClient } from 'graphql-request'
+import { ensClient } from '~~/utils/ensClient'
 
 const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
-
-const ensClient = createPublicClient({
-  chain: addEnsContracts(sepolia),
-  transport: http(),
-})
 
 export default function ShareHistory() {
   const { isConnected, address: patientAddress } = useAccount()

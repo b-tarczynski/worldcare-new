@@ -11,7 +11,7 @@ type ResponseData = {
 const config = createConfig({
   chains: [sepolia],
   transports: {
-    [sepolia.id]: http(`https://sepolia.infura.io/v3/${process.env.INFURA_KEY}`),
+    [sepolia.id]: http(`https://sepolia.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`),
   },
   cacheTime: 0,
 })
