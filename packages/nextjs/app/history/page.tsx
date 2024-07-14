@@ -14,16 +14,15 @@ import { Heading3 } from '~~/components/ui/Heading3'
 import { Loader } from '~~/components/ui/Loader'
 import { getDoctor, visitFinalizeds } from '~~/graphql/queries'
 import { Visit } from '~~/types/Data'
-
-const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare-new/version/latest')
+import { useGraphQLClient } from '~~/hooks/useGraphQLClient'
 
 interface DoctorsProfile {
   name: string
   specialization: string
 }
 
-async function getDoctorsProfile(doctor: string): Promise<DoctorsProfile> {
-  const doctorData: any = await client.request(getDoctor, {
+async function getDoctorsProfile(graphqlClient: GraphQLClient, doctor: string): Promise<DoctorsProfile> {
+  const doctorData: any = await graphqlClient.request(getDoctor, {
     doctor,
   })
 
@@ -42,11 +41,12 @@ async function getDoctorsProfile(doctor: string): Promise<DoctorsProfile> {
 const History: NextPage = () => {
   const { address } = useAccount()
   const [selectedVisit, setSelectedVisit] = useState<Visit | undefined>(undefined)
+  const graphClient = useGraphQLClient()
 
   const { data, isLoading } = useQuery({
     queryKey: ['finalizedVisits'],
     queryFn: async () => {
-      const data: any = await client.request(visitFinalizeds, {
+      const data: any = await graphClient.request(visitFinalizeds, {
         patient: address,
       })
 
@@ -55,7 +55,7 @@ const History: NextPage = () => {
       const finalizedVisits = []
       for (let i = 0; i < data.visitFinalizeds.length; ++i) {
         const visit = data.visitFinalizeds[i]
-        const { name, specialization } = await getDoctorsProfile(visit.doctor)
+        const { name, specialization } = await getDoctorsProfile(graphClient, visit.doctor)
 
         finalizedVisits.push({
           id: visit.id,

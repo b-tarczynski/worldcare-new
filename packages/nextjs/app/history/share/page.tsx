@@ -14,20 +14,19 @@ import { normalize } from 'viem/ens'
 import { getAddressRecord } from '@ensdomains/ensjs/public'
 import { useQuery } from '@tanstack/react-query'
 import { visitFinalizeds } from '~~/graphql/queries'
-import { GraphQLClient } from 'graphql-request'
 import { ensClient } from '~~/utils/ensClient'
-
-const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare-new/version/latest')
+import { useGraphQLClient } from '~~/hooks/useGraphQLClient'
 
 export default function ShareHistory() {
   const { address: patientAddress } = useAccount()
+  const graphClient = useGraphQLClient()
 
   const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract('WorldCare')
 
   const { data: cids } = useQuery({
     queryKey: ['finalizedVisits', 'cids', patientAddress],
     queryFn: async () => {
-      const data: any = await client.request(visitFinalizeds, {
+      const data: any = await graphClient.request(visitFinalizeds, {
         patient: patientAddress,
       })
       return data?.visitFinalizeds.map((visit: any) => (visit.visitCid)) as string[]
