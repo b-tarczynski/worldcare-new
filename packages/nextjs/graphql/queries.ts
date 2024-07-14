@@ -9,6 +9,7 @@ export const visitFinalizeds = gql`
       visitCid
       price
       transactionHash
+      blockTimestamp
     }
   }
 `
