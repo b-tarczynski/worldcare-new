@@ -25,12 +25,12 @@ const History: NextPage = () => {
     queryFn: async () => {
       const data: any = await client.request(visitFinalizeds)
 
-      return data?.visitFinalizeds.map((visit: any) => ({
+      return data?.visitFinalizeds.map((visit: any, index: number) => ({
         id: visit.id,
         cid: visit.visitCid,
         date: new Date(visit.blockTimestamp * 1000),
         doctor: {
-          avatar: '/doctor-2.png',
+          avatar: `/doctor-${index + 1}.png`,
           name: 'Bruce Lee', // TO BE REPLACED
           specialization: 'Psychologist', // TO BE REPLACED
         },
