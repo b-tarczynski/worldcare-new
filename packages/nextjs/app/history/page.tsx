@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
-import { GraphQLClient, gql } from 'graphql-request'
+import { GraphQLClient } from 'graphql-request'
 import { NextPage } from 'next'
 import { useAccount } from 'wagmi'
 import { HistoryDetails } from '~~/components/HistoryDetails'
