@@ -9,6 +9,16 @@ import { Heading1 } from '~~/components/ui/Heading1'
 import { Heading3 } from '~~/components/ui/Heading3'
 import { Input } from '~~/components/ui/Input'
 import { useScaffoldWriteContract } from '~~/hooks/scaffold-eth'
+import { createPublicClient, http, isAddress } from 'viem'
+import { normalize } from 'viem/ens'
+import { sepolia } from 'viem/chains'
+import { addEnsContracts } from '@ensdomains/ensjs'
+import { getAddressRecord } from '@ensdomains/ensjs/public'
+
+const client = createPublicClient({
+  chain: addEnsContracts(sepolia),
+  transport: http(),
+})
 
 export default function ShareHistory() {
   const { isConnected, address: doctorsAddress } = useAccount()
@@ -21,14 +31,14 @@ export default function ShareHistory() {
   const router = useRouter()
 
   const onSubmit = async (formData: FormData) => {
-    const doctorsAddress = formData.get('doctorsAddress') as string
+    const doctorAddress = await getDoctorAddress(formData.get('doctorsAddress') as string)
 
-    await shareHistory(doctorsAddress)
+    await shareHistory(doctorAddress)
 
     await writeYourContractAsync(
       {
         functionName: 'shareProfile',
-        args: [doctorsAddress],
+        args: [doctorAddress],
       },
       {
         onSuccess: () => {
@@ -54,4 +64,12 @@ export default function ShareHistory() {
       </div>
     </div>
   )
+}
+
+const getDoctorAddress = async (addressOrEns: string): Promise<string> => {
+  if (isAddress(addressOrEns)) {
+    return addressOrEns
+  }
+  const result = await getAddressRecord(client, { name: normalize(addressOrEns), coin: 'ETH' })
+  return result?.value ?? ''
 }
