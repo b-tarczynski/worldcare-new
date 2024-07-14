@@ -19,7 +19,7 @@ import { addEnsContracts } from '@ensdomains/ensjs'
 import { sepolia } from 'viem/chains'
 import { getName } from '@ensdomains/ensjs/public'
 
-const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare/version/latest')
+const client = new GraphQLClient('https://api.studio.thegraph.com/query/83120/worldcare-new/version/latest')
 
 const ensClient = createPublicClient({
   chain: addEnsContracts(sepolia),

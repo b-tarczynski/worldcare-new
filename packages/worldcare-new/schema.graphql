@@ -1,0 +1,35 @@
+type DoctorRegistered @entity(immutable: true) {
+  id: Bytes!
+  doctor: Bytes! # address
+  filesCid: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type PatientRegistered @entity(immutable: true) {
+  id: Bytes!
+  patient: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type TransactionPaid @entity(immutable: true) {
+  id: Bytes!
+  visitCid: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type VisitFinalized @entity(immutable: true) {
+  id: Bytes!
+  patient: Bytes! # address
+  doctor: Bytes! # address
+  visitCid: String! # string
+  price: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

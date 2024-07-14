@@ -1,7 +1,7 @@
 overwrite: true
 config:
   fetcher:
-    endpoint: "https://api.studio.thegraph.com/query/83120/worldcare/version/latest"
+    endpoint: "https://api.studio.thegraph.com/query/83120/worldcare-new/version/latest"
   strictScalars: true
   reactQueryVersion: 5
   scalars:
